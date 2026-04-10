@@ -7,10 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #00ff88;
-            --dark: #0a0a0f;
-        }
+        :root { --primary: #00ff88; --dark: #0a0a0f; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Noto Sans SC', sans-serif;
@@ -27,15 +24,15 @@
             text-align: center;
         }
         .card {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 1.5rem;
             background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 1rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
-        .input {
+        .input, select {
             width: 100%;
             padding: 0.8rem;
             margin-bottom: 1rem;
@@ -44,10 +41,6 @@
             border-radius: 0.5rem;
             color: white;
             font-size: 1rem;
-        }
-        .input:focus {
-            outline: none;
-            border-color: var(--primary);
         }
         textarea {
             width: 100%;
@@ -58,12 +51,8 @@
             border-radius: 0.5rem;
             color: white;
             font-size: 1rem;
-            min-height: 200px;
+            min-height: 150px;
             font-family: inherit;
-        }
-        textarea:focus {
-            outline: none;
-            border-color: var(--primary);
         }
         .btn {
             padding: 0.8rem 2rem;
@@ -73,221 +62,238 @@
             font-size: 1rem;
             font-weight: 700;
             transition: all 0.3s;
+            margin-right: 0.5rem;
         }
-        .btn-primary {
-            background: var(--primary);
-            color: var(--dark);
+        .btn-primary { background: var(--primary); color: var(--dark); }
+        .btn-primary:hover { box-shadow: 0 0 20px rgba(0,255,136,0.5); }
+        .btn-danger { background: #ff4444; color: white; }
+        .btn-danger:hover { background: #ff6666; }
+        .btn-edit { background: #4488ff; color: white; }
+        
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; color: rgba(255,255,255,0.7); }
+        
+        .section { margin-bottom: 3rem; }
+        .section-title { font-size: 1.5rem; color: var(--primary); margin-bottom: 1rem; }
+        
+        .tag {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: rgba(0,255,136,0.2);
+            border: 1px solid var(--primary);
+            border-radius: 0.3rem;
+            color: var(--primary);
+            margin: 0.2rem;
+            font-size: 0.9rem;
         }
-        .btn-primary:hover {
-            box-shadow: 0 0 20px rgba(0,255,136,0.5);
+        .tag-btn {
+            background: none;
+            border: none;
+            color: #ff6666;
+            cursor: pointer;
+            margin-left: 0.5rem;
+            font-size: 0.8rem;
         }
-        .btn-danger {
-            background: #ff4444;
-            color: white;
-            margin-left: 1rem;
-        }
-        .btn-danger:hover {
-            background: #ff6666;
-        }
-        .article-item {
+        
+        .category-item, .article-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 1rem;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-        .article-item:last-child {
-            border-bottom: none;
-        }
-        .article-info h3 {
-            color: white;
-            margin-bottom: 0.5rem;
-        }
-        .article-info p {
-            color: rgba(255,255,255,0.5);
-            font-size: 0.8rem;
-        }
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: rgba(255,255,255,0.7);
-        }
-        .section {
-            margin-bottom: 3rem;
-        }
-        .section-title {
-            font-size: 1.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-        .download-btn {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 0.5rem;
-            color: white;
-            text-decoration: none;
-            margin-right: 1rem;
-            font-size: 0.9rem;
-        }
-        .download-btn:hover {
-            background: rgba(255,255,255,0.2);
-        }
+        .category-item:last-child, .article-item:last-child { border-bottom: none; }
+        
+        .category-name { font-weight: bold; color: var(--primary); }
+        .article-title { color: white; font-weight: bold; }
+        .article-date { color: rgba(255,255,255,0.5); font-size: 0.8rem; }
+        
+        .empty { text-align: center; color: rgba(255,255,255,0.5); padding: 2rem; }
+        
+        .tabs { display: flex; margin-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .tab { padding: 1rem 2rem; cursor: pointer; color: rgba(255,255,255,0.5); border-bottom: 2px solid transparent; }
+        .tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+        
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
     </style>
 </head>
 <body>
     <h1 class="admin-title">📝 文章管理中心</h1>
     
-    <!-- 添加文章 -->
-    <div class="card section">
-        <h2 class="section-title">✏️ 添加新文章</h2>
-        <div class="form-group">
-            <label>文章标题</label>
-            <input type="text" class="input" id="title" placeholder="输入文章标题...">
-        </div>
-        <div class="form-group">
-            <label>文章内容</label>
-            <textarea id="content" placeholder="输入文章内容...支持换行"></textarea>
-        </div>
-        <button class="btn btn-primary" onclick="addArticle()">✅ 发布文章</button>
+    <!-- 标签页 -->
+    <div class="tabs">
+        <div class="tab active" onclick="switchTab('articles')">📝 文章管理</div>
+        <div class="tab" onclick="switchTab('categories')">🏷️ 分区管理</div>
     </div>
     
-    <!-- 文章列表 -->
-    <div class="card section">
-        <h2 class="section-title">📋 我的文章</h2>
-        <div id="article-list"></div>
+    <!-- 文章管理 -->
+    <div class="tab-content active" id="articles-tab">
+        <div class="card section">
+            <h2 class="section-title">✏️ 发布新文章</h2>
+            <div class="form-group">
+                <label>选择分区（可选）</label>
+                <select id="article-category">
+                    <option value="">不选择分区</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>文章标题</label>
+                <input type="text" class="input" id="title" placeholder="输入文章标题...">
+            </div>
+            <div class="form-group">
+                <label>文章内容</label>
+                <textarea id="content" placeholder="输入文章内容...支持换行"></textarea>
+            </div>
+            <button class="btn btn-primary" onclick="addArticle()">✅ 发布文章</button>
+        </div>
+        
+        <div class="card section">
+            <h2 class="section-title">📋 我的文章</h2>
+            <div id="article-list"></div>
+        </div>
     </div>
     
-    <!-- 导出/导入 -->
-    <div class="card section">
-        <h2 class="section-title">💾 数据备份</h2>
-        <a href="#" class="download-btn" onclick="downloadData()">📥 导出文章数据</a>
-        <button class="btn btn-danger" onclick="clearAll()">🗑️ 删除所有文章</button>
+    <!-- 分区管理 -->
+    <div class="tab-content" id="categories-tab">
+        <div class="card section">
+            <h2 class="section-title">➕ 添加新分区</h2>
+            <div class="form-group">
+                <label>分区名称</label>
+                <input type="text" class="input" id="new-category" placeholder="例如：Unity, Linux, 算法等...">
+            </div>
+            <button class="btn btn-primary" onclick="addCategory()">➕ 添加分区</button>
+        </div>
+        
+        <div class="card section">
+            <h2 class="section-title">🏷️ 我的分区</h2>
+            <div id="category-list"></div>
+        </div>
     </div>
 
     <script>
-        // 获取今天日期
-        function getToday() {
-            const now = new Date();
-            return now.toISOString().split('T')[0];
+        function getToday() { return new Date().toISOString().split('T')[0]; }
+        
+        // 分区管理
+        function getCategories() {
+            const stored = localStorage.getItem('my_categories');
+            if (stored) return JSON.parse(stored);
+            return ['默认'];
         }
-
-        // 从localStorage读取文章
+        
+        function saveCategories(cats) {
+            localStorage.setItem('my_categories', JSON.stringify(cats));
+            renderCategories();
+            updateCategorySelect();
+        }
+        
+        function addCategory() {
+            const name = document.getElementById('new-category').value.trim();
+            if (!name) { alert('请输入分区名称！'); return; }
+            const cats = getCategories();
+            if (cats.includes(name)) { alert('分区已存在！'); return; }
+            cats.push(name);
+            saveCategories(cats);
+            document.getElementById('new-category').value = '';
+        }
+        
+        function deleteCategory(name) {
+            if (!confirm('确定要删除分区 "' + name + '" 吗？\n注意：属于该分区的文章不会被删除，只是变成"默认"分区。')) return;
+            const cats = getCategories().filter(c => c !== name);
+            saveCategories(cats);
+        }
+        
+        function renderCategories() {
+            const cats = getCategories();
+            const list = document.getElementById('category-list');
+            if (cats.length === 0) {
+                list.innerHTML = '<div class="empty">暂无分区</div>';
+                return;
+            }
+            list.innerHTML = cats.map(c => `
+                <div class="category-item">
+                    <span class="category-name">🏷️ ${c}</span>
+                    ${c !== '默认' ? '<button class="btn btn-danger" onclick="deleteCategory(\''+c+'\')">🗑️ 删除</button>' : '<span style="color:rgba(255,255,255,0.3)">系统保留</span>'}
+                </div>
+            `).join('');
+        }
+        
+        function updateCategorySelect() {
+            const cats = getCategories();
+            const select = document.getElementById('article-category');
+            select.innerHTML = '<option value="">不选择分区</option>' + 
+                cats.map(c => `<option value="${c}">${c}</option>`).join('');
+        }
+        
+        // 文章管理
         function getArticles() {
             const stored = localStorage.getItem('my_articles');
-            if (stored) {
-                return JSON.parse(stored);
-            }
-            // 默认文章
+            if (stored) return JSON.parse(stored);
             return [
-                {
-                    id: 1,
-                    title: "Hello World - 我的第一篇博客",
-                    date: "2026-04-11",
-                    excerpt: "这是我的第一篇博客！从今天开始我要记录学习网络安全的点点滴滴...",
-                    content: "这是我的第一篇博客！\n\n从今天开始，我要记录学习网络安全的点点滴滴。\n\n我是大一学生，专业是网络空间安全。刚学完Linux基础命令，感觉好酷！\n\n加油！💪"
-                },
-                {
-                    id: 2,
-                    title: "Linux学习笔记 - 基础命令",
-                    date: "2026-04-10",
-                    excerpt: "今天学习了Linux的基础命令，包括ls、cd、mkdir等...",
-                    content: "今日学习Linux基础命令：\n\n📁 文件操作\n- ls - 列出文件\n- cd - 切换目录\n- mkdir - 创建目录\n\n🔍 搜索\n- find - 查找文件\n- grep - 查找内容\n\n加油！每天进步一点点！🌟"
-                }
+                { id: 1, title: "Hello World", date: "2026-04-11", category: "默认", excerpt: "这是我的第一篇博客！", content: "这是我的第一篇博客！" },
+                { id: 2, title: "Linux学习笔记", date: "2026-04-10", category: "默认", excerpt: "今天学习了Linux...", content: "今日学习Linux" }
             ];
         }
-
-        // 保存文章到localStorage
+        
         function saveArticles(articles) {
             localStorage.setItem('my_articles', JSON.stringify(articles));
             renderArticles();
-            alert('✅ 文章已保存！\n\n💡 提示：这些数据保存在你的浏览器里。\n如果要永久保存，可以点击"导出文章数据"下载。');
         }
-
-        // 渲染文章列表
+        
+        function addArticle() {
+            const title = document.getElementById('title').value.trim();
+            const content = document.getElementById('content').value.trim();
+            const category = document.getElementById('article-category').value || '默认';
+            
+            if (!title || !content) { alert('请填写标题和内容！'); return; }
+            
+            const excerpt = content.length > 50 ? content.substring(0, 50) + '...' : content;
+            const articles = getArticles();
+            const newId = articles.length > 0 ? Math.max(...articles.map(a => a.id)) + 1 : 1;
+            
+            articles.unshift({ id: newId, title, date: getToday(), category, excerpt, content });
+            saveArticles(articles);
+            
+            document.getElementById('title').value = '';
+            document.getElementById('content').value = '';
+            alert('✅ 文章发布成功！');
+        }
+        
+        function deleteArticle(id) {
+            if (!confirm('确定要删除这篇文章吗？')) return;
+            const articles = getArticles().filter(a => a.id !== id);
+            saveArticles(articles);
+        }
+        
         function renderArticles() {
             const articles = getArticles();
             const list = document.getElementById('article-list');
             if (articles.length === 0) {
-                list.innerHTML = '<p style="color:rgba(255,255,255,0.5);text-align:center;">暂无文章</p>';
+                list.innerHTML = '<div class="empty">暂无文章</div>';
                 return;
             }
             list.innerHTML = articles.map(a => `
                 <div class="article-item">
-                    <div class="article-info">
-                        <h3>${a.title}</h3>
-                        <p>${a.date}</p>
+                    <div>
+                        <span class="tag">${a.category}</span>
+                        <span class="article-title">${a.title}</span>
+                        <span class="article-date">${a.date}</span>
                     </div>
-                    <button class="btn btn-danger" onclick="deleteArticle(${a.id})">🗑️ 删除</button>
+                    <button class="btn btn-danger" onclick="deleteArticle(${a.id})">🗑️</button>
                 </div>
             `).join('');
         }
-
-        // 添加文章
-        function addArticle() {
-            const title = document.getElementById('title').value.trim();
-            const content = document.getElementById('content').value.trim();
-            
-            if (!title || !content) {
-                alert('请填写标题和内容！');
-                return;
-            }
-            
-            // 生成摘要（前50字）
-            const excerpt = content.length > 50 ? content.substring(0, 50) + '...' : content;
-            
-            const articles = getArticles();
-            const newId = articles.length > 0 ? Math.max(...articles.map(a => a.id)) + 1 : 1;
-            
-            articles.unshift({
-                id: newId,
-                title: title,
-                date: getToday(),
-                excerpt: excerpt,
-                content: content
-            });
-            
-            saveArticles(articles);
-            
-            // 清空输入
-            document.getElementById('title').value = '';
-            document.getElementById('content').value = '';
+        
+        function switchTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab')[tab === 'articles' ? 0 : 1].classList.add('active');
+            document.getElementById(tab + '-tab').classList.add('active');
         }
-
-        // 删除文章
-        function deleteArticle(id) {
-            if (!confirm('确定要删除这篇文章吗？')) return;
-            
-            const articles = getArticles().filter(a => a.id !== id);
-            saveArticles(articles);
-        }
-
-        // 导出数据
-        function downloadData() {
-            const articles = getArticles();
-            const data = JSON.stringify(articles, null, 2);
-            const blob = new Blob(['const articles = ' + data + ';'], {type: 'application/javascript'});
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'articles.js';
-            a.click();
-            URL.revokeObjectURL(url);
-        }
-
-        // 删除所有
-        function clearAll() {
-            if (!confirm('确定要删除所有文章吗？此操作不可恢复！')) return;
-            localStorage.removeItem('my_articles');
-            renderArticles();
-            alert('已清空所有文章！');
-        }
-
+        
         // 初始化
+        renderCategories();
+        updateCategorySelect();
         renderArticles();
     </script>
 </body>

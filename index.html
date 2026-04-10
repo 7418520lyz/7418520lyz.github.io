@@ -7,85 +7,21 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #00ff88;
-            --secondary: #ff00ff;
-            --accent: #00d4ff;
-            --dark: #0a0a0f;
-        }
+        :root { --primary: #00ff88; --secondary: #ff00ff; --accent: #00d4ff; --dark: #0a0a0f; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Noto Sans SC', sans-serif;
-            background: var(--dark);
-            color: white;
-            overflow-x: hidden;
-            cursor: none; /* 隐藏默认鼠标，用自定义光标 */
-        }
-        
-        /* 自定义鼠标光标 */
-        .cursor {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--primary);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.1s, opacity 0.3s;
-            mix-blend-mode: difference;
-        }
-        .cursor-dot {
-            position: fixed;
-            width: 8px;
-            height: 8px;
-            background: var(--primary);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-        }
-        
-        /* 鼠标拖尾粒子 */
-        .trail {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            background: var(--primary);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9998;
-            opacity: 0.8;
-            animation: trailFade 1s ease-out forwards;
-        }
-        @keyframes trailFade {
-            0% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(0); opacity: 0; }
-        }
-
+        body { font-family: 'Noto Sans SC', sans-serif; background: var(--dark); color: white; overflow-x: hidden; cursor: none; }
+        .cursor { position: fixed; width: 20px; height: 20px; border: 2px solid var(--primary); border-radius: 50%; pointer-events: none; z-index: 9999; transition: transform 0.1s; mix-blend-mode: difference; }
+        .cursor-dot { position: fixed; width: 8px; height: 8px; background: var(--primary); border-radius: 50%; pointer-events: none; z-index: 9999; }
+        .trail { position: fixed; width: 10px; height: 10px; background: var(--primary); border-radius: 50%; pointer-events: none; z-index: 9998; opacity: 0.8; animation: trailFade 1s ease-out forwards; }
+        @keyframes trailFade { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(0); opacity: 0; } }
         .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
         .star { position: absolute; background: white; border-radius: 50%; animation: twinkle 2s infinite ease-in-out; }
         @keyframes twinkle { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } }
-        .shooting-star { position: absolute; width: 100px; height: 2px; background: linear-gradient(90deg, transparent, var(--primary), transparent); animation: shoot 3s infinite; opacity: 0; }
-        @keyframes shoot { 0% { opacity: 0; transform: translateX(0) translateY(0); } 10% { opacity: 1; } 100% { opacity: 0; transform: translateX(500px) translateY(300px); } }
         
-        /* 页面进入动画 */
-        @keyframes fadeInUp {
-            0% { opacity: 0; transform: translateY(50px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInScale {
-            0% { opacity: 0; transform: scale(0.8); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-        @keyframes floatIn {
-            0% { opacity: 0; transform: translateY(30px) scale(0.95); }
-            100% { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        
-        .animate-fade-in {
-            animation: fadeInUp 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        
+        @keyframes fadeInUp { 0% { opacity: 0; transform: translateY(50px); } 100% { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInScale { 0% { opacity: 0; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1); } }
+        @keyframes floatIn { 0% { opacity: 0; transform: translateY(30px) scale(0.95); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+        .animate-fade-in { animation: fadeInUp 0.8s ease-out forwards; opacity: 0; }
         .hero.active .avatar-container { animation: fadeInScale 0.8s ease-out 0.2s forwards; opacity: 0; }
         .hero.active .title { animation: fadeInUp 0.8s ease-out 0.4s forwards; opacity: 0; }
         .hero.active .subtitle { animation: fadeInUp 0.8s ease-out 0.6s forwards; opacity: 0; }
@@ -95,20 +31,17 @@
         nav { position: fixed; top: 0; left: 0; right: 0; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; z-index: 100; background: rgba(10, 10, 15, 0.8); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(0, 255, 136, 0.1); }
         .logo { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; background: linear-gradient(135deg, var(--primary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; }
         .nav-links { display: flex; gap: 2rem; list-style: none; }
-        .nav-links a { color: rgba(255, 255, 255, 0.7); text-decoration: none; font-size: 0.9rem; transition: all 0.3s; position: relative; cursor: pointer; }
+        .nav-links a { color: rgba(255, 255, 255, 0.7); text-decoration: none; font-size: 0.9rem; transition: all 0.3s; cursor: pointer; }
         .nav-links a:hover { color: var(--primary); }
         
         .hero, .articles-section, .article-detail { display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem; position: relative; z-index: 1; min-height: 100vh; }
         .hero.active, .articles-section.active, .article-detail.active { display: flex; }
         .articles-section { padding: 8rem 2rem 4rem; justify-content: flex-start; }
+        .articles-section.active, .article-detail.active { animation: fadeInUp 0.6s ease-out; }
         .article-detail { padding: 8rem 2rem 4rem; justify-content: flex-start; }
-        
-        .articles-section.active { animation: fadeInUp 0.6s ease-out; }
-        .article-detail.active { animation: fadeInUp 0.6s ease-out; }
         
         .avatar-container { width: 180px; height: 180px; border-radius: 50%; padding: 4px; background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent)); margin-bottom: 2rem; }
         .avatar { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
-        
         .title { font-family: 'Orbitron', sans-serif; font-size: 4rem; font-weight: 900; margin-bottom: 1rem; background: linear-gradient(135deg, #fff 0%, var(--primary) 50%, var(--accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.5)); }
         .subtitle { font-size: 1.5rem; color: rgba(255, 255, 255, 0.6); margin-bottom: 2rem; font-weight: 300; }
         .tagline { font-size: 1rem; color: var(--primary); margin-bottom: 3rem; letter-spacing: 0.3em; }
@@ -122,29 +55,35 @@
         .orb-2 { width: 300px; height: 300px; background: var(--secondary); bottom: 20%; right: -5%; animation: float 10s infinite ease-in-out reverse; }
         @keyframes float { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(30px, 30px); } }
         
-        .section-title { font-family: 'Orbitron', sans-serif; font-size: 2.5rem; margin-bottom: 3rem; text-align: center; color: var(--primary); }
-        .article-card { max-width: 800px; margin: 0 auto 2rem; padding: 2rem; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 1rem; cursor: pointer; transition: all 0.3s; }
+        .section-title { font-family: 'Orbitron', sans-serif; font-size: 2.5rem; margin-bottom: 1.5rem; text-align: center; color: var(--primary); }
+        
+        /* 分区筛选 */
+        .category-filter { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-bottom: 2rem; }
+        .category-btn { padding: 0.5rem 1rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 0.5rem; color: rgba(255,255,255,0.7); cursor: pointer; transition: all 0.3s; }
+        .category-btn:hover, .category-btn.active { background: var(--primary); color: var(--dark); border-color: var(--primary); }
+        
+        .article-card { max-width: 800px; margin: 0 auto 1.5rem; padding: 1.5rem; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 1rem; cursor: pointer; transition: all 0.3s; }
         .article-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2); }
-        .article-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: white; }
-        .article-date { font-size: 0.8rem; color: var(--primary); margin-bottom: 0.5rem; }
+        .article-meta { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; }
+        .article-tag { padding: 0.2rem 0.6rem; background: rgba(0,255,136,0.2); border: 1px solid var(--primary); border-radius: 0.3rem; color: var(--primary); font-size: 0.75rem; }
+        .article-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; color: white; }
+        .article-date { font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-bottom: 0.5rem; }
         .article-excerpt { color: rgba(255, 255, 255, 0.6); line-height: 1.6; }
         
         .back-btn { display: inline-block; padding: 0.5rem 1.5rem; margin-bottom: 2rem; color: var(--primary); cursor: pointer; border: 1px solid var(--primary); border-radius: 0.5rem; transition: all 0.3s; }
         .back-btn:hover { background: var(--primary); color: var(--dark); }
         .detail-title { font-family: 'Orbitron', sans-serif; font-size: 2rem; margin-bottom: 1rem; color: white; }
-        .detail-date { color: var(--primary); margin-bottom: 2rem; }
+        .detail-meta { display: flex; gap: 1rem; align-items: center; margin-bottom: 2rem; }
+        .detail-date { color: rgba(255,255,255,0.5); }
         .detail-content { max-width: 800px; margin: 0 auto; color: rgba(255, 255, 255, 0.8); line-height: 1.8; white-space: pre-wrap; }
-        
         footer { padding: 2rem; text-align: center; color: rgba(255, 255, 255, 0.3); font-size: 0.8rem; position: relative; z-index: 1; border-top: 1px solid rgba(255, 255, 255, 0.05); }
         
         @media (max-width: 768px) { .title { font-size: 2.5rem; } .nav-links { display: none; } nav { padding: 1rem 1.5rem; } body { cursor: auto; } .cursor, .cursor-dot { display: none; } }
     </style>
 </head>
 <body>
-    <!-- 自定义光标 -->
     <div class="cursor"></div>
     <div class="cursor-dot"></div>
-
     <div class="stars" id="stars"></div>
     <div class="glow-orb orb-1"></div>
     <div class="glow-orb orb-2"></div>
@@ -159,9 +98,7 @@
     </nav>
 
     <section class="hero active" id="home">
-        <div class="avatar-container">
-            <img src="avatar.png" alt="头像" class="avatar">
-        </div>
+        <div class="avatar-container"><img src="avatar.png" alt="头像" class="avatar"></div>
         <h1 class="title">原子の学习之路</h1>
         <p class="subtitle">从零开始的大一学生 · 网络空间安全</p>
         <p class="tagline">THE DAWN WILL NEVER COME AGAIN</p>
@@ -177,64 +114,56 @@
 
     <section class="articles-section" id="articles">
         <h2 class="section-title">📝 文章列表</h2>
+        <div class="category-filter" id="category-filter"></div>
         <div id="article-list"></div>
     </section>
 
     <section class="article-detail" id="article-detail">
         <span class="back-btn" onclick="showArticles()">← 返回文章列表</span>
         <h1 class="detail-title" id="detail-title"></h1>
-        <p class="detail-date" id="detail-date"></p>
+        <div class="detail-meta">
+            <span class="article-tag" id="detail-category"></span>
+            <span class="detail-date" id="detail-date"></span>
+        </div>
         <div class="detail-content" id="detail-content"></div>
     </section>
 
-    <footer>
-        <p>© 2026 原子の学习之路 · Built with 💚 by 丛雨喵</p>
-    </footer>
+    <footer><p>© 2026 原子の学习之路 · Built with 💚 by 丛雨喵</p></footer>
 
     <script>
-        // 鼠标跟随效果
-        const cursor = document.querySelector('.cursor');
-        const cursorDot = document.querySelector('.cursor-dot');
-        let mouseX = 0, mouseY = 0;
-        let cursorX = 0, cursorY = 0;
-
+        // 鼠标跟随
+        const cursor = document.querySelector('.cursor'), cursorDot = document.querySelector('.cursor-dot');
+        let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
         document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            
-            // 创建拖尾粒子
-            createTrail(e.clientX, e.clientY);
-        });
-
-        function createTrail(x, y) {
+            mouseX = e.clientX; mouseY = e.clientY;
             const trail = document.createElement('div');
             trail.className = 'trail';
-            trail.style.left = x + 'px';
-            trail.style.top = y + 'px';
+            trail.style.left = e.clientX + 'px';
+            trail.style.top = e.clientY + 'px';
             document.body.appendChild(trail);
             setTimeout(() => trail.remove(), 1000);
-        }
-
-        // 平滑移动光标
+        });
         function animateCursor() {
-            cursorX += (mouseX - cursorX) * 0.1;
-            cursorY += (mouseY - cursorY) * 0.1;
-            cursor.style.left = cursorX + 'px';
-            cursor.style.top = cursorY + 'px';
-            cursorDot.style.left = mouseX + 'px';
-            cursorDot.style.top = mouseY + 'px';
+            cursorX += (mouseX - cursorX) * 0.1; cursorY += (mouseY - cursorY) * 0.1;
+            cursor.style.left = cursorX + 'px'; cursor.style.top = cursorY + 'px';
+            cursorDot.style.left = mouseX + 'px'; cursorDot.style.top = mouseY + 'px';
             requestAnimationFrame(animateCursor);
-        }
-        animateCursor();
+        } animateCursor();
 
+        // 数据
+        function getCategories() {
+            const stored = localStorage.getItem('my_categories');
+            return stored ? JSON.parse(stored) : ['默认'];
+        }
         function getArticles() {
             const stored = localStorage.getItem('my_articles');
-            if (stored) { return JSON.parse(stored); }
-            return [
-                { id: 1, title: "Hello World - 我的第一篇博客", date: "2026-04-11", excerpt: "这是我的第一篇博客！...", content: "这是我的第一篇博客！" },
-                { id: 2, title: "Linux学习笔记", date: "2026-04-10", excerpt: "今天学习了Linux...", content: "今日学习Linux基础命令" }
+            return stored ? JSON.parse(stored) : [
+                { id: 1, title: "Hello World", date: "2026-04-11", category: "默认", excerpt: "第一篇博客！", content: "第一篇博客！" },
+                { id: 2, title: "Linux命令", date: "2026-04-10", category: "默认", excerpt: "Linux学习笔记", content: "Linux学习笔记" }
             ];
         }
+
+        let currentCategory = '全部';
 
         function showHome() {
             document.getElementById('home').classList.add('active');
@@ -253,15 +182,35 @@
 
         function renderArticleList() {
             const articles = getArticles();
+            const categories = getCategories();
             const list = document.getElementById('article-list');
-            list.innerHTML = articles.map(article => `
+            
+            // 渲染分区筛选
+            const filter = document.getElementById('category-filter');
+            filter.innerHTML = ['全部', ...categories].map(c => 
+                `<button class="category-btn ${c === currentCategory ? 'active' : ''}" onclick="filterByCategory('${c}')">${c}</button>`
+            ).join('');
+
+            // 过滤文章
+            const filtered = currentCategory === '全部' ? articles : articles.filter(a => a.category === currentCategory);
+            
+            if (filtered.length === 0) {
+                list.innerHTML = '<div class="article-card" style="text-align:center;color:rgba(255,255,255,0.5);">暂无文章，快去添加吧！</div>';
+                return;
+            }
+            list.innerHTML = filtered.map(article => `
                 <div class="article-card" onclick="showArticle(${article.id})">
-                    <div class="article-date">${article.date}</div>
+                    <div class="article-meta">
+                        <span class="article-tag">${article.category}</span>
+                    </div>
                     <h3 class="article-title">${article.title}</h3>
+                    <p class="article-date">${article.date}</p>
                     <p class="article-excerpt">${article.excerpt}</p>
                 </div>
             `).join('');
         }
+
+        function filterByCategory(cat) { currentCategory = cat; renderArticleList(); }
 
         function showArticle(id) {
             const article = getArticles().find(a => a.id === id);
@@ -270,6 +219,7 @@
             document.getElementById('articles').classList.remove('active');
             document.getElementById('article-detail').classList.add('active');
             document.getElementById('detail-title').textContent = article.title;
+            document.getElementById('detail-category').textContent = article.category;
             document.getElementById('detail-date').textContent = article.date;
             document.getElementById('detail-content').textContent = article.content;
         }
@@ -288,22 +238,7 @@
                 container.appendChild(star);
             }
         }
-
-        function createShootingStars() {
-            const container = document.getElementById('stars');
-            setInterval(() => {
-                const star = document.createElement('div');
-                star.className = 'shooting-star';
-                star.style.left = Math.random() * 70 + '%';
-                star.style.top = Math.random() * 50 + '%';
-                star.style.animationDelay = Math.random() * 5 + 's';
-                container.appendChild(star);
-                setTimeout(() => star.remove(), 3000);
-            }, 3000);
-        }
-
         createStars();
-        createShootingStars();
     </script>
 </body>
 </html>
