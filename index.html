@@ -27,7 +27,6 @@
             overflow-x: hidden;
         }
 
-        /* 星空背景 */
         .stars {
             position: fixed;
             top: 0;
@@ -50,7 +49,6 @@
             50% { opacity: 1; transform: scale(1.2); }
         }
 
-        /* 流星 */
         .shooting-star {
             position: absolute;
             width: 100px;
@@ -66,7 +64,6 @@
             100% { opacity: 0; transform: translateX(500px) translateY(300px); }
         }
 
-        /* 导航 */
         nav {
             position: fixed;
             top: 0;
@@ -89,7 +86,6 @@
             background: linear-gradient(135deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
         }
 
         .nav-links {
@@ -125,7 +121,6 @@
             width: 100%;
         }
 
-        /* 英雄区 */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -146,7 +141,6 @@
             background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
             margin-bottom: 2rem;
             animation: avatarGlow 3s infinite ease-in-out;
-            position: relative;
         }
 
         @keyframes avatarGlow {
@@ -191,48 +185,6 @@
             letter-spacing: 0.3em;
         }
 
-        /* 按钮 */
-        .btn {
-            padding: 1rem 3rem;
-            font-size: 1rem;
-            font-weight: 700;
-            border: none;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-primary {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            font-family: 'Orbitron', sans-serif;
-        }
-
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--primary);
-            transition: left 0.3s;
-            z-index: -1;
-        }
-
-        .btn-primary:hover {
-            color: var(--dark);
-        }
-
-        .btn-primary:hover::before {
-            left: 0;
-        }
-
-        /* 社交链接 - 只保留GitHub和B站 */
         .social-links {
             display: flex;
             gap: 1.5rem;
@@ -262,7 +214,6 @@
             box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
         }
 
-        /* 滚动提示 */
         .scroll-hint {
             position: absolute;
             bottom: 2rem;
@@ -303,7 +254,6 @@
             50% { opacity: 0.3; top: 16px; }
         }
 
-        /* 装饰 */
         .glow-orb {
             position: absolute;
             border-radius: 50%;
@@ -335,7 +285,6 @@
             50% { transform: translate(30px, 30px); }
         }
 
-        /* 页脚 */
         footer {
             padding: 2rem;
             text-align: center;
@@ -346,29 +295,18 @@
             border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* 响应式 */
         @media (max-width: 768px) {
-            .title {
-                font-size: 2.5rem;
-            }
-            .nav-links {
-                display: none;
-            }
-            nav {
-                padding: 1rem 1.5rem;
-            }
+            .title { font-size: 2.5rem; }
+            .nav-links { display: none; }
+            nav { padding: 1rem 1.5rem; }
         }
     </style>
 </head>
 <body>
-    <!-- 星空背景 -->
     <div class="stars" id="stars"></div>
-    
-    <!-- 光晕 -->
     <div class="glow-orb orb-1"></div>
     <div class="glow-orb orb-2"></div>
 
-    <!-- 导航 -->
     <nav>
         <div class="logo">ATOM</div>
         <ul class="nav-links">
@@ -379,7 +317,6 @@
         </ul>
     </nav>
 
-    <!-- 英雄区 -->
     <section class="hero">
         <div class="avatar-container">
             <img src="avatar.png" alt="头像" class="avatar">
@@ -390,15 +327,17 @@
         <p class="tagline">THE DAWN WILL NEVER COME AGAIN</p>
         
         <div class="social-links">
-            <!-- 只保留GitHub和B站 -->
+            <!-- GitHub -->
             <a href="https://github.com/7418520lyz" class="social-link" target="_blank" title="GitHub">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                 </svg>
             </a>
-            <a href="#" class="social-link" title="Bilibili">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+            <!-- Bilibili - 真正的B站图标 -->
+            <a href="https://space.bilibili.com/42346293033" class="social-link" target="_blank" title="Bilibili">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#00A1D6">
+                    <path d="M17.817 6.627c-.247-.168-.577-.21-.87-.09l-2.93 1.2c-.45.183-.573.75-.247 1.15l1.143 1.467c.203.26.168.64-.093.852l-2.813 2.287c-.327.267-.89.168-1.11-.203l-1.467-2.467c-.168-.283-.523-.38-.8-.217l-2.853 1.667c-.513.3-.697.95-.393 1.37l2.04 2.82c.253.35.803.413 1.153.137l2.613-2.053c.327-.257.377-.723.11-1.04l-1.11-1.32c.563-.667 1.327-1.167 2.217-1.39.12-.027.243-.04.363-.04 1.627 0 2.95 1.323 2.95 2.95 0 .49-.123.96-.34 1.37l1.047 1.027c.367.36.96.27 1.2-.183l.72-1.357c.19-.36.08-.83-.277-1.043-.947-.563-2.047-.87-3.18-.87-.177 0-.353.01-.527.027zm3.183 3.68c1.373 0 2.487 1.114 2.487 2.487s-1.114 2.487-2.487 2.487-2.487-1.114-2.487-2.487 1.114-2.487 2.487-2.487z"/>
+                    <path d="M2.957 11.513c-.257.37-.167.86.217 1.153l3.21 2.457c.283.217.753.167 1.04-.11l1.32-1.33c.217-.22.22-.6.01-.853l-1.97-2.32c-.168-.197-.48-.26-.71-.143l-2.953 1.203c-.443.18-.583.73-.163 1.103l.2.187v.053zm16.087-3.043c-.743-.193-1.37.33-1.523.993-.153.663.13 1.253.71 1.44.58.187 1.167-.093 1.36-.7.193-.607-.13-1.22-.71-1.37-.077-.02-.157-.027-.237-.03-.193-.023-.387-.023-.58 0-.073.007-.147.017-.22.03-.193.05-.37.117-.54.2z"/>
                 </svg>
             </a>
         </div>
@@ -408,18 +347,14 @@
         </div>
     </section>
 
-    <!-- 页脚 -->
     <footer>
         <p>© 2026 原子の学习之路 · Built with 💚 by 丛雨喵</p>
     </footer>
 
     <script>
-        // 生成星星
         function createStars() {
             const container = document.getElementById('stars');
-            const starCount = 200;
-            
-            for (let i = 0; i < starCount; i++) {
+            for (let i = 0; i < 200; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
                 star.style.left = Math.random() * 100 + '%';
@@ -432,10 +367,8 @@
             }
         }
 
-        // 生成流星
         function createShootingStars() {
             const container = document.getElementById('stars');
-            
             setInterval(() => {
                 const star = document.createElement('div');
                 star.className = 'shooting-star';
@@ -443,23 +376,16 @@
                 star.style.top = Math.random() * 50 + '%';
                 star.style.animationDelay = Math.random() * 5 + 's';
                 container.appendChild(star);
-                
                 setTimeout(() => star.remove(), 3000);
             }, 3000);
         }
 
-        // 初始化
         createStars();
         createShootingStars();
 
-        // 滚动效果
         window.addEventListener('scroll', () => {
             const nav = document.querySelector('nav');
-            if (window.scrollY > 50) {
-                nav.style.background = 'rgba(10, 10, 15, 0.95)';
-            } else {
-                nav.style.background = 'rgba(10, 10, 15, 0.8)';
-            }
+            nav.style.background = window.scrollY > 50 ? 'rgba(10, 10, 15, 0.95)' : 'rgba(10, 10, 15, 0.8)';
         });
     </script>
 </body>
