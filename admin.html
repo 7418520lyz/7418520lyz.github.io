@@ -9,124 +9,60 @@
     <style>
         :root { --primary: #00ff88; --dark: #0a0a0f; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Noto Sans SC', sans-serif;
-            background: var(--dark);
-            color: white;
-            padding: 2rem;
-            min-height: 100vh;
-        }
-        .admin-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-        .card {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 1.5rem;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 1rem;
-            margin-bottom: 1.5rem;
-        }
-        .input, select, textarea {
-            width: 100%;
-            padding: 0.8rem;
-            margin-bottom: 1rem;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 0.5rem;
-            color: white;
-            font-size: 1rem;
-            font-family: inherit;
-        }
+        body { font-family: 'Noto Sans SC', sans-serif; background: var(--dark); color: white; padding: 2rem; min-height: 100vh; }
+        .admin-title { font-family: 'Orbitron', sans-serif; font-size: 2rem; color: var(--primary); margin-bottom: 2rem; text-align: center; }
+        .card { max-width: 900px; margin: 0 auto; padding: 1.5rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 1rem; margin-bottom: 1.5rem; }
+        .input, select, textarea { width: 100%; padding: 0.8rem; margin-bottom: 1rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 0.5rem; color: white; font-size: 1rem; font-family: inherit; }
         textarea { min-height: 150px; }
-        .btn {
-            padding: 0.8rem 1.5rem;
-            border: none;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 700;
-            transition: all 0.3s;
-            margin-right: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
+        .btn { padding: 0.8rem 1.5rem; border: none; border-radius: 0.5rem; cursor: pointer; font-size: 1rem; font-weight: 700; transition: all 0.3s; margin-right: 0.5rem; margin-bottom: 0.5rem; }
         .btn-primary { background: var(--primary); color: var(--dark); }
         .btn-primary:hover { box-shadow: 0 0 20px rgba(0,255,136,0.5); }
         .btn-danger { background: #ff4444; color: white; }
         .btn-danger:hover { background: #ff6666; }
-        .btn-export { background: #4488ff; color: white; }
+        .btn-sync { background: linear-gradient(135deg, #ff00ff, #00ff88); color: white; font-size: 1.1rem; padding: 1rem 2rem; width: 100%; max-width: 300px; }
+        .btn-sync:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(0,255,136,0.5); }
         
         .form-group { margin-bottom: 1.5rem; }
         .form-group label { display: block; margin-bottom: 0.5rem; color: rgba(255,255,255,0.7); }
-        
         .section { margin-bottom: 3rem; }
         .section-title { font-size: 1.5rem; color: var(--primary); margin-bottom: 1rem; }
-        
-        .tag {
-            display: inline-block;
-            padding: 0.3rem 0.8rem;
-            background: rgba(0,255,136,0.2);
-            border: 1px solid var(--primary);
-            border-radius: 0.3rem;
-            color: var(--primary);
-            margin: 0.2rem;
-            font-size: 0.9rem;
-        }
-        
-        .category-item, .article-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
+        .tag { display: inline-block; padding: 0.3rem 0.8rem; background: rgba(0,255,136,0.2); border: 1px solid var(--primary); border-radius: 0.3rem; color: var(--primary); margin: 0.2rem; font-size: 0.9rem; }
+        .category-item, .article-item { display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .category-item:last-child, .article-item:last-child { border-bottom: none; }
-        
         .category-name { font-weight: bold; color: var(--primary); }
         .article-title { color: white; font-weight: bold; }
         .article-date { color: rgba(255,255,255,0.5); font-size: 0.8rem; }
-        
         .empty { text-align: center; color: rgba(255,255,255,0.5); padding: 2rem; }
-        
         .tabs { display: flex; margin-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .tab { padding: 1rem 2rem; cursor: pointer; color: rgba(255,255,255,0.5); border-bottom: 2px solid transparent; }
         .tab.active { color: var(--primary); border-bottom-color: var(--primary); }
-        
         .tab-content { display: none; }
         .tab-content.active { display: block; }
         
-        .sync-section {
-            background: rgba(0,255,136,0.1);
-            border: 1px solid var(--primary);
-            padding: 1rem;
-            border-radius: 0.5rem;
-            margin-bottom: 1rem;
-        }
+        .sync-section { background: rgba(0,255,136,0.1); border: 1px solid var(--primary); padding: 1.5rem; border-radius: 0.5rem; margin-bottom: 1rem; text-align: center; }
+        .sync-section h3 { color: var(--primary); margin-bottom: 1rem; }
         .sync-section p { color: rgba(255,255,255,0.7); margin-bottom: 0.5rem; font-size: 0.9rem; }
-        
-        #export-text {
-            width: 100%;
-            height: 120px;
-            font-family: monospace;
-            font-size: 0.8rem;
-        }
+        .sync-instructions { background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 0.5rem; margin-top: 1rem; text-align: left; font-size: 0.9rem; color: rgba(255,255,255,0.7); }
     </style>
 </head>
 <body>
     <h1 class="admin-title">📝 文章管理中心</h1>
     
+    <!-- 同步区域 -->
     <div class="card">
         <div class="sync-section">
-            <p><strong>📌 同步说明：</strong></p>
-            <p>1. 在下方添加/修改文章或分区后</p>
-            <p>2. 点击"🔄 导出数据"按钮</p>
-            <p>3. <strong>把JSON数据发给丛雨喵</strong>，帮你上传到GitHub！</p>
-            <p>上传后前台和手机就能看到更新啦！💕</p>
+            <h3>🚀 一键同步到GitHub</h3>
+            <p>添加/修改文章后，点击下方按钮自动上传！</p>
+            <p style="color:var(--primary)">数据会同步到前台和手机端！</p>
+            <button class="btn btn-sync" onclick="syncToGitHub()">🔄 一键同步</button>
+            <div class="sync-instructions" id="sync-instructions">
+                <strong>⚠️ 同步步骤：</strong><br>
+                1. 点击上方"一键同步"按钮<br>
+                2. 浏览器会下载 data.json 文件<br>
+                3. <strong>把下载的文件拖到</strong> D:\custom-blog\ 文件夹覆盖原文件<br>
+                4. 双击运行 D:\custom-blog\sync.bat<br>
+                5. 完成！刷新博客看看！
+            </div>
         </div>
     </div>
     
@@ -140,9 +76,7 @@
             <h2 class="section-title">✏️ 发布新文章</h2>
             <div class="form-group">
                 <label>选择分区（可选）</label>
-                <select id="article-category">
-                    <option value="">不选择分区</option>
-                </select>
+                <select id="article-category"><option value="">不选择分区</option></select>
             </div>
             <div class="form-group">
                 <label>文章标题</label>
@@ -176,16 +110,8 @@
             <div id="category-list"></div>
         </div>
     </div>
-    
-    <div class="card">
-        <h2 class="section-title">🔄 同步到GitHub</h2>
-        <button class="btn btn-export" onclick="exportData()">🔄 导出数据</button>
-        <textarea id="export-text" readonly placeholder="点击上方按钮后，这里会显示JSON数据..."></textarea>
-        <p style="color:rgba(255,255,255,0.5);font-size:0.8rem;margin-top:0.5rem;">⬆️ 把上面这些内容发给丛雨喵哦！</p>
-    </div>
 
     <script>
-        // 初始化数据
         let blogData = { categories: ['默认'], articles: [] };
         
         function loadFromStorage() {
@@ -197,6 +123,20 @@
         }
         
         function getToday() { return new Date().toISOString().split('T')[0]; }
+        
+        // 一键同步 - 下载JSON然后提示用户
+        function syncToGitHub() {
+            const json = JSON.stringify(blogData, null, 2);
+            const blob = new Blob([json], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'data.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            alert('📥 data.json 已下载！\n\n请把文件拖到 D:\\custom-blog 文件夹覆盖原文件\n然后双击 sync.bat 上传！');
+        }
         
         // 分区管理
         function getCategories() { return blogData.categories; }
@@ -221,10 +161,7 @@
         function renderCategories() {
             const cats = getCategories();
             const list = document.getElementById('category-list');
-            if (cats.length === 0) {
-                list.innerHTML = '<div class="empty">暂无分区</div>';
-                return;
-            }
+            if (cats.length === 0) { list.innerHTML = '<div class="empty">暂无分区</div>'; return; }
             list.innerHTML = cats.map(c => `
                 <div class="category-item">
                     <span class="category-name">🏷️ ${c}</span>
@@ -236,8 +173,7 @@
         function updateCategorySelect() {
             const cats = getCategories();
             const select = document.getElementById('article-category');
-            select.innerHTML = '<option value="">不选择分区</option>' + 
-                cats.map(c => `<option value="${c}">${c}</option>`).join('');
+            select.innerHTML = '<option value="">不选择分区</option>' + cats.map(c => `<option value="${c}">${c}</option>`).join('');
         }
         
         // 文章管理
@@ -248,19 +184,15 @@
             const title = document.getElementById('title').value.trim();
             const content = document.getElementById('content').value.trim();
             const category = document.getElementById('article-category').value || '默认';
-            
             if (!title || !content) { alert('请填写标题和内容！'); return; }
-            
             const excerpt = content.length > 50 ? content.substring(0, 50) + '...' : content;
             const articles = getArticles();
             const newId = articles.length > 0 ? Math.max(...articles.map(a => a.id)) + 1 : 1;
-            
             articles.unshift({ id: newId, title, date: getToday(), category, excerpt, content });
             saveArticles(articles);
-            
             document.getElementById('title').value = '';
             document.getElementById('content').value = '';
-            alert('✅ 文章发布成功！记得点击"导出数据"哦！');
+            alert('✅ 文章发布成功！记得点击"一键同步"哦！');
         }
         
         function deleteArticle(id) {
@@ -272,27 +204,13 @@
         function renderArticles() {
             const articles = getArticles();
             const list = document.getElementById('article-list');
-            if (articles.length === 0) {
-                list.innerHTML = '<div class="empty">暂无文章</div>';
-                return;
-            }
+            if (articles.length === 0) { list.innerHTML = '<div class="empty">暂无文章</div>'; return; }
             list.innerHTML = articles.map(a => `
                 <div class="article-item">
-                    <div>
-                        <span class="tag">${a.category}</span>
-                        <span class="article-title">${a.title}</span>
-                        <span class="article-date">${a.date}</span>
-                    </div>
+                    <div><span class="tag">${a.category}</span><span class="article-title">${a.title}</span><span class="article-date">${a.date}</span></div>
                     <button class="btn btn-danger" onclick="deleteArticle(${a.id})">🗑️</button>
                 </div>
             `).join('');
-        }
-        
-        // 导出数据
-        function exportData() {
-            const json = JSON.stringify(blogData, null, 2);
-            document.getElementById('export-text').value = json;
-            alert('✅ 数据已生成！复制下方JSON发给丛雨喵吧！');
         }
         
         function switchTab(tab) {
@@ -302,7 +220,6 @@
             document.getElementById(tab + '-tab').classList.add('active');
         }
         
-        // 初始化
         loadFromStorage();
         renderCategories();
         updateCategorySelect();
