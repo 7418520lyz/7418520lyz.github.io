@@ -13,360 +13,55 @@
             --accent: #00d4ff;
             --dark: #0a0a0f;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Noto Sans SC', sans-serif;
             background: var(--dark);
             color: white;
             overflow-x: hidden;
         }
-
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            animation: twinkle 2s infinite ease-in-out;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.2); }
-        }
-
-        .shooting-star {
-            position: absolute;
-            width: 100px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--primary), transparent);
-            animation: shoot 3s infinite;
-            opacity: 0;
-        }
-
-        @keyframes shoot {
-            0% { opacity: 0; transform: translateX(0) translateY(0); }
-            10% { opacity: 1; }
-            100% { opacity: 0; transform: translateX(500px) translateY(300px); }
-        }
-
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            padding: 1.5rem 3rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-            background: rgba(10, 10, 15, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 255, 136, 0.1);
-        }
-
-        .logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            cursor: pointer;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: all 0.3s;
-            position: relative;
-            cursor: pointer;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        .hero {
-            min-height: 100vh;
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 2rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero.active {
-            display: flex;
-        }
-
-        .avatar-container {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            padding: 4px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
-            margin-bottom: 2rem;
-            animation: avatarGlow 3s infinite ease-in-out;
-        }
-
-        @keyframes avatarGlow {
-            0%, 100% { box-shadow: 0 0 30px rgba(0, 255, 136, 0.3); }
-            50% { box-shadow: 0 0 60px rgba(0, 255, 136, 0.6), 0 0 100px rgba(255, 0, 255, 0.3); }
-        }
-
-        .avatar {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 4rem;
-            font-weight: 900;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #fff 0%, var(--primary) 50%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: titleGlow 2s infinite alternate;
-        }
-
-        @keyframes titleGlow {
-            0% { filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.5)); }
-            100% { filter: drop-shadow(0 0 40px rgba(0, 255, 136, 0.8)); }
-        }
-
-        .subtitle {
-            font-size: 1.5rem;
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 2rem;
-            font-weight: 300;
-        }
-
-        .tagline {
-            font-size: 1rem;
-            color: var(--primary);
-            margin-bottom: 3rem;
-            letter-spacing: 0.3em;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1.5rem;
-            margin-top: 3rem;
-        }
-
-        .social-link {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: white;
-            text-decoration: none;
-            font-size: 1.2rem;
-            transition: all 0.3s;
-        }
-
-        .social-link:hover {
-            background: var(--primary);
-            border-color: var(--primary);
-            color: var(--dark);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
-        }
-
-        .glow-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.3;
-            pointer-events: none;
-        }
-
-        .orb-1 {
-            width: 400px;
-            height: 400px;
-            background: var(--primary);
-            top: 10%;
-            left: -10%;
-            animation: float 8s infinite ease-in-out;
-        }
-
-        .orb-2 {
-            width: 300px;
-            height: 300px;
-            background: var(--secondary);
-            bottom: 20%;
-            right: -5%;
-            animation: float 10s infinite ease-in-out reverse;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(30px, 30px); }
-        }
-
-        /* 文章列表 */
-        .articles-section {
-            display: none;
-            padding: 8rem 2rem 4rem;
-            position: relative;
-            z-index: 1;
-            min-height: 100vh;
-        }
-
-        .articles-section.active {
-            display: block;
-        }
-
-        .section-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            text-align: center;
-            color: var(--primary);
-        }
-
-        .article-card {
-            max-width: 800px;
-            margin: 0 auto 2rem;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .article-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.1);
-        }
-
-        .article-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: white;
-        }
-
-        .article-date {
-            font-size: 0.8rem;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .article-excerpt {
-            color: rgba(255, 255, 255, 0.6);
-            line-height: 1.6;
-        }
-
-        /* 文章详情 */
-        .article-detail {
-            display: none;
-            padding: 8rem 2rem 4rem;
-            position: relative;
-            z-index: 1;
-            min-height: 100vh;
-        }
-
-        .article-detail.active {
-            display: block;
-        }
-
-        .back-btn {
-            display: inline-block;
-            padding: 0.5rem 1.5rem;
-            margin-bottom: 2rem;
-            color: var(--primary);
-            cursor: pointer;
-            border: 1px solid var(--primary);
-            border-radius: 0.5rem;
-            transition: all 0.3s;
-        }
-
-        .back-btn:hover {
-            background: var(--primary);
-            color: var(--dark);
-        }
-
-        .detail-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: white;
-        }
-
-        .detail-date {
-            color: var(--primary);
-            margin-bottom: 2rem;
-        }
-
-        .detail-content {
-            max-width: 800px;
-            margin: 0 auto;
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.8;
-            white-space: pre-wrap;
-        }
-
-        footer {
-            padding: 2rem;
-            text-align: center;
-            color: rgba(255, 255, 255, 0.3);
-            font-size: 0.8rem;
-            position: relative;
-            z-index: 1;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        @media (max-width: 768px) {
-            .title { font-size: 2.5rem; }
-            .nav-links { display: none; }
-            nav { padding: 1rem 1.5rem; }
-        }
+        .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+        .star { position: absolute; background: white; border-radius: 50%; animation: twinkle 2s infinite ease-in-out; }
+        @keyframes twinkle { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } }
+        .shooting-star { position: absolute; width: 100px; height: 2px; background: linear-gradient(90deg, transparent, var(--primary), transparent); animation: shoot 3s infinite; opacity: 0; }
+        @keyframes shoot { 0% { opacity: 0; transform: translateX(0) translateY(0); } 10% { opacity: 1; } 100% { opacity: 0; transform: translateX(500px) translateY(300px); } }
+        nav { position: fixed; top: 0; left: 0; right: 0; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; z-index: 100; background: rgba(10, 10, 15, 0.8); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(0, 255, 136, 0.1); }
+        .logo { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; background: linear-gradient(135deg, var(--primary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: rgba(255, 255, 255, 0.7); text-decoration: none; font-size: 0.9rem; transition: all 0.3s; position: relative; cursor: pointer; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--primary); transition: width 0.3s; }
+        .nav-links a:hover { color: var(--primary); }
+        .hero, .articles-section, .article-detail { display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem; position: relative; z-index: 1; min-height: 100vh; }
+        .hero.active, .articles-section.active, .article-detail.active { display: flex; }
+        .articles-section { display: none; padding: 8rem 2rem 4rem; justify-content: flex-start; }
+        .articles-section.active { display: block; }
+        .article-detail { padding: 8rem 2rem 4rem; justify-content: flex-start; }
+        .avatar-container { width: 180px; height: 180px; border-radius: 50%; padding: 4px; background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent)); margin-bottom: 2rem; animation: avatarGlow 3s infinite ease-in-out; }
+        @keyframes avatarGlow { 0%, 100% { box-shadow: 0 0 30px rgba(0, 255, 136, 0.3); } 50% { box-shadow: 0 0 60px rgba(0, 255, 136, 0.6), 0 0 100px rgba(255, 0, 255, 0.3); } }
+        .avatar { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+        .title { font-family: 'Orbitron', sans-serif; font-size: 4rem; font-weight: 900; margin-bottom: 1rem; background: linear-gradient(135deg, #fff 0%, var(--primary) 50%, var(--accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .subtitle { font-size: 1.5rem; color: rgba(255, 255, 255, 0.6); margin-bottom: 2rem; font-weight: 300; }
+        .tagline { font-size: 1rem; color: var(--primary); margin-bottom: 3rem; letter-spacing: 0.3em; }
+        .social-links { display: flex; gap: 1.5rem; margin-top: 3rem; }
+        .social-link { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: white; text-decoration: none; font-size: 1.2rem; transition: all 0.3s; }
+        .social-link:hover { background: var(--primary); border-color: var(--primary); color: var(--dark); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3); }
+        .glow-orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.3; pointer-events: none; }
+        .orb-1 { width: 400px; height: 400px; background: var(--primary); top: 10%; left: -10%; animation: float 8s infinite ease-in-out; }
+        .orb-2 { width: 300px; height: 300px; background: var(--secondary); bottom: 20%; right: -5%; animation: float 10s infinite ease-in-out reverse; }
+        @keyframes float { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(30px, 30px); } }
+        .section-title { font-family: 'Orbitron', sans-serif; font-size: 2.5rem; margin-bottom: 3rem; text-align: center; color: var(--primary); }
+        .article-card { max-width: 800px; margin: 0 auto 2rem; padding: 2rem; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 1rem; cursor: pointer; transition: all 0.3s; }
+        .article-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0, 255, 136, 0.1); }
+        .article-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: white; }
+        .article-date { font-size: 0.8rem; color: var(--primary); margin-bottom: 0.5rem; }
+        .article-excerpt { color: rgba(255, 255, 255, 0.6); line-height: 1.6; }
+        .back-btn { display: inline-block; padding: 0.5rem 1.5rem; margin-bottom: 2rem; color: var(--primary); cursor: pointer; border: 1px solid var(--primary); border-radius: 0.5rem; transition: all 0.3s; }
+        .back-btn:hover { background: var(--primary); color: var(--dark); }
+        .detail-title { font-family: 'Orbitron', sans-serif; font-size: 2rem; margin-bottom: 1rem; color: white; }
+        .detail-date { color: var(--primary); margin-bottom: 2rem; }
+        .detail-content { max-width: 800px; margin: 0 auto; color: rgba(255, 255, 255, 0.8); line-height: 1.8; white-space: pre-wrap; }
+        footer { padding: 2rem; text-align: center; color: rgba(255, 255, 255, 0.3); font-size: 0.8rem; position: relative; z-index: 1; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+        @media (max-width: 768px) { .title { font-size: 2.5rem; } .nav-links { display: none; } nav { padding: 1rem 1.5rem; } }
     </style>
 </head>
 <body>
@@ -383,37 +78,28 @@
         </ul>
     </nav>
 
-    <!-- 首页 -->
     <section class="hero active" id="home">
         <div class="avatar-container">
             <img src="avatar.png" alt="头像" class="avatar">
         </div>
-        
         <h1 class="title">原子の学习之路</h1>
         <p class="subtitle">从零开始的大一学生 · 网络空间安全</p>
         <p class="tagline">THE DAWN WILL NEVER COME AGAIN</p>
-        
         <div class="social-links">
             <a href="https://github.com/7418520lyz" class="social-link" target="_blank" title="GitHub">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                </svg>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
             </a>
             <a href="https://space.bilibili.com/1652174632" class="social-link" target="_blank" title="Bilibili">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="#00A1D6">
-                    <path d="M17.817 6.627c-.247-.168-.577-.21-.87-.09l-2.93 1.2c-.45.183-.573.75-.247 1.15l1.143 1.467c.203.26.168.64-.093.852l-2.813 2.287c-.327.267-.89.168-1.11-.203l-1.467-2.467c-.168-.283-.523-.38-.8-.217l-2.853 1.667c-.513.3-.697.95-.393 1.37l2.04 2.82c.253.35.803.413 1.153.137l2.613-2.053c.327-.257.377-.723.11-1.04l-1.11-1.32c.563-.667 1.327-1.167 2.217-1.39.12-.027.243-.04.363-.04 1.627 0 2.95 1.323 2.95 2.95 0 .49-.123.96-.34 1.37l1.047 1.027c.367.36.96.27 1.2-.183l.72-1.357c.19-.36.08-.83-.277-1.043-.947-.563-2.047-.87-3.18-.87-.177 0-.353.01-.527.027z"/>
-                </svg>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#00A1D6"><path d="M17.817 6.627c-.247-.168-.577-.21-.87-.09l-2.93 1.2c-.45.183-.573.75-.247 1.15l1.143 1.467c.203.26.168.64-.093.852l-2.813 2.287c-.327.267-.89.168-1.11-.203l-1.467-2.467c-.168-.283-.523-.38-.8-.217l-2.853 1.667c-.513.3-.697.95-.393 1.37l2.04 2.82c.253.35.803.413 1.153.137l2.613-2.053c.327-.257.377-.723.11-1.04l-1.11-1.32c.563-.667 1.327-1.167 2.217-1.39.12-.027.243-.04.363-.04 1.627 0 2.95 1.323 2.95 2.95 0 .49-.123.96-.34 1.37l1.047 1.027c.367.36.96.27 1.2-.183l.72-1.357c.19-.36.08-.83-.277-1.043-.947-.563-2.047-.87-3.18-.87-.177 0-.353.01-.527.027z"/></svg>
             </a>
         </div>
     </section>
 
-    <!-- 文章列表 -->
     <section class="articles-section" id="articles">
         <h2 class="section-title">📝 文章列表</h2>
         <div id="article-list"></div>
     </section>
 
-    <!-- 文章详情 -->
     <section class="article-detail" id="article-detail">
         <span class="back-btn" onclick="showArticles()">← 返回文章列表</span>
         <h1 class="detail-title" id="detail-title"></h1>
@@ -426,61 +112,25 @@
     </footer>
 
     <script>
-        // 文章数据 - 主人想添加文章就告诉丛雨喵
-        const articles = [
-            {
-                id: 1,
-                title: "Hello World - 我的第一篇博客",
-                date: "2026-04-11",
-                excerpt: "这是我的第一篇博客！从今天开始我要记录学习网络安全的点点滴滴...",
-                content: `这是我的第一篇博客！
-
-从今天开始，我要记录学习网络安全的点点滴滴。
-
-我是大一学生，专业是网络空间安全。刚学完Linux基础命令，感觉好酷！
-
-接下来要学：
-- C语言
-- Python安全编程
-- CTF入门
-
-加油！💪
-
-—— 原子`
-            },
-            {
-                id: 2,
-                title: "Linux学习笔记 - 基础命令",
-                date: "2026-04-10",
-                excerpt: "今天学习了Linux的基础命令，包括ls、cd、mkdir等...",
-                content: `今日学习Linux基础命令：
-
-📁 文件操作
-- ls - 列出文件
-- cd - 切换目录
-- mkdir - 创建目录
-- rm - 删除文件
-
-🔍 搜索
-- find - 查找文件
-- grep - 查找内容
-
-💻 系统
-- ps - 查看进程
-- top - 查看资源
-
-加油！每天进步一点点！🌟`
+        // 从localStorage读取文章 - 和管理后台同步！
+        function getArticles() {
+            const stored = localStorage.getItem('my_articles');
+            if (stored) {
+                return JSON.parse(stored);
             }
-        ];
+            // 默认文章
+            return [
+                { id: 1, title: "Hello World - 我的第一篇博客", date: "2026-04-11", excerpt: "这是我的第一篇博客！从今天开始我要记录学习网络安全的点点滴滴...", content: "这是我的第一篇博客！\n\n从今天开始，我要记录学习网络安全的点点滴滴。\n\n我是大一学生，专业是网络空间安全。刚学完Linux基础命令，感觉好酷！\n\n加油！💪" },
+                { id: 2, title: "Linux学习笔记 - 基础命令", date: "2026-04-10", excerpt: "今天学习了Linux的基础命令，包括ls、cd、mkdir等...", content: "今日学习Linux基础命令：\n\n📁 文件操作\n- ls - 列出文件\n- cd - 切换目录\n- mkdir - 创建目录\n\n🔍 搜索\n- find - 查找文件\n- grep - 查找内容\n\n加油！每天进步一点点！🌟" }
+            ];
+        }
 
-        // 显示首页
         function showHome() {
             document.getElementById('home').classList.add('active');
             document.getElementById('articles').classList.remove('active');
             document.getElementById('article-detail').classList.remove('active');
         }
 
-        // 显示文章列表
         function showArticles() {
             document.getElementById('home').classList.remove('active');
             document.getElementById('articles').classList.add('active');
@@ -488,14 +138,17 @@
             renderArticleList();
         }
 
-        // 显示关于
         function showAbout() {
             alert('我是原子，大一学生，正在学习网络安全！');
         }
 
-        // 渲染文章列表
         function renderArticleList() {
+            const articles = getArticles();
             const list = document.getElementById('article-list');
+            if (articles.length === 0) {
+                list.innerHTML = '<p style="text-align:center;color:rgba(255,255,255,0.5);">暂无文章，快去添加吧！</p>';
+                return;
+            }
             list.innerHTML = articles.map(article => `
                 <div class="article-card" onclick="showArticle(${article.id})">
                     <div class="article-date">${article.date}</div>
@@ -505,21 +158,17 @@
             `).join('');
         }
 
-        // 显示文章详情
         function showArticle(id) {
-            const article = articles.find(a => a.id === id);
+            const article = getArticles().find(a => a.id === id);
             if (!article) return;
-            
             document.getElementById('home').classList.remove('active');
             document.getElementById('articles').classList.remove('active');
             document.getElementById('article-detail').classList.add('active');
-            
             document.getElementById('detail-title').textContent = article.title;
             document.getElementById('detail-date').textContent = article.date;
             document.getElementById('detail-content').textContent = article.content;
         }
 
-        // 生成星星
         function createStars() {
             const container = document.getElementById('stars');
             for (let i = 0; i < 200; i++) {
