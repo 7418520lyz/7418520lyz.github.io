@@ -86,6 +86,7 @@
             background: linear-gradient(135deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            cursor: pointer;
         }
 
         .nav-links {
@@ -100,6 +101,7 @@
             font-size: 0.9rem;
             transition: all 0.3s;
             position: relative;
+            cursor: pointer;
         }
 
         .nav-links a::after {
@@ -117,13 +119,9 @@
             color: var(--primary);
         }
 
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
         .hero {
             min-height: 100vh;
-            display: flex;
+            display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -131,6 +129,10 @@
             padding: 2rem;
             position: relative;
             z-index: 1;
+        }
+
+        .hero.active {
+            display: flex;
         }
 
         .avatar-container {
@@ -214,46 +216,6 @@
             box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
         }
 
-        .scroll-hint {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(-10px); }
-        }
-
-        .scroll-hint span {
-            display: block;
-            width: 20px;
-            height: 30px;
-            border: 2px solid var(--primary);
-            border-radius: 10px;
-            position: relative;
-        }
-
-        .scroll-hint span::after {
-            content: '';
-            position: absolute;
-            top: 6px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 4px;
-            height: 8px;
-            background: var(--primary);
-            border-radius: 2px;
-            animation: scrollDot 2s infinite;
-        }
-
-        @keyframes scrollDot {
-            0%, 100% { opacity: 1; top: 6px; }
-            50% { opacity: 0.3; top: 16px; }
-        }
-
         .glow-orb {
             position: absolute;
             border-radius: 50%;
@@ -285,6 +247,111 @@
             50% { transform: translate(30px, 30px); }
         }
 
+        /* 文章列表 */
+        .articles-section {
+            display: none;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+        }
+
+        .articles-section.active {
+            display: block;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--primary);
+        }
+
+        .article-card {
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .article-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.1);
+        }
+
+        .article-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .article-date {
+            font-size: 0.8rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .article-excerpt {
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.6;
+        }
+
+        /* 文章详情 */
+        .article-detail {
+            display: none;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+        }
+
+        .article-detail.active {
+            display: block;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            cursor: pointer;
+            border: 1px solid var(--primary);
+            border-radius: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+            color: var(--dark);
+        }
+
+        .detail-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .detail-date {
+            color: var(--primary);
+            margin-bottom: 2rem;
+        }
+
+        .detail-content {
+            max-width: 800px;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            white-space: pre-wrap;
+        }
+
         footer {
             padding: 2rem;
             text-align: center;
@@ -308,16 +375,16 @@
     <div class="glow-orb orb-2"></div>
 
     <nav>
-        <div class="logo">ATOM</div>
+        <div class="logo" onclick="showHome()">ATOM</div>
         <ul class="nav-links">
-            <li><a href="#">首页</a></li>
-            <li><a href="#">文章</a></li>
-            <li><a href="#">项目</a></li>
-            <li><a href="#">关于</a></li>
+            <li><a onclick="showHome()">首页</a></li>
+            <li><a onclick="showArticles()">文章</a></li>
+            <li><a onclick="showAbout()">关于</a></li>
         </ul>
     </nav>
 
-    <section class="hero">
+    <!-- 首页 -->
+    <section class="hero active" id="home">
         <div class="avatar-container">
             <img src="avatar.png" alt="头像" class="avatar">
         </div>
@@ -327,24 +394,31 @@
         <p class="tagline">THE DAWN WILL NEVER COME AGAIN</p>
         
         <div class="social-links">
-            <!-- GitHub -->
             <a href="https://github.com/7418520lyz" class="social-link" target="_blank" title="GitHub">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                 </svg>
             </a>
-            <!-- Bilibili - 真正的B站图标 -->
             <a href="https://space.bilibili.com/1652174632" class="social-link" target="_blank" title="Bilibili">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="#00A1D6">
-                    <path d="M17.817 6.627c-.247-.168-.577-.21-.87-.09l-2.93 1.2c-.45.183-.573.75-.247 1.15l1.143 1.467c.203.26.168.64-.093.852l-2.813 2.287c-.327.267-.89.168-1.11-.203l-1.467-2.467c-.168-.283-.523-.38-.8-.217l-2.853 1.667c-.513.3-.697.95-.393 1.37l2.04 2.82c.253.35.803.413 1.153.137l2.613-2.053c.327-.257.377-.723.11-1.04l-1.11-1.32c.563-.667 1.327-1.167 2.217-1.39.12-.027.243-.04.363-.04 1.627 0 2.95 1.323 2.95 2.95 0 .49-.123.96-.34 1.37l1.047 1.027c.367.36.96.27 1.2-.183l.72-1.357c.19-.36.08-.83-.277-1.043-.947-.563-2.047-.87-3.18-.87-.177 0-.353.01-.527.027zm3.183 3.68c1.373 0 2.487 1.114 2.487 2.487s-1.114 2.487-2.487 2.487-2.487-1.114-2.487-2.487 1.114-2.487 2.487-2.487z"/>
-                    <path d="M2.957 11.513c-.257.37-.167.86.217 1.153l3.21 2.457c.283.217.753.167 1.04-.11l1.32-1.33c.217-.22.22-.6.01-.853l-1.97-2.32c-.168-.197-.48-.26-.71-.143l-2.953 1.203c-.443.18-.583.73-.163 1.103l.2.187v.053zm16.087-3.043c-.743-.193-1.37.33-1.523.993-.153.663.13 1.253.71 1.44.58.187 1.167-.093 1.36-.7.193-.607-.13-1.22-.71-1.37-.077-.02-.157-.027-.237-.03-.193-.023-.387-.023-.58 0-.073.007-.147.017-.22.03-.193.05-.37.117-.54.2z"/>
+                    <path d="M17.817 6.627c-.247-.168-.577-.21-.87-.09l-2.93 1.2c-.45.183-.573.75-.247 1.15l1.143 1.467c.203.26.168.64-.093.852l-2.813 2.287c-.327.267-.89.168-1.11-.203l-1.467-2.467c-.168-.283-.523-.38-.8-.217l-2.853 1.667c-.513.3-.697.95-.393 1.37l2.04 2.82c.253.35.803.413 1.153.137l2.613-2.053c.327-.257.377-.723.11-1.04l-1.11-1.32c.563-.667 1.327-1.167 2.217-1.39.12-.027.243-.04.363-.04 1.627 0 2.95 1.323 2.95 2.95 0 .49-.123.96-.34 1.37l1.047 1.027c.367.36.96.27 1.2-.183l.72-1.357c.19-.36.08-.83-.277-1.043-.947-.563-2.047-.87-3.18-.87-.177 0-.353.01-.527.027z"/>
                 </svg>
             </a>
         </div>
+    </section>
 
-        <div class="scroll-hint">
-            <span></span>
-        </div>
+    <!-- 文章列表 -->
+    <section class="articles-section" id="articles">
+        <h2 class="section-title">📝 文章列表</h2>
+        <div id="article-list"></div>
+    </section>
+
+    <!-- 文章详情 -->
+    <section class="article-detail" id="article-detail">
+        <span class="back-btn" onclick="showArticles()">← 返回文章列表</span>
+        <h1 class="detail-title" id="detail-title"></h1>
+        <p class="detail-date" id="detail-date"></p>
+        <div class="detail-content" id="detail-content"></div>
     </section>
 
     <footer>
@@ -352,6 +426,100 @@
     </footer>
 
     <script>
+        // 文章数据 - 主人想添加文章就告诉丛雨喵
+        const articles = [
+            {
+                id: 1,
+                title: "Hello World - 我的第一篇博客",
+                date: "2026-04-11",
+                excerpt: "这是我的第一篇博客！从今天开始我要记录学习网络安全的点点滴滴...",
+                content: `这是我的第一篇博客！
+
+从今天开始，我要记录学习网络安全的点点滴滴。
+
+我是大一学生，专业是网络空间安全。刚学完Linux基础命令，感觉好酷！
+
+接下来要学：
+- C语言
+- Python安全编程
+- CTF入门
+
+加油！💪
+
+—— 原子`
+            },
+            {
+                id: 2,
+                title: "Linux学习笔记 - 基础命令",
+                date: "2026-04-10",
+                excerpt: "今天学习了Linux的基础命令，包括ls、cd、mkdir等...",
+                content: `今日学习Linux基础命令：
+
+📁 文件操作
+- ls - 列出文件
+- cd - 切换目录
+- mkdir - 创建目录
+- rm - 删除文件
+
+🔍 搜索
+- find - 查找文件
+- grep - 查找内容
+
+💻 系统
+- ps - 查看进程
+- top - 查看资源
+
+加油！每天进步一点点！🌟`
+            }
+        ];
+
+        // 显示首页
+        function showHome() {
+            document.getElementById('home').classList.add('active');
+            document.getElementById('articles').classList.remove('active');
+            document.getElementById('article-detail').classList.remove('active');
+        }
+
+        // 显示文章列表
+        function showArticles() {
+            document.getElementById('home').classList.remove('active');
+            document.getElementById('articles').classList.add('active');
+            document.getElementById('article-detail').classList.remove('active');
+            renderArticleList();
+        }
+
+        // 显示关于
+        function showAbout() {
+            alert('我是原子，大一学生，正在学习网络安全！');
+        }
+
+        // 渲染文章列表
+        function renderArticleList() {
+            const list = document.getElementById('article-list');
+            list.innerHTML = articles.map(article => `
+                <div class="article-card" onclick="showArticle(${article.id})">
+                    <div class="article-date">${article.date}</div>
+                    <h3 class="article-title">${article.title}</h3>
+                    <p class="article-excerpt">${article.excerpt}</p>
+                </div>
+            `).join('');
+        }
+
+        // 显示文章详情
+        function showArticle(id) {
+            const article = articles.find(a => a.id === id);
+            if (!article) return;
+            
+            document.getElementById('home').classList.remove('active');
+            document.getElementById('articles').classList.remove('active');
+            document.getElementById('article-detail').classList.add('active');
+            
+            document.getElementById('detail-title').textContent = article.title;
+            document.getElementById('detail-date').textContent = article.date;
+            document.getElementById('detail-content').textContent = article.content;
+        }
+
+        // 生成星星
         function createStars() {
             const container = document.getElementById('stars');
             for (let i = 0; i < 200; i++) {
