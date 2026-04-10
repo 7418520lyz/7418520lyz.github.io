@@ -21,7 +21,6 @@
         @keyframes fadeInUp { 0% { opacity: 0; transform: translateY(50px); } 100% { opacity: 1; transform: translateY(0); } }
         @keyframes fadeInScale { 0% { opacity: 0; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1); } }
         @keyframes floatIn { 0% { opacity: 0; transform: translateY(30px) scale(0.95); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
-        .animate-fade-in { animation: fadeInUp 0.8s ease-out forwards; opacity: 0; }
         .hero.active .avatar-container { animation: fadeInScale 0.8s ease-out 0.2s forwards; opacity: 0; }
         .hero.active .title { animation: fadeInUp 0.8s ease-out 0.4s forwards; opacity: 0; }
         .hero.active .subtitle { animation: fadeInUp 0.8s ease-out 0.6s forwards; opacity: 0; }
@@ -57,7 +56,6 @@
         
         .section-title { font-family: 'Orbitron', sans-serif; font-size: 2.5rem; margin-bottom: 1.5rem; text-align: center; color: var(--primary); }
         
-        /* 分区筛选 */
         .category-filter { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-bottom: 2rem; }
         .category-btn { padding: 0.5rem 1rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 0.5rem; color: rgba(255,255,255,0.7); cursor: pointer; transition: all 0.3s; }
         .category-btn:hover, .category-btn.active { background: var(--primary); color: var(--dark); border-color: var(--primary); }
@@ -78,7 +76,7 @@
         .detail-content { max-width: 800px; margin: 0 auto; color: rgba(255, 255, 255, 0.8); line-height: 1.8; white-space: pre-wrap; }
         footer { padding: 2rem; text-align: center; color: rgba(255, 255, 255, 0.3); font-size: 0.8rem; position: relative; z-index: 1; border-top: 1px solid rgba(255, 255, 255, 0.05); }
         
-        @media (max-width: 768px) { .title { font-size: 2rem; } .nav-links { display: flex; gap: 1rem; } .nav-links a { font-size: 0.8rem; } .hero { padding: 1rem; } .title { font-size: 2rem; } } nav { padding: 1rem 1.5rem; } body { cursor: auto; } .cursor, .cursor-dot { display: none; } }
+        @media (max-width: 768px) { .title { font-size: 2rem; } .nav-links { display: flex; gap: 1rem; } .nav-links a { font-size: 0.8rem; } .hero { padding: 1rem; } body { cursor: auto; } .cursor, .cursor-dot { display: none; } }
     </style>
 </head>
 <body>
@@ -131,6 +129,18 @@
     <footer><p>© 2026 原子の学习之路 · Built with 💚 by 丛雨喵</p></footer>
 
     <script>
+        // 从GitHub加载数据
+        let blogData = { categories: ['默认'], articles: [] };
+        
+        async function loadData() {
+            try {
+                const response = await fetch('data.json');
+                blogData = await response.json();
+            } catch (e) {
+                console.log('Using default data');
+            }
+        }
+        
         // 鼠标跟随
         const cursor = document.querySelector('.cursor'), cursorDot = document.querySelector('.cursor-dot');
         let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
@@ -150,19 +160,6 @@
             requestAnimationFrame(animateCursor);
         } animateCursor();
 
-        // 数据
-        function getCategories() {
-            const stored = localStorage.getItem('my_categories');
-            return stored ? JSON.parse(stored) : ['默认'];
-        }
-        function getArticles() {
-            const stored = localStorage.getItem('my_articles');
-            return stored ? JSON.parse(stored) : [
-                { id: 1, title: "Hello World", date: "2026-04-11", category: "默认", excerpt: "第一篇博客！", content: "第一篇博客！" },
-                { id: 2, title: "Linux命令", date: "2026-04-10", category: "默认", excerpt: "Linux学习笔记", content: "Linux学习笔记" }
-            ];
-        }
-
         let currentCategory = '全部';
 
         function showHome() {
@@ -181,18 +178,13 @@
         function showAbout() { alert('我是原子，大一学生，正在学习网络安全！'); }
 
         function renderArticleList() {
-            const articles = getArticles();
-            const categories = getCategories();
             const list = document.getElementById('article-list');
-            
-            // 渲染分区筛选
             const filter = document.getElementById('category-filter');
-            filter.innerHTML = ['全部', ...categories].map(c => 
+            filter.innerHTML = ['全部', ...blogData.categories].map(c => 
                 `<button class="category-btn ${c === currentCategory ? 'active' : ''}" onclick="filterByCategory('${c}')">${c}</button>`
             ).join('');
 
-            // 过滤文章
-            const filtered = currentCategory === '全部' ? articles : articles.filter(a => a.category === currentCategory);
+            const filtered = currentCategory === '全部' ? blogData.articles : blogData.articles.filter(a => a.category === currentCategory);
             
             if (filtered.length === 0) {
                 list.innerHTML = '<div class="article-card" style="text-align:center;color:rgba(255,255,255,0.5);">暂无文章，快去添加吧！</div>';
@@ -200,9 +192,7 @@
             }
             list.innerHTML = filtered.map(article => `
                 <div class="article-card" onclick="showArticle(${article.id})">
-                    <div class="article-meta">
-                        <span class="article-tag">${article.category}</span>
-                    </div>
+                    <div class="article-meta"><span class="article-tag">${article.category}</span></div>
                     <h3 class="article-title">${article.title}</h3>
                     <p class="article-date">${article.date}</p>
                     <p class="article-excerpt">${article.excerpt}</p>
@@ -213,7 +203,7 @@
         function filterByCategory(cat) { currentCategory = cat; renderArticleList(); }
 
         function showArticle(id) {
-            const article = getArticles().find(a => a.id === id);
+            const article = blogData.articles.find(a => a.id === id);
             if (!article) return;
             document.getElementById('home').classList.remove('active');
             document.getElementById('articles').classList.remove('active');
@@ -238,7 +228,8 @@
                 container.appendChild(star);
             }
         }
-        createStars();
+        
+        loadData().then(() => createStars());
     </script>
 </body>
 </html>
