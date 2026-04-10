@@ -1,4 +1,16 @@
 {
-  "categories": ["默认"],
-  "articles": []
+  "categories": [
+    "默认",
+    "linux"
+  ],
+  "articles": [
+    {
+      "id": 1,
+      "title": "测试",
+      "date": "2026-04-10",
+      "category": "linux",
+      "excerpt": "测试",
+      "content": "测试"
+    }
+  ]
 }
