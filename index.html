@@ -9,7 +9,22 @@
     <style>
         :root { --primary: #00ff88; --secondary: #ff00ff; --accent: #00d4ff; --dark: #0a0a0f; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Noto Sans SC', sans-serif; background: var(--dark); color: white; overflow-x: hidden; }
+        body { font-family: 'Noto Sans SC', sans-serif; background: var(--dark); color: white; overflow-x: hidden; cursor: none; }
+        .cursor { position: fixed; width: 20px; height: 20px; border: 2px solid var(--primary); border-radius: 50%; pointer-events: none; z-index: 9999; transition: transform 0.1s; mix-blend-mode: difference; }
+        .cursor-dot { position: fixed; width: 8px; height: 8px; background: var(--primary); border-radius: 50%; pointer-events: none; z-index: 9999; }
+        .trail { position: fixed; width: 10px; height: 10px; background: var(--primary); border-radius: 50%; pointer-events: none; z-index: 9998; opacity: 0.8; animation: trailFade 1s ease-out forwards; }
+        @keyframes trailFade { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(0); opacity: 0; } }
+        .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+        .star { position: absolute; background: white; border-radius: 50%; animation: twinkle 2s infinite ease-in-out; }
+        @keyframes twinkle { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } }
+        @keyframes fadeInUp { 0% { opacity: 0; transform: translateY(50px); } 100% { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInScale { 0% { opacity: 0; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1); } }
+        @keyframes floatIn { 0% { opacity: 0; transform: translateY(30px) scale(0.95); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+        .hero.active .avatar-container { animation: fadeInScale 0.8s ease-out 0.2s forwards; opacity: 0; }
+        .hero.active .title { animation: fadeInUp 0.8s ease-out 0.4s forwards; opacity: 0; }
+        .hero.active .subtitle { animation: fadeInUp 0.8s ease-out 0.6s forwards; opacity: 0; }
+        .hero.active .tagline { animation: fadeInUp 0.8s ease-out 0.8s forwards; opacity: 0; }
+        .hero.active .social-links { animation: floatIn 0.8s ease-out 1s forwards; opacity: 0; }
         nav { position: fixed; top: 0; left: 0; right: 0; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; z-index: 100; background: rgba(10, 10, 15, 0.8); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(0, 255, 136, 0.1); }
         .logo { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; background: linear-gradient(135deg, var(--primary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; }
         .nav-links { display: flex; gap: 2rem; list-style: none; }
@@ -18,15 +33,20 @@
         .hero, .articles-section, .article-detail { display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem; position: relative; z-index: 1; min-height: 100vh; }
         .hero.active, .articles-section.active, .article-detail.active { display: flex; }
         .articles-section { padding: 8rem 2rem 4rem; justify-content: flex-start; }
+        .articles-section.active, .article-detail.active { animation: fadeInUp 0.6s ease-out; }
         .article-detail { padding: 8rem 2rem 4rem; justify-content: flex-start; }
         .avatar-container { width: 180px; height: 180px; border-radius: 50%; padding: 4px; background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent)); margin-bottom: 2rem; }
         .avatar { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
-        .title { font-family: 'Orbitron', sans-serif; font-size: 4rem; font-weight: 900; margin-bottom: 1rem; background: linear-gradient(135deg, #fff 0%, var(--primary) 50%, var(--accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .title { font-family: 'Orbitron', sans-serif; font-size: 4rem; font-weight: 900; margin-bottom: 1rem; background: linear-gradient(135deg, #fff 0%, var(--primary) 50%, var(--accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.5)); }
         .subtitle { font-size: 1.5rem; color: rgba(255, 255, 255, 0.6); margin-bottom: 2rem; font-weight: 300; }
         .tagline { font-size: 1rem; color: var(--primary); margin-bottom: 3rem; letter-spacing: 0.3em; }
+        .social-links { display: flex; gap: 1.5rem; margin-top: 3rem; }
+        .social-link { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: white; text-decoration: none; font-size: 1.2rem; transition: all 0.3s; }
+        .social-link:hover { background: var(--primary); color: var(--dark); transform: scale(1.1); box-shadow: 0 0 30px rgba(0, 255, 136, 0.5); }
         .glow-orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.3; pointer-events: none; }
-        .orb-1 { width: 400px; height: 400px; background: var(--primary); top: 10%; left: -10%; }
-        .orb-2 { width: 300px; height: 300px; background: var(--secondary); bottom: 20%; right: -5%; }
+        .orb-1 { width: 400px; height: 400px; background: var(--primary); top: 10%; left: -10%; animation: float 8s infinite ease-in-out; }
+        .orb-2 { width: 300px; height: 300px; background: var(--secondary); bottom: 20%; right: -5%; animation: float 10s infinite ease-in-out reverse; }
+        @keyframes float { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(30px, 30px); } }
         .section-title { font-family: 'Orbitron', sans-serif; font-size: 2.5rem; margin-bottom: 1.5rem; text-align: center; color: var(--primary); }
         .category-filter { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-bottom: 2rem; }
         .category-btn { padding: 0.5rem 1rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 0.5rem; color: rgba(255,255,255,0.7); cursor: pointer; transition: all 0.3s; }
@@ -44,15 +64,18 @@
         .detail-meta { display: flex; gap: 1rem; align-items: center; margin-bottom: 2rem; }
         .detail-date { color: rgba(255,255,255,0.5); }
         .detail-content-wrapper { max-width: 800px; width: 100%; margin: 0 auto; padding: 2rem; background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(10px); border-radius: 1rem; border: 1px solid rgba(255, 255, 255, 0.15); }
-        .detail-content { color: rgba(255, 255, 255, 0.9); line-height: 1.8; white-space: pre-wrap; text-align: left; font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif; font-size: 1rem; }
+        .detail-content { color: rgba(255, 255, 255, 0.9); line-height: 1.8; white-space: pre-wrap; text-align: left; font-size: 1rem; }
         .sort-btns { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; justify-content: flex-end; }
         .sort-btn { padding: 0.4rem 0.8rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 0.4rem; color: rgba(255,255,255,0.7); cursor: pointer; transition: all 0.3s; font-size: 0.85rem; }
         .sort-btn:hover, .sort-btn.active { background: var(--primary); color: var(--dark); border-color: var(--primary); }
         footer { padding: 2rem; text-align: center; color: rgba(255, 255, 255, 0.3); font-size: 0.8rem; position: relative; z-index: 1; border-top: 1px solid rgba(255, 255, 255, 0.05); }
-        @media (max-width: 768px) { .title { font-size: 2rem; } body { cursor: auto; } }
+        @media (max-width: 768px) { .title { font-size: 2rem; } body { cursor: auto; } .cursor, .cursor-dot { display: none; } }
     </style>
 </head>
 <body>
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+    <div class="stars" id="stars"></div>
     <div class="glow-orb orb-1"></div>
     <div class="glow-orb orb-2"></div>
     <nav>
@@ -68,6 +91,10 @@
         <h1 class="title">原子の学习之路</h1>
         <p class="subtitle">从零开始的大一学生 · 网络空间安全</p>
         <p class="tagline">THE DAWN WILL NEVER COME AGAIN</p>
+        <div class="social-links">
+            <a href="https://github.com/7418520lyz" class="social-link" target="_blank" title="GitHub">★</a>
+            <a href="https://space.bilibili.com/1652174632" class="social-link" target="_blank" title="Bilibili">B</a>
+        </div>
     </section>
     <section class="articles-section" id="articles">
         <h2 class="section-title">📝 文章列表</h2>
@@ -94,6 +121,20 @@
         const blogData = {"categories":["默认","linux"],"articles":[{"id":6,"title":"创建目录命令(mkdir)","date":"2026-04-11 10:30:00","category":"linux","excerpt":"mkdir命令语法","content":"##mkdir命令\n语法:mkdir [-p] 路径\n-p自动创建父目录"},{"id":5,"title":"特殊路径符","date":"2026-04-11 10:00:00","category":"linux","excerpt":".当前目录..上一级~HOME","content":".当前目录\n..上一级\n~HOME目录"},{"id":4,"title":"目录切换(cd/pwd)","date":"2026-04-11 09:30:00","category":"linux","excerpt":"cd切换pwd显示","content":"##cd切换目录\n##pwd显示当前目录"},{"id":3,"title":"ls命令","date":"2026-04-11 09:00:00","category":"linux","excerpt":"ls列出文件-a全部","content":"##ls命令\n-a全部文件\n-l列表形式"},{"id":2,"title":"命令入门","date":"2026-04-11 08:30:00","category":"linux","excerpt":"command选项参数","content":"##命令格式\ncommand [-options] [parameter]"},{"id":1,"title":"linux目录结构","date":"2026-04-11 08:00:00","category":"linux","excerpt":"树形结构","content":"Linux目录是树形结构"}]};
         let currentCategory = '全部';
         let currentSort = 'new';
+        const cursor = document.querySelector('.cursor'), cursorDot = document.querySelector('.cursor-dot');
+        let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX; mouseY = e.clientY;
+            const trail = document.createElement('div');
+            trail.className = 'trail';
+            trail.style.left = e.clientX + 'px';
+            trail.style.top = e.clientY + 'px';
+            document.body.appendChild(trail);
+            setTimeout(() => trail.remove(), 1000);
+        });
+        function animateCursor() { cursorX += (mouseX - cursorX) * 0.1; cursorY += (mouseY - cursorY) * 0.1; cursor.style.left = cursorX + 'px'; cursor.style.top = cursorY + 'px'; cursorDot.style.left = mouseX + 'px'; cursorDot.style.top = mouseY + 'px'; requestAnimationFrame(animateCursor); }
+        animateCursor();
+        function createStars() { const container = document.getElementById('stars'); for (let i = 0; i < 200; i++) { const star = document.createElement('div'); star.className = 'star'; star.style.left = Math.random() * 100 + '%'; star.style.top = Math.random() * 100 + '%'; star.style.width = Math.random() * 3 + 1 + 'px'; star.style.height = star.style.width; star.style.animationDelay = Math.random() * 3 + 's'; star.style.animationDuration = (Math.random() * 2 + 2) + 's'; container.appendChild(star); } }
         function setSort(sort) { currentSort = sort; document.getElementById('sort-new').classList.toggle('active', sort === 'new'); document.getElementById('sort-old').classList.toggle('active', sort === 'old'); renderArticleList(); }
         function showHome() { document.getElementById('home').classList.add('active'); document.getElementById('articles').classList.remove('active'); document.getElementById('article-detail').classList.remove('active'); }
         function showArticles() { document.getElementById('home').classList.remove('active'); document.getElementById('articles').classList.add('active'); document.getElementById('article-detail').classList.remove('active'); renderArticleList(); }
@@ -119,6 +160,7 @@
             document.getElementById('detail-date').textContent = article.date;
             document.getElementById('detail-content').textContent = article.content;
         }
+        createStars();
     </script>
 </body>
 </html>
