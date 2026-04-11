@@ -236,6 +236,7 @@
             filtered.sort((a, b) => {
                 const dateA = new Date(a.date);
                 const dateB = new Date(b.date);
+                if (isNaN(dateA) || isNaN(dateB)) return 0;
                 return currentSort === 'new' ? dateB - dateA : dateA - dateB;
             });
             
