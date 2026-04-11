@@ -73,7 +73,39 @@
         .detail-title { font-family: 'Orbitron', sans-serif; font-size: 2rem; margin-bottom: 1rem; color: white; }
         .detail-meta { display: flex; gap: 1rem; align-items: center; margin-bottom: 2rem; }
         .detail-date { color: rgba(255,255,255,0.5); }
-        .detail-content { max-width: 800px; margin: 0 auto; color: rgba(255, 255, 255, 0.8); line-height: 1.8; white-space: pre-wrap; }
+        /* 文章内容样式改进 */
+        .detail-content-wrapper { 
+            max-width: 800px; 
+            width: 100%;
+            margin: 0 auto; 
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .detail-content { 
+            color: rgba(255, 255, 255, 0.9); 
+            line-height: 1.8; 
+            white-space: pre-wrap;
+            text-align: left;
+            font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+            font-size: 1rem;
+        }
+        /* 排序按钮 */
+        .sort-btns { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; justify-content: flex-end; }
+        .sort-btn { 
+            padding: 0.4rem 0.8rem; 
+            background: rgba(255,255,255,0.1); 
+            border: 1px solid rgba(255,255,255,0.2); 
+            border-radius: 0.4rem; 
+            color: rgba(255,255,255,0.7); 
+            cursor: pointer; 
+            transition: all 0.3s;
+            font-size: 0.85rem;
+        }
+        .sort-btn:hover, .sort-btn.active { background: var(--primary); color: var(--dark); border-color: var(--primary); }
         footer { padding: 2rem; text-align: center; color: rgba(255, 255, 255, 0.3); font-size: 0.8rem; position: relative; z-index: 1; border-top: 1px solid rgba(255, 255, 255, 0.05); }
         
         @media (max-width: 768px) { .title { font-size: 2rem; } .nav-links { display: flex; gap: 1rem; } .nav-links a { font-size: 0.8rem; } .hero { padding: 1rem; } body { cursor: auto; } .cursor, .cursor-dot { display: none; } }
@@ -112,18 +144,24 @@
 
     <section class="articles-section" id="articles">
         <h2 class="section-title">📝 文章列表</h2>
+        <div class="sort-btns">
+            <button class="sort-btn active" id="sort-new" onclick="setSort('new')">最新优先</button>
+            <button class="sort-btn" id="sort-old" onclick="setSort('old')">最早优先</button>
+        </div>
         <div class="category-filter" id="category-filter"></div>
         <div id="article-list"></div>
     </section>
 
     <section class="article-detail" id="article-detail">
         <span class="back-btn" onclick="showArticles()">← 返回文章列表</span>
-        <h1 class="detail-title" id="detail-title"></h1>
-        <div class="detail-meta">
-            <span class="article-tag" id="detail-category"></span>
-            <span class="detail-date" id="detail-date"></span>
+        <div class="detail-content-wrapper">
+            <h1 class="detail-title" id="detail-title"></h1>
+            <div class="detail-meta">
+                <span class="article-tag" id="detail-category"></span>
+                <span class="detail-date" id="detail-date"></span>
+            </div>
+            <div class="detail-content" id="detail-content"></div>
         </div>
-        <div class="detail-content" id="detail-content"></div>
     </section>
 
     <footer><p>© 2026 原子の学习之路 · Built with 💚 by 丛雨喵</p></footer>
@@ -161,6 +199,14 @@
         } animateCursor();
 
         let currentCategory = '全部';
+        let currentSort = 'new';
+
+        function setSort(sort) {
+            currentSort = sort;
+            document.getElementById('sort-new').classList.toggle('active', sort === 'new');
+            document.getElementById('sort-old').classList.toggle('active', sort === 'old');
+            renderArticleList();
+        }
 
         function showHome() {
             document.getElementById('home').classList.add('active');
@@ -184,7 +230,14 @@
                 `<button class="category-btn ${c === currentCategory ? 'active' : ''}" onclick="filterByCategory('${c}')">${c}</button>`
             ).join('');
 
-            const filtered = currentCategory === '全部' ? blogData.articles : blogData.articles.filter(a => a.category === currentCategory);
+            let filtered = currentCategory === '全部' ? [...blogData.articles] : blogData.articles.filter(a => a.category === currentCategory);
+            
+            // 排序
+            filtered.sort((a, b) => {
+                const dateA = new Date(a.date);
+                const dateB = new Date(b.date);
+                return currentSort === 'new' ? dateB - dateA : dateA - dateB;
+            });
             
             if (filtered.length === 0) {
                 list.innerHTML = '<div class="article-card" style="text-align:center;color:rgba(255,255,255,0.5);">暂无文章，快去添加吧！</div>';
