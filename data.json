@@ -5,6 +5,30 @@
   ],
   "articles": [
     {
+      "id": 6,
+      "title": "创建目录命令(mkdir)",
+      "date": "2026-04-11",
+      "category": "linux",
+      "excerpt": "##mkdir命令(注意权限哦)\n\n语法:mkdir [-p] linux路径\n\n-p可选，表示自动...",
+      "content": "##mkdir命令(注意权限哦)\n\n语法:mkdir [-p] linux路径\n\n-p可选，表示自动创建不存在的父目录，适用于创建连续多层级的目录\n例如：mkdir -p liz/text/text2"
+    },
+    {
+      "id": 5,
+      "title": "特殊路径符",
+      "date": "2026-04-11",
+      "category": "linux",
+      "excerpt": ".\t表示当前目录，比如:\t\tcd ./Desktop表示切换到当前目录下的Desktop目录内，和c...",
+      "content": ".\t表示当前目录，比如:\t\tcd ./Desktop表示切换到当前目录下的Desktop目录内，和cd Desktop效果一致\n\t..\t表示上一级目录，比如：\tcd .. 即可回到上一级目录,cd ../..切换到上两级目录\n\t~\t表示HOME目录，比如：\tcd ~ 即可切换到HOME目录或cd ~/Desktop,切换到HOME内的Desktop目录"
+    },
+    {
+      "id": 4,
+      "title": "目录切换相关命令（cd/pwd）",
+      "date": "2026-04-11",
+      "category": "linux",
+      "excerpt": "##cd\n语法:    cd[linux路径]\n作用:\t    切换目录\ncd命令不写参数会直接回到...",
+      "content": "##cd\n语法:    cd[linux路径]\n作用:\t    切换目录\ncd命令不写参数会直接回到home\n\n\n\t##pwd\n语法：无\n作用：告诉你当前目录是什么"
+    },
+    {
       "id": 3,
       "title": "ls命令",
       "date": "2026-04-11",
