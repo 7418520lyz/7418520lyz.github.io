@@ -167,26 +167,18 @@
     <footer><p>© 2026 原子の学习之路 · Built with 💚 by 丛雨喵</p></footer>
 
     <script>
-        // 从GitHub加载数据
-        let blogData = { categories: ['默认'], articles: [] };
-        
         async function loadData() {
             try {
-                // 尝试多个URL
-                const urls = ['data.json', './data.json', '/data.json'];
-                for (const url of urls) {
-                    try {
-                        const response = await fetch(url);
-                        if (response.ok) {
-                            blogData = await response.json();
-                            console.log('Data loaded from:', url);
-                            return;
-                        }
-                    } catch(e) { console.log('Failed:', url); }
+                // 使用绝对URL
+                const response = await fetch('https://7418520lyz.github.io/data.json');
+                if (response.ok) {
+                    blogData = await response.json();
+                    console.log('Data loaded!');
+                } else {
+                    console.log('Response not ok');
                 }
-                console.log('Using default data');
             } catch (e) {
-                console.log('Using default data', e);
+                console.log('Error:', e);
             }
         }
         
