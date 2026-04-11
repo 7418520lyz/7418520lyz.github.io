@@ -92,12 +92,8 @@
         <p class="subtitle">从零开始的大一学生 · 网络空间安全</p>
         <p class="tagline">THE DAWN WILL NEVER COME AGAIN</p>
         <div class="social-links">
-            <a href="https://github.com/7418520lyz" class="social-link" target="_blank" title="GitHub">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-            </a>
-            <a href="https://space.bilibili.com/1652174632" class="social-link" target="_blank" title="Bilibili">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="#00A1D6"><path d="M17.817 6.627c-.247-.168-.577-.21-.87-.09l-2.93 1.2c-.45.183-.573.75-.247 1.15l1.143 1.467c.203.26.168.64-.093.852l-2.813 2.287c-.327.267-.89.168-1.11-.203l-1.467-2.467c-.168-.283-.523-.38-.8-.217l-2.853 1.667c-.513.3-.697.95-.393 1.37l2.04 2.82c.253.35.803.413 1.153.137l2.613-2.053c.327-.257.377-.723.11-1.04l-1.11-1.32c.563-.667 1.327-1.167 2.217-1.39.12-.027.243-.04.363-.04 1.627 0 2.95 1.323 2.95 2.95 0 .49-.123.96-.34 1.37l1.047 1.027c.367.36.96.27 1.2-.183l.72-1.357c.19-.36.08-.83-.277-1.043-.947-.563-2.047-.87-3.18-.87-.177 0-.353.01-.527.027z"/></svg>
-            </a>
+            <a href="https://github.com/7418520lyz" class="social-link" target="_blank" title="GitHub">★</a>
+            <a href="https://space.bilibili.com/1652174632" class="social-link" target="_blank" title="Bilibili">B</a>
         </div>
     </section>
     <section class="articles-section" id="articles">
@@ -122,7 +118,23 @@
     </section>
     <footer><p>© 2026 原子の学习之路 · Built with 💚 by 丛雨喵</p></footer>
     <script>
-        const blogData = {"categories":["默认","linux"],"articles":[{"id":6,"title":"创建目录命令(mkdir)","date":"2026-04-11 10:30:00","category":"linux","excerpt":"mkdir命令语法","content":"##mkdir命令(注意权限哦)\n\n语法:mkdir [-p] linux路径\n\n-p可选，表示自动创建不存在的父目录，适用于创建连续多层级的目录\n例如：mkdir -p liz/text/text2"},{"id":5,"title":"特殊路径符","date":"2026-04-11 10:00:00","category":"linux","excerpt":".当前目录..上一级~HOME","content":".表示当前目录\n..表示上一���目录\n~表示HOME目录"},{"id":4,"title":"目录切换相关命令(cd/pwd)","date":"2026-04-11 09:30:00","category":"linux","excerpt":"cd切换pwd显示","content":"##cd\n\n语法:cd [linux路径]\n作用:切换目录\n\ncd命令不写参数会直接回到home\n\n##pwd\n\n语法：无\n作用：告诉你当前目录是什么"},{"id":3,"title":"ls命令","date":"2026-04-11 09:00:00","category":"linux","excerpt":"ls命令入门","content":"##ls命令入门：\n\n#ls命令的作用是列出目录下的内容，语法如下：\nls [-a -l -h] [linux路径]\n\n##ls命令的参数和选项\n-a: all的意思，即列出全部文件（包含隐藏的文件/文件夹）\n-l: 以列表（竖向排列）的形式展示内容，并展示更多信息\n-h: 以易于阅读的形式，列出文件大小，如K,M,G\n(-h必须和-l一起用)"},{"id":2,"title":"命令入门","date":"2026-04-11 08:30:00","category":"linux","excerpt":"command选项参数","content":"##命令基础：\n\n#通用格式：\ncommand [-options] [parameter]\n\ncommand: 命令本身\n-options: (可选)命令的一些选项，可以通过选项控制命令的行为细节\nparameter: (可选)命令的参数，多数用于命令的指向目标等\n\n#实例：\nls -l /home/username  以列表的形式显示目录内容\ncp -r test1 test2  复制文件夹test1成为test2"},{"id":1,"title":"linux目录结构","date":"2026-04-11 08:00:00","category":"linux","excerpt":"linux目录结构是树形","content":"Linux的目录结构是一个树形结构\n\nLinux没有盘符概念，只有一个根目录/，所以文件都在它下面"}]};
+        // 备用数据
+        const fallbackData = {"categories":["默认","linux"],"articles":[{"id":1,"title":"示例文章","date":"2026-04-11","category":"默认","excerpt":"这是示例","content":"示例内容"}]};
+        let blogData = fallbackData;
+        
+        // 尝试加载data.json，如果失败就用嵌入的数据
+        async function loadData() {
+            try {
+                const response = await fetch('data.json');
+                if (response.ok) {
+                    blogData = await response.json();
+                    console.log('loaded from data.json');
+                }
+            } catch(e) {
+                console.log('use embedded data:', e.message);
+            }
+        }
+        
         let currentCategory = '全部';
         let currentSort = 'new';
         const cursor = document.querySelector('.cursor'), cursorDot = document.querySelector('.cursor-dot');
@@ -156,7 +168,9 @@
             document.getElementById('detail-date').textContent = article.date;
             document.getElementById('detail-content').textContent = article.content;
         }
-        createStars();
+        
+        // 启动时加载数据
+        loadData().then(() => createStars());
     </script>
 </body>
 </html>
