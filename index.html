@@ -214,10 +214,11 @@
             document.getElementById('article-detail').classList.remove('active');
         }
 
-        function showArticles() {
+        async function showArticles() {
             document.getElementById('home').classList.remove('active');
             document.getElementById('articles').classList.add('active');
             document.getElementById('article-detail').classList.remove('active');
+            await loadData(); // 等待加载完成
             renderArticleList();
         }
 
