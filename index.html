@@ -172,10 +172,21 @@
         
         async function loadData() {
             try {
-                const response = await fetch('data.json');
-                blogData = await response.json();
-            } catch (e) {
+                // 尝试多个URL
+                const urls = ['data.json', './data.json', '/data.json'];
+                for (const url of urls) {
+                    try {
+                        const response = await fetch(url);
+                        if (response.ok) {
+                            blogData = await response.json();
+                            console.log('Data loaded from:', url);
+                            return;
+                        }
+                    } catch(e) { console.log('Failed:', url); }
+                }
                 console.log('Using default data');
+            } catch (e) {
+                console.log('Using default data', e);
             }
         }
         
