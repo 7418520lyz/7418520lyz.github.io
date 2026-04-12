@@ -5,60 +5,100 @@
   ],
   "articles": [
     {
+      "id": 12,
+      "title": "grep , wc和管道符",
+      "date": "2026-04-12 15:37:19",
+      "category": "linux",
+      "excerpt": "##grep\n语法：grep [-n] \"关键字\" 文件路径\n选项-n，可选：表示在结果中显示匹配的...",
+      "content": "##grep\n语法：grep [-n] \"关键字\" 文件路径\n选项-n，可选：表示在结果中显示匹配的行和行号\n参数，关键字：表示过滤的关键字，带空格和其他符号，建议使用\"\"将关键字包围\n参数，文件路径：表示要过滤内容的文件路径，可作为内容输入端口\n\n作用：通过grep命令，从文件中通过关键字过滤文件行（人话：在文件里面查找关键字）\n\n\n\t##wc\n作用：统计文件行数，单词数量等\n语法：wc [-c -m -l -w] 文件路径\n选项  -c：统计bytes数量\n选项  -m：统计字符数量\n选项  -l：统计行数\n选项  -w：统计单词数量\n参数  文件路径，被统计文件，可作为内容输入端口\t\n\n\n\t##管道符“ | ”\n含有：将左边命令的结果作为右边命令的输入\n例如： cat text.txt | grep yuanshenniubi"
+    },
+    {
+      "id": 11,
+      "title": "查找命令(which,find)",
+      "date": "2026-04-12 15:36:58",
+      "category": "linux",
+      "excerpt": "语法：which 要查找的命令\n作用：查看使用一系列命令的程序文件放在哪\n\n\n\t##find\n1：以...",
+      "content": "语法：which 要查找的命令\n作用：查看使用一系列命令的程序文件放在哪\n\n\n\t##find\n1：以文件名搜索\n语法：find 起始路径 -name “文件名”\n作用：按照文件名查找\n\nps:可搭配通配符\n\n2：以大小查找\n\n语法：find 起始路径 -size + | -n[kMG]\n+/-:表示大于小于\nn：表示大小数字\nkMG:表示单位k（小写）kb，M   mb,  G    GB;\n\neg查找大于10kb文件\nfind / -size +10k"
+    },
+    {
+      "id": 10,
+      "title": "root用户",
+      "date": "2026-04-12 15:36:35",
+      "category": "linux",
+      "excerpt": "切换root用户：su - root, 输入密码\n换回普通用户:输入exit",
+      "content": "切换root用户：su - root, 输入密码\n换回普通用户:输入exit"
+    },
+    {
+      "id": 9,
+      "title": "通配符",
+      "date": "2026-04-12 15:36:15",
+      "category": "linux",
+      "excerpt": "#通配符：*   用来做模糊匹配\ntext*\t：表示匹配任何以text开头的内容\n*text：表示匹...",
+      "content": "#通配符：*   用来做模糊匹配\ntext*\t：表示匹配任何以text开头的内容\n*text：表示匹配任何以text结尾的内容\n*text*：表示匹配任何含text的内容"
+    },
+    {
+      "id": 8,
+      "title": "文件操作命令(touch,cat,more,cp,mv,rm)",
+      "date": "2026-04-12 15:35:13",
+      "category": "linux",
+      "excerpt": "##touch\n语法：touch linux路径\n作用：创建文件\n\n\n\t##cat\n语法：cat l...",
+      "content": "##touch\n语法：touch linux路径\n作用：创建文件\n\n\n\t##cat\n语法：cat linux路径\n作用：查看内容\n\n\n\t##more\n语法：more linux路径\t\t按q退出\n作用：查看内容\n\n区别：\n\tcat是直接将内容全部显示出来\n\tmore支持翻页，如果内容过多，可以一页一页的展示\n\n\t##cp\n语法：cp [-r] 参数1 参数2\n\n-r选项，可选，用于复制文件夹使用，表示递归\n参数1，linux路径，表示被复制的文件或文件夹\n参数2，linux路径，表示要复制去的地方\n\n作用：复制\n\n\t##mv\n\n语法：mv  参数1 参数2\n参数1，linux路径，表示被移动的文件或文件夹\n参数2，linux路径，表示要移动去的地方（如果目标不存在，则进行改名，确保目标存在）\n个人见解：也许可以当重命名来用\n\n作用：移动文件\n\n\n\t##rm\n\n语法：rm [-r -f] 参数1 参数2 ........ 参数3\n-r选项，表示文件夹\n-f选项：强制删除（不会弹出提示确认信息）\n\t普通用户删除内容不会弹出提示，只有root用户删除内容会有提示\n\t所以一般用户用不到-f\n\n作用：删除"
+    },
+    {
       "id": 7,
       "title": "大学的目标",
-      "date": "2026-04-11 06:00",
+      "date": "2026-04-11",
       "category": "默认",
-      "excerpt": "1，个人独立游戏的制作（unity）[开发ing...]\n2，CTF\n3，算法（ACM）[可选]\n4，独立项目的制作（类似于RIAI）\n简单的日子简单过，欸嘿~",
+      "excerpt": "1，个人独立游戏的制作（unity）[开发ing...]\n2，CTF\n3，算法（ACM）[可选]\n4...",
       "content": "1，个人独立游戏的制作（unity）[开发ing...]\n2，CTF\n3，算法（ACM）[可选]\n4，独立项目的制作（类似于RIAI）\n简单的日子简单过，欸嘿~"
     },
     {
       "id": 6,
       "title": "创建目录命令(mkdir)",
-      "date": "2026-04-11 05:00",
+      "date": "2026-04-11",
       "category": "linux",
-      "excerpt": "mkdir命令用于创建目录",
+      "excerpt": "##mkdir命令(注意权限哦)\n\n语法:mkdir [-p] linux路径\n\n-p可选，表示自动...",
       "content": "##mkdir命令(注意权限哦)\n\n语法:mkdir [-p] linux路径\n\n-p可选，表示自动创建不存在的父目录，适用于创建连续多层级的目录\n例如：mkdir -p liz/text/text2"
     },
     {
       "id": 5,
       "title": "特殊路径符",
-      "date": "2026-04-11 04:00",
+      "date": "2026-04-11",
       "category": "linux",
-      "excerpt": ". .. ~ 路径符的含义",
-      "content": ". 表示当前目录\n.. 表示上一级目录\n~ 表示HOME目录"
+      "excerpt": ".\t表示当前目录，比如:\t\tcd ./Desktop表示切换到当前目录下的Desktop目录内，和c...",
+      "content": ".\t表示当前目录，比如:\t\tcd ./Desktop表示切换到当前目录下的Desktop目录内，和cd Desktop效果一致\n\t..\t表示上一级目录，比如：\tcd .. 即可回到上一级目录,cd ../..切换到上两级目录\n\t~\t表示HOME目录，比如：\tcd ~ 即可切换到HOME目录或cd ~/Desktop,切换到HOME内的Desktop目录"
     },
     {
       "id": 4,
       "title": "目录切换相关命令（cd/pwd）",
-      "date": "2026-04-11 03:00",
+      "date": "2026-04-11",
       "category": "linux",
-      "excerpt": "cd切换目录，pwd查看当前目录",
-      "content": "##cd\n语法: cd[linux路径]\n作用: 切换目录\ncd命令不写参数会直接回到home\n\n##pwd\n语法：无\n作用：告诉你当前目录是什么"
+      "excerpt": "##cd\n语法:    cd[linux路径]\n作用:\t    切换目录\ncd命令不写参数会直接回到...",
+      "content": "##cd\n语法:    cd[linux路径]\n作用:\t    切换目录\ncd命令不写参数会直接回到home\n\n\n\t##pwd\n语法：无\n作用：告诉你当前目录是什么"
     },
     {
       "id": 3,
       "title": "ls命令",
-      "date": "2026-04-11 02:00",
+      "date": "2026-04-11",
       "category": "linux",
-      "excerpt": "ls命令入门",
-      "content": "##ls命令入门\n\nls命令的作用是列出目录下的内容\n语法：ls [-a -l -h] [linux路径]\n-a 列出全部文件\n-l 以列表形式展示\n-h 以易于阅读的形式显示文件大小"
+      "excerpt": "##ls命令入门：\n\n\t#ls命令的作用是列出目录下的内容，语法如下：\nls [-a -l -h] ...",
+      "content": "##ls命令入门：\n\n\t#ls命令的作用是列出目录下的内容，语法如下：\nls [-a -l -h] [linux路径]\n-a -l -h是可选参的选项\nlinux路径是可选参数\n\n\t#HOME目录和工作目录：\nHOME目录：每个linux操作用户在linux系统的个人账户目录，路径在：/home/用户名\n\n\n##ls命令的参数和选项\n\t#ls [-a -l -h] [linux路径]\n\n\t-a选项，表示： all的意思，即列出全部文件（包含隐藏的文件/文件夹）\n\t-l选项，表示：  以列表（竖向排列）的形式展示内容，并展示更多信息\n\t混合使用：-la | -al | -a -l\n\n\t-h表示以易于阅读的形式，列出文件大小，如K,M,G\n\t(-h必须和-l一起用)"
     },
     {
       "id": 2,
       "title": "命令入门",
-      "date": "2026-04-11 01:00",
+      "date": "2026-04-11",
       "category": "linux",
-      "excerpt": "命令基础格式",
-      "content": "##命令基础\n\n通用格式：command [-options] [parameter]\ncommand: 命令本身\n-options: 命令的一些选项\nparameter: 命令的参数"
+      "excerpt": "##命令基础：\n\n\t#通用格式：\ncommand [-options] [parameter]\nco...",
+      "content": "##命令基础：\n\n\t#通用格式：\ncommand [-options] [parameter]\ncommand:  命令本身\n-options:     (可选)命令的一些选项，可以通过选项控制命令的行为细节\nparameter:  (可选)命令的参数，多数用于命令的指向目标等\n\n\t#实例：\nls -l /home/itheima     ,,ls是命令本身，l是选项,/home/itheima是参数\n\t\t\t\t\t意思是以列表的形式，显示//home/itheima目录的内容\n\ncp -r test1 test2\t,,cp是命令本身，-r是选项，text1和2是参数\n\t\t\t\t\t意思是复制文件夹text1成为text2"
     },
     {
       "id": 1,
-      "title": "linux目录结构",
-      "date": "2026-04-11 00:00",
+      "title": "linux目录结构：",
+      "date": "2026-04-11",
       "category": "linux",
-      "excerpt": "Linux的目录结构是一个树形结构",
-      "content": "Linux的目录结构是一个树形结构\nLinux没有盘符概念，只有一个根目录/，所以文件都在它下面\n例如：/usr/local/hello.txt"
+      "excerpt": "Linux的目录结构是一个树形结构\nLinux没有盘符概念，只有一个根目录/，所以文件都在它下面\n/...",
+      "content": "Linux的目录结构是一个树形结构\nLinux没有盘符概念，只有一个根目录/，所以文件都在它下面\n/usr/local/hello.txt     第一个“/”表示根目录   后面的表示层级关系"
     }
   ]
 }
