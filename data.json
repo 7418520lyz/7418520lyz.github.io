@@ -7,15 +7,15 @@
     {
       "id": 7,
       "title": "大学的目标",
-      "date": "2026-04-11",
+      "date": "2026-04-11 06:00:00",
       "category": "默认",
-      "excerpt": "1，个人独立游戏的制作（unity）[开发ing...]\n2，CTF\n3，算法（ACM）[可选]\n4...",
+      "excerpt": "1，个人独立游戏的制作（unity）[开发ing...]\n2，CTF\n3，算法（ACM）[可选]\n4，独立项目的制作（类似于RIAI）\n简单的日子简单过，欸嘿~",
       "content": "1，个人独立游戏的制作（unity）[开发ing...]\n2，CTF\n3，算法（ACM）[可选]\n4，独立项目的制作（类似于RIAI）\n简单的日子简单过，欸嘿~"
     },
     {
       "id": 6,
       "title": "创建目录命令(mkdir)",
-      "date": "2026-04-11",
+      "date": "2026-04-11 05:00:00",
       "category": "linux",
       "excerpt": "##mkdir命令(注意权限哦)\n\n语法:mkdir [-p] linux路径\n\n-p可选，表示自动...",
       "content": "##mkdir命令(注意权限哦)\n\n语法:mkdir [-p] linux路径\n\n-p可选，表示自动创建不存在的父目录，适用于创建连续多层级的目录\n例如：mkdir -p liz/text/text2"
@@ -23,7 +23,7 @@
     {
       "id": 5,
       "title": "特殊路径符",
-      "date": "2026-04-11",
+      "date": "2026-04-11 04:00:00",
       "category": "linux",
       "excerpt": ".\t表示当前目录，比如:\t\tcd ./Desktop表示切换到当前目录下的Desktop目录内，和c...",
       "content": ".\t表示当前目录，比如:\t\tcd ./Desktop表示切换到当前目录下的Desktop目录内，和cd Desktop效果一致\n\t..\t表示上一级目录，比如：\tcd .. 即可回到上一级目录,cd ../..切换到上两级目录\n\t~\t表示HOME目录，比如：\tcd ~ 即可切换到HOME目录或cd ~/Desktop,切换到HOME内的Desktop目录"
@@ -31,7 +31,7 @@
     {
       "id": 4,
       "title": "目录切换相关命令（cd/pwd）",
-      "date": "2026-04-11",
+      "date": "2026-04-11 03:00:00",
       "category": "linux",
       "excerpt": "##cd\n语法:    cd[linux路径]\n作用:\t    切换目录\ncd命令不写参数会直接回到...",
       "content": "##cd\n语法:    cd[linux路径]\n作用:\t    切换目录\ncd命令不写参数会直接回到home\n\n\n\t##pwd\n语法：无\n作用：告诉你当前目录是什么"
@@ -39,7 +39,7 @@
     {
       "id": 3,
       "title": "ls命令",
-      "date": "2026-04-11",
+      "date": "2026-04-11 02:00:00",
       "category": "linux",
       "excerpt": "##ls命令入门：\n\n\t#ls命令的作用是列出目录下的内容，语法如下：\nls [-a -l -h] ...",
       "content": "##ls命令入门：\n\n\t#ls命令的作用是列出目录下的内容，语法如下：\nls [-a -l -h] [linux路径]\n-a -l -h是可选参的选项\nlinux路径是可选参数\n\n\t#HOME目录和工作目录：\nHOME目录：每个linux操作用户在linux系统的个人账户目录，路径在：/home/用户名\n\n\n##ls命令的参数和选项\n\t#ls [-a -l -h] [linux路径]\n\n\t-a选项，表示： all的意思，即列出全部文件（包含隐藏的文件/文件夹）\n\t-l选项，表示：  以列表（竖向排列）的形式展示内容，并展示更多信息\n\t混合使用：-la | -al | -a -l\n\n\t-h表示以易于阅读的形式，列出文件大小，如K,M,G\n\t(-h必须和-l一起用)"
@@ -47,7 +47,7 @@
     {
       "id": 2,
       "title": "命令入门",
-      "date": "2026-04-11",
+      "date": "2026-04-11 01:00:00",
       "category": "linux",
       "excerpt": "##命令基础：\n\n\t#通用格式：\ncommand [-options] [parameter]\nco...",
       "content": "##命令基础：\n\n\t#通用格式：\ncommand [-options] [parameter]\ncommand:  命令本身\n-options:     (可选)命令的一些选项，可以通过选项控制命令的行为细节\nparameter:  (可选)命令的参数，多数用于命令的指向目标等\n\n\t#实例：\nls -l /home/itheima     ,,ls是命令本身，l是选项,/home/itheima是参数\n\t\t\t\t\t意思是以列表的形式，显示//home/itheima目录的内容\n\ncp -r test1 test2\t,,cp是命令本身，-r是选项，text1和2是参数\n\t\t\t\t\t意思是复制文件夹text1成为text2"
@@ -55,10 +55,10 @@
     {
       "id": 1,
       "title": "linux目录结构：",
-      "date": "2026-04-11",
+      "date": "2026-04-11 00:00:00",
       "category": "linux",
       "excerpt": "Linux的目录结构是一个树形结构\nLinux没有盘符概念，只有一个根目录/，所以文件都在它下面\n/...",
-      "content": "Linux的目录结构是一个树形结构\nLinux没有盘符概念，只有一个根目录/，所以文件都在它下面\n/usr/local/hello.txt     第一个“/”表示根目录   后面的表示层级关系"
+      "content": "Linux的目录结构是一个树形结构\nLinux没有盘符概念，只有一个根目录/，所以文件都在它下面\n/usr/local/hello.txt     第一个"/"表示根目录   后面的表示层级关系"
     }
   ]
 }
