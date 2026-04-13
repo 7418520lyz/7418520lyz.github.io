@@ -115,6 +115,7 @@
         .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
         .star { position: absolute; background: white; border-radius: 50%; animation: twinkle 2s infinite ease-in-out; }
         @keyframes twinkle { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } }
+        #particles-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
         
         @keyframes fadeInUp { 0% { opacity: 0; transform: translateY(50px); } 100% { opacity: 1; transform: translateY(0); } }
         @keyframes fadeInScale { 0% { opacity: 0; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1); } }
@@ -125,11 +126,12 @@
         .hero.active .tagline { animation: fadeInUp 0.8s ease-out 0.8s forwards; opacity: 0; }
         .hero.active .social-links { animation: floatIn 0.8s ease-out 1s forwards; opacity: 0; }
         
-        nav { position: fixed; top: 0; left: 0; right: 0; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; z-index: 100; background: var(--nav-bg); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); transition: background 0.5s ease; }
-        .logo { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; background: linear-gradient(135deg, var(--primary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; }
-        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        nav { position: fixed; top: 0; left: 0; right: 0; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; z-index: 100; background: var(--nav-bg); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); transition: background 0.5s ease; }
+        .logo { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; font-weight: 900; background: linear-gradient(135deg, var(--primary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; }
+        .nav-links { display: flex; gap: 1.5rem; list-style: none; }
         .nav-links a { color: rgba(255, 255, 255, 0.7); text-decoration: none; font-size: 0.9rem; transition: all 0.3s; cursor: pointer; }
         .nav-links a:hover { color: var(--primary); }
+        .mobile-menu-btn { display: none; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; padding: 0.5rem; }
         .theme-btn {
             padding: 0.6rem 1rem;
             background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
@@ -387,22 +389,65 @@
         .back-to-top.visible { opacity: 1; visibility: visible; }
         .back-to-top:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,255,136,0.4); }
         
-        @media (max-width: 768px) { .title { font-size: 2rem; } .nav-links { display: flex; gap: 1rem; } .nav-links a { font-size: 0.8rem; } .hero { padding: 1rem; } body { cursor: auto; } .cursor, .cursor-dot { display: none; } }
+        @media (max-width: 768px) {
+            .title { font-size: 2rem; }
+            .subtitle { font-size: 1.1rem; }
+            .tagline { font-size: 0.8rem; letter-spacing: 0.15em; }
+            .typewriter { font-size: 0.85rem; }
+            .hero { padding: 1rem; min-height: 100vh; }
+            .avatar-container { width: 120px; height: 120px; }
+            body { cursor: auto; }
+            .cursor, .cursor-dot { display: none; }
+            .mobile-menu-btn { display: block; }
+            nav { padding: 0.8rem 1rem; }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: var(--nav-bg);
+                padding: 1rem;
+                gap: 1rem;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+            .nav-links.show { display: flex; }
+            .nav-links li { margin: 0; }
+            .nav-links a { display: block; padding: 0.5rem 0; font-size: 1rem; }
+            .search-input { font-size: 16px; padding: 0.8rem 1rem; padding-left: 2.5rem; }
+            .article-card { padding: 1rem; margin-bottom: 1rem; }
+            .article-title { font-size: 1.1rem; }
+            .article-excerpt { font-size: 0.9rem; }
+            .section-title { font-size: 1.8rem; }
+            .detail-content-wrapper { padding: 1rem; }
+            .detail-title { font-size: 1.5rem; }
+            .sort-btns { justify-content: center; }
+            .category-filter { gap: 0.3rem; }
+            .category-btn { padding: 0.4rem 0.8rem; font-size: 0.85rem; }
+            .page-btn { min-width: 32px; height: 32px; font-size: 0.8rem; }
+            .back-to-top { width: 44px; height: 44px; bottom: 1rem; right: 1rem; }
+            footer { padding: 1.5rem 1rem; }
+            .social-links { gap: 1rem; }
+            .social-link { width: 44px; height: 44px; }
+        }
     </style>
 </head>
 <body>
     <div class="cursor"></div>
     <div class="cursor-dot"></div>
+    <canvas id="particles-canvas"></canvas>
     <div class="stars" id="stars"></div>
     <div class="glow-orb orb-1"></div>
     <div class="glow-orb orb-2"></div>
 
     <nav>
         <div class="logo" onclick="showHome()">ATOM</div>
-        <ul class="nav-links">
-            <li><a onclick="showHome()">首页</a></li>
-            <li><a onclick="showArticles()">文章</a></li>
-            <li><a onclick="showAbout()">关于</a></li>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+        <ul class="nav-links" id="nav-links">
+            <li><a onclick="showHome(); closeMobileMenu()">首页</a></li>
+            <li><a onclick="showArticles(); closeMobileMenu()">文章</a></li>
+            <li><a onclick="showAbout(); closeMobileMenu()">关于</a></li>
             <li>
                 <div class="theme-dropdown">
                     <button class="theme-btn" onclick="toggleThemeMenu()">
@@ -784,6 +829,11 @@
         function typewriterEffect() {
             const element = document.getElementById('typewriter');
             if (!element) return;
+            // 移动端隐藏打字机效果
+            if (window.innerWidth < 768) {
+                element.textContent = '';
+                return;
+            }
             const currentText = typewriterTexts[textIndex];
 
             if (isDeleting) {
@@ -843,8 +893,153 @@
                 container.appendChild(star);
             }
         }
+
+        // 动态粒子背景
+        function initParticles() {
+            const canvas = document.getElementById('particles-canvas');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let mouseX = 0, mouseY = 0;
+            const isMobile = window.innerWidth < 768;
+            const particleCount = isMobile ? 30 : 80;
+            const connectionDistance = isMobile ? 100 : 150;
+            const mouseRadius = isMobile ? 100 : 200;
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.vx = (Math.random() - 0.5) * 0.8;
+                    this.vy = (Math.random() - 0.5) * 0.8;
+                    this.radius = Math.random() * 2 + 1;
+                    this.baseRadius = this.radius;
+                }
+
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+
+                    // 鼠标交互
+                    const dx = mouseX - this.x;
+                    const dy = mouseY - this.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < mouseRadius) {
+                        const force = (mouseRadius - dist) / mouseRadius;
+                        this.x -= dx * force * 0.02;
+                        this.y -= dy * force * 0.02;
+                    }
+
+                    // 边界反弹
+                    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+                }
+
+                draw() {
+                    const theme = localStorage.getItem('blog-theme') || 'cyberpunk';
+                    const colors = {
+                        cyberpunk: '#00ff88',
+                        ocean: '#4a9ebb',
+                        sunset: '#ff6b35',
+                        forest: '#2d6a4f',
+                        lavender: '#9d4edd',
+                        cherry: '#ff4d6d',
+                        matrix: '#00ff00',
+                        twilight: '#7c6aef'
+                    };
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = colors[theme] || colors.cyberpunk;
+                    ctx.globalAlpha = 0.8;
+                    ctx.fill();
+                    ctx.globalAlpha = 1;
+                }
+            }
+
+            function init() {
+                particles = [];
+                for (let i = 0; i < particleCount; i++) {
+                    particles.push(new Particle());
+                }
+            }
+
+            function connectParticles() {
+                const theme = localStorage.getItem('blog-theme') || 'cyberpunk';
+                const colors = {
+                    cyberpunk: '#00ff88',
+                    ocean: '#4a9ebb',
+                    sunset: '#ff6b35',
+                    forest: '#2d6a4f',
+                    lavender: '#9d4edd',
+                    cherry: '#ff4d6d',
+                    matrix: '#00ff00',
+                    twilight: '#7c6aef'
+                };
+                const lineColor = colors[theme] || colors.cyberpunk;
+
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+
+                        if (dist < connectionDistance) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = lineColor;
+                            ctx.globalAlpha = 1 - (dist / connectionDistance);
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                            ctx.globalAlpha = 1;
+                        }
+                    }
+
+                    // 连接到鼠标
+                    const dx = particles[i].x - mouseX;
+                    const dy = particles[i].y - mouseY;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < mouseRadius) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(mouseX, mouseY);
+                        ctx.strokeStyle = lineColor;
+                        ctx.globalAlpha = 1 - (dist / mouseRadius);
+                        ctx.lineWidth = 0.3;
+                        ctx.stroke();
+                        ctx.globalAlpha = 1;
+                    }
+                }
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => { p.update(); p.draw(); });
+                connectParticles();
+                requestAnimationFrame(animate);
+            }
+
+            init();
+            animate();
+
+            // 主题切换时更新粒子颜色
+            window.updateParticleColor = function() {
+                // 颜色会在下次绘制时自动更新
+            };
+        }
         
-        loadData().then(() => { createStars(); loadSavedTheme(); typewriterEffect(); });
+        loadData().then(() => { createStars(); loadSavedTheme(); typewriterEffect(); initParticles(); });
 
         // 回到顶部
         function scrollToTop() {
@@ -859,6 +1054,15 @@
                 btn.classList.remove('visible');
             }
         });
+
+        // 移动端菜单
+        function toggleMobileMenu() {
+            document.getElementById('nav-links').classList.toggle('show');
+        }
+
+        function closeMobileMenu() {
+            document.getElementById('nav-links').classList.remove('show');
+        }
     </script>
 </body>
 </html>
