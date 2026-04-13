@@ -252,10 +252,11 @@
             document.getElementById(tab + '-tab').classList.add('active');
         }
         
-        loadFromStorage();
-        renderCategories();
-        updateCategorySelect();
-        renderArticles();
+        loadFromStorage().then(() => {
+            renderCategories();
+            updateCategorySelect();
+            renderArticles();
+        });
     </script>
 </body>
 </html>
