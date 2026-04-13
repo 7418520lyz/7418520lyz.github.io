@@ -113,12 +113,35 @@
 
     <script>
         let blogData = { categories: ['默认'], articles: [] };
+        const GITHUB_RAW_URL = 'https://raw.githubusercontent.com/7418520lyz/7418520lyz.github.io/main/data.json';
         
-        function loadFromStorage() {
-            const cats = localStorage.getItem('my_categories');
-            const arts = localStorage.getItem('my_articles');
-            if (cats) blogData.categories = JSON.parse(cats);
-            if (arts) blogData.articles = JSON.parse(arts);
+        async function loadFromGitHub() {
+            try {
+                const response = await fetch(GITHUB_RAW_URL);
+                if (response.ok) {
+                    const data = await response.json();
+                    blogData.categories = data.categories || ['默认'];
+                    blogData.articles = data.articles || [];
+                    localStorage.setItem('my_categories', JSON.stringify(blogData.categories));
+                    localStorage.setItem('my_articles', JSON.stringify(blogData.articles));
+                    return true;
+                }
+            } catch (e) {
+                console.log('从GitHub加载失败，使用本地缓存');
+            }
+            return false;
+        }
+        
+        async function loadFromStorage() {
+            // 先尝试从GitHub加载
+            const loaded = await loadFromGitHub();
+            if (!loaded) {
+                // GitHub加载失败，使用本地缓存
+                const cats = localStorage.getItem('my_categories');
+                const arts = localStorage.getItem('my_articles');
+                if (cats) blogData.categories = JSON.parse(cats);
+                if (arts) blogData.articles = JSON.parse(arts);
+            }
             if (blogData.categories.length === 0) blogData.categories = ['默认'];
         }
         
