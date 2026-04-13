@@ -398,24 +398,14 @@
             .avatar-container { width: 120px; height: 120px; }
             body { cursor: auto; }
             .cursor, .cursor-dot { display: none; }
-            .mobile-menu-btn { display: block; }
-            nav { padding: 0.8rem 1rem; }
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                flex-direction: column;
-                background: var(--nav-bg);
-                padding: 1rem;
-                gap: 1rem;
-                border-bottom: 1px solid rgba(255,255,255,0.1);
-            }
-            .nav-links.show { display: flex; }
-            .nav-links li { margin: 0; }
-            .nav-links a { display: block; padding: 0.5rem 0; font-size: 1rem; }
-            .search-input { font-size: 16px; padding: 0.8rem 1rem; padding-left: 2.5rem; }
+            .mobile-menu-btn { display: none; }
+            nav { padding: 0.6rem 0.5rem; flex-wrap: wrap; justify-content: center; gap: 0.5rem; }
+            .logo { font-size: 1rem; }
+            .nav-links { gap: 0.8rem; flex-wrap: wrap; justify-content: center; }
+            .nav-links a { font-size: 0.75rem; }
+            .theme-btn { padding: 0.4rem 0.7rem; font-size: 0.85rem; }
+            .theme-options { right: auto; left: 50%; transform: translateX(-50%); }
+            .search-input { font-size: 16px; padding: 0.7rem 0.8rem; padding-left: 2.5rem; }
             .article-card { padding: 1rem; margin-bottom: 1rem; }
             .article-title { font-size: 1.1rem; }
             .article-excerpt { font-size: 0.9rem; }
@@ -443,11 +433,10 @@
 
     <nav>
         <div class="logo" onclick="showHome()">ATOM</div>
-        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
         <ul class="nav-links" id="nav-links">
-            <li><a onclick="showHome(); closeMobileMenu()">首页</a></li>
-            <li><a onclick="showArticles(); closeMobileMenu()">文章</a></li>
-            <li><a onclick="showAbout(); closeMobileMenu()">关于</a></li>
+            <li><a onclick="showHome()">首页</a></li>
+            <li><a onclick="showArticles()">文章</a></li>
+            <li><a onclick="showAbout()">关于</a></li>
             <li>
                 <div class="theme-dropdown">
                     <button class="theme-btn" onclick="toggleThemeMenu()">
@@ -1056,13 +1045,6 @@
         });
 
         // 移动端菜单
-        function toggleMobileMenu() {
-            document.getElementById('nav-links').classList.toggle('show');
-        }
-
-        function closeMobileMenu() {
-            document.getElementById('nav-links').classList.remove('show');
-        }
     </script>
 </body>
 </html>
