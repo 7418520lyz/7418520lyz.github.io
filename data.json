@@ -5,6 +5,22 @@
   ],
   "articles": [
     {
+      "id": 16,
+      "title": "用户，用户组管理",
+      "date": "2026-04-13 17:41:43",
+      "category": "linux",
+      "excerpt": "##用户组管理\n\n\t#创建用户组\ngroupadd 用户组名\n\n\t#删除用户组\ngroupdel 用...",
+      "content": "##用户组管理\n\n\t#创建用户组\ngroupadd 用户组名\n\n\t#删除用户组\ngroupdel 用户组名\n\n\t#创建用户\nuseradd [-g -d] 用户名\n\n选项：-g指定用户的组，不指定-g，会创建同名组并自动加入，指定-g需要组已经存在，如已存在同名组，必须使用-g\n选项：-d指定用户 HOME 路径，不指定，HOME 目录默认在：/home/用户名\neg:\tuseradd liz -g yuanshen -d /home/test2\n\t\t   用户名\t    组\t          \t   路径\n\n\t#删除用户\n选项：-r，删除用户的 HOME 目录，不使用-r，删除用户时，HOME 目录保留\n\n\n\t#查看用户所属组\nid [用户名]\n\n参数：用户名，被查看的用户，如果不提供则查看自身\n\n修改用户所属组\nusermod -aG 用户组 用户名, 将指定用户加入指定用户组\n\neg:\tusermod -aG yuanshen liz\n把用户liz放到yuanshen的组里面\n\n\n\t#getent\n作用：使用getent，可以查看当前系统有哪些用户\n语法：getent passwd\n\n显示信息：\n用户名:密码(x):用户ID:组ID:描述信息(无用):HOME目录:执行终端(默认bash)\n\n\ngetent group(查看组)\n信息：\n名称：认证：ID"
+    },
+    {
+      "id": 15,
+      "title": "认知root用户",
+      "date": "2026-04-13 17:41:18",
+      "category": "linux",
+      "excerpt": "##root用户\n切换 su - root\n\t普通用户，一般在HOME目录内不受限\n\t一旦出了HOM...",
+      "content": "##root用户\n切换 su - root\n\t普通用户，一般在HOME目录内不受限\n\t一旦出了HOME目录，大多数地方，普通用户只能读和执行权限，无法修改权限\n\n语法： su [-] [用户名]\n-符号可选，表示是否在切换用户后加载环境变量，推荐带上\n参数：用户名，表示要切换的用户，省略表示切换到root\n切换用户后可以通过exit退回上一个用户，也可以快捷键:ctrl+d\n\n\n\t#sudo（推荐）\n临时的获得root权限\n前提：为普通用户配置sudo认证\n\n切换到root用户，执行visudo,会自动通过vi编辑器打开:/etc/sudoer\n添加：（以liz为例）\n\nliz ALL=(ALL)         NOPASSWD: ALL"
+    },
+    {
       "id": 14,
       "title": "vi/vim编辑器",
       "date": "2026-04-13 15:30:30",
