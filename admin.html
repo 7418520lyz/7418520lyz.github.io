@@ -113,11 +113,13 @@
 
     <script>
         let blogData = { categories: ['默认'], articles: [] };
-        const GITHUB_RAW_URL = 'https://raw.githubusercontent.com/7418520lyz/7418520lyz.github.io/main/data.json';
+        const GITHUB_API_URL = 'https://api.github.com/repos/7418520lyz/7418520lyz.github.io/contents/data.json';
         
         async function loadFromGitHub() {
             try {
-                const response = await fetch(GITHUB_RAW_URL);
+                const response = await fetch(GITHUB_API_URL, {
+                    headers: { 'Accept': 'application/vnd.github.v3.raw' }
+                });
                 if (response.ok) {
                     const data = await response.json();
                     blogData.categories = data.categories || ['默认'];
@@ -127,7 +129,7 @@
                     return true;
                 }
             } catch (e) {
-                console.log('从GitHub加载失败，使用本地缓存');
+                console.log('从GitHub加载失败，使用本地缓存', e);
             }
             return false;
         }
