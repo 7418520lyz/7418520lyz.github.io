@@ -87,6 +87,7 @@
                 <textarea id="content" placeholder="输入文章内容...支持换行"></textarea>
             </div>
             <button class="btn btn-primary" onclick="addArticle()">✅ 发布文章</button>
+            <button class="btn" style="background:rgba(255,255,255,0.2);color:white" onclick="cancelEdit()">取消编辑</button>
         </div>
         
         <div class="card section">
@@ -242,9 +243,53 @@
             list.innerHTML = articles.map(a => `
                 <div class="article-item">
                     <div><span class="tag">${a.category}</span><span class="article-title">${a.title}</span><span class="article-date">${a.date}</span></div>
-                    <button class="btn btn-danger" onclick="deleteArticle(${a.id})">🗑️</button>
+                    <div>
+                        <button class="btn btn-primary" style="padding:0.5rem 0.8rem;margin-right:0.3rem" onclick="editArticle(${a.id})">✏️ 编辑</button>
+                        <button class="btn btn-danger" style="padding:0.5rem 0.8rem" onclick="deleteArticle(${a.id})">🗑️</button>
+                    </div>
                 </div>
             `).join('');
+        }
+        
+        let editingArticleId = null;
+        
+        function editArticle(id) {
+            const article = getArticles().find(a => a.id === id);
+            if (!article) return;
+            editingArticleId = id;
+            document.getElementById('title').value = article.title;
+            document.getElementById('content').value = article.content;
+            document.getElementById('article-category').value = article.category;
+            document.querySelector('.btn-primary').textContent = '✅ 保存修改';
+            document.querySelector('.btn-primary').setAttribute('onclick', 'saveEditArticle()');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function saveEditArticle() {
+            const title = document.getElementById('title').value.trim();
+            const content = document.getElementById('content').value.trim();
+            const category = document.getElementById('article-category').value || '默认';
+            if (!title || !content) { alert('请填写标题和内容！'); return; }
+            const articles = getArticles();
+            const index = articles.findIndex(a => a.id === editingArticleId);
+            if (index !== -1) {
+                articles[index].title = title;
+                articles[index].content = content;
+                articles[index].category = category;
+                articles[index].excerpt = content.length > 50 ? content.substring(0, 50) + '...' : content;
+                saveArticles(articles);
+            }
+            cancelEdit();
+            alert('✅ 文章修改成功！记得点击"一键同步"哦！');
+        }
+        
+        function cancelEdit() {
+            editingArticleId = null;
+            document.getElementById('title').value = '';
+            document.getElementById('content').value = '';
+            document.getElementById('article-category').value = '';
+            document.querySelector('.btn-primary').textContent = '✅ 发布文章';
+            document.querySelector('.btn-primary').setAttribute('onclick', 'addArticle()');
         }
         
         function switchTab(tab) {
