@@ -5,6 +5,22 @@
   ],
   "articles": [
     {
+      "id": 14,
+      "title": "vi/vim编辑器",
+      "date": "2026-04-13 15:30:30",
+      "category": "linux",
+      "excerpt": "个人感觉vim更好用\n\n1. 命令模式（Command mode）\n命令模式下，所敲的按键编辑器都理...",
+      "content": "个人感觉vim更好用\n\n1. 命令模式（Command mode）\n命令模式下，所敲的按键编辑器都理解为命令，以命令驱动执行不同的功能。\n此模型下，不能自由进行文本编辑。\n\n输入iao输入模式\nESC键退回命令模式\n\n2. 输入模式（Insert mode）\n也就是所谓的编辑模式、插入模式。\n此模式下，可以对文件内容进行自由编辑。\n\n\n\n：进入底线模式\n命令以回车结束运行\n\n3. 底线命令模式（Last line mode）\n以：开始，通常用于文件的保存、退出。\n\n\n\n退出：wq（w:保存\tq：退出）\n\n\n\n命令模式\ti\t在当前光标位置进入输入模式\n命令模式\ta\t在当前光标位置之后进入输入模式\n命令模式\tI\t在当前行的开头，进入输入模式\n命令模式\tA\t在当前行的结尾，进入输入模式\n命令模式\to\t在当前光标下一行进入输入模式\n命令模式\tO\t在当前光标上一行进入输入模式\n输入模式\tesc\t任何情况下输入 esc 都能回到命令模式\n\n一、光标移动类\n键盘上 / k\t\t\t移动光标\n键盘下 / j\t\t\t移动光标\n键盘左 / h\t\t\t移动光标\n键盘右 / l\t\t\t移动光标\n0\t\t\t\t标到当前行的开头\n$\t\t\t\t标到当前行的结尾\npageup(PgUp)\t\t上翻页\npagedown(PgDn)\t向下翻页\ngg\t\t\t\t跳到首行\nG\t\t\t\t跳到尾尾\n\n\n\n二、搜索类\n/\t\t入搜索模式\nn\t\t下继续搜索\nN\t\t上继续搜索\n\n\n\n\n三、删除类\ndd\t\t\t光标所在行的内容\nndd\t\t\t是数字，表示删除当前光标向下 n 行\ndG\t\t\t前行开始，向下全部删除\ndgg\t\t\t前行开始，向上全部删除\nd$\t\t\t前光标开始，删除到本行的结尾\nd0\t\t\t前光标开始，删除到本行的开头\n\n\n\n四、复制粘贴 / 撤销类\nyy\t\t\t当前行\nnyy\t\t\t是数字，复制当前行和下面的 n 行\np\t\t\t复制的内容\nu\t\t\t修改\nctrl + r\t\t向撤销修改（重做）"
+    },
+    {
+      "id": 13,
+      "title": "echo,tail和重定向符",
+      "date": "2026-04-13 15:29:57",
+      "category": "linux",
+      "excerpt": "##echo\n作用：可以使用echo命令在命令行内输出指定内容\n语法：echo 输出内容\n无需选项，...",
+      "content": "##echo\n作用：可以使用echo命令在命令行内输出指定内容\n语法：echo 输出内容\n无需选项，只有应该参数，表示输出的内容，复杂内容可以用\" \"包围\n\n\t##反引号\n我们可以通过将命令用反引号（飘号）\n被`包围的内容，会被当作命令执行，而非普通字符\neg:   echo `pwd`\n\n\t##重定向符\n>\t\t将左侧命令的结果，覆写入到符号右侧指定的文件中\n>>\t\t将左侧命令的结果，追加写入到符号右侧指定的文件中\n\neg: echo \"hello linux\" >liz.txt\necho \"hello liz\" >liz.txt  (再次执行，覆盖新内容)\necho \"hello lizcast\" >>liz.txt\t（再次执行，使用>>追加新内容）\n\n\n\t##tail命令\n使用tail命令，可以查看文件尾部的内容，追踪文件的最新更改\n语法：tail [-f -num] linux路径\n参数，linux路径，表示被跟踪的文件路径\n选项，-f，表示持续跟踪更改\nps:ctrl+c停止\n选项，-num，表示，查看尾部多少行，不填默认最后10行 eg:tail -15 liz.txt"
+    },
+    {
       "id": 12,
       "title": "grep , wc和管道符",
       "date": "2026-04-12 15:37:19",
@@ -47,7 +63,7 @@
     {
       "id": 7,
       "title": "大学的目标",
-      "date": "2026-04-11 00:00:07",
+      "date": "2026-04-11 00:55:07",
       "category": "默认",
       "excerpt": "1，个人独立游戏的制作（unity）[开发ing...]\n2，CTF\n3，算法（ACM）[可选]\n4...",
       "content": "1，个人独立游戏的制作（unity）[开发ing...]\n2，CTF\n3，算法（ACM）[可选]\n4，独立项目的制作（类似于RIAI）\n简单的日子简单过，欸嘿~"
@@ -55,7 +71,7 @@
     {
       "id": 6,
       "title": "创建目录命令(mkdir)",
-      "date": "2026-04-11 00:00:06",
+      "date": "2026-04-11 00:50:06",
       "category": "linux",
       "excerpt": "##mkdir命令(注意权限哦)\n\n语法:mkdir [-p] linux路径\n\n-p可选，表示自动...",
       "content": "##mkdir命令(注意权限哦)\n\n语法:mkdir [-p] linux路径\n\n-p可选，表示自动创建不存在的父目录，适用于创建连续多层级的目录\n例如：mkdir -p liz/text/text2"
@@ -63,7 +79,7 @@
     {
       "id": 5,
       "title": "特殊路径符",
-      "date": "2026-04-11 00:00:05",
+      "date": "2026-04-11 00:45:05",
       "category": "linux",
       "excerpt": ".\t表示当前目录，比如:\t\tcd ./Desktop表示切换到当前目录下的Desktop目录内，和c...",
       "content": ".\t表示当前目录，比如:\t\tcd ./Desktop表示切换到当前目录下的Desktop目录内，和cd Desktop效果一致\n\t..\t表示上一级目录，比如：\tcd .. 即可回到上一级目录,cd ../..切换到上两级目录\n\t~\t表示HOME目录，比如：\tcd ~ 即可切换到HOME目录或cd ~/Desktop,切换到HOME内的Desktop目录"
@@ -71,7 +87,7 @@
     {
       "id": 4,
       "title": "目录切换相关命令（cd/pwd）",
-      "date": "2026-04-11 00:00:04",
+      "date": "2026-04-11 00:40:04",
       "category": "linux",
       "excerpt": "##cd\n语法:    cd[linux路径]\n作用:\t    切换目录\ncd命令不写参数会直接回到...",
       "content": "##cd\n语法:    cd[linux路径]\n作用:\t    切换目录\ncd命令不写参数会直接回到home\n\n\n\t##pwd\n语法：无\n作用：告诉你当前目录是什么"
@@ -79,7 +95,7 @@
     {
       "id": 3,
       "title": "ls命令",
-      "date": "2026-04-11 00:00:03",
+      "date": "2026-04-11 00:30:03",
       "category": "linux",
       "excerpt": "##ls命令入门：\n\n\t#ls命令的作用是列出目录下的内容，语法如下：\nls [-a -l -h] ...",
       "content": "##ls命令入门：\n\n\t#ls命令的作用是列出目录下的内容，语法如下：\nls [-a -l -h] [linux路径]\n-a -l -h是可选参的选项\nlinux路径是可选参数\n\n\t#HOME目录和工作目录：\nHOME目录：每个linux操作用户在linux系统的个人账户目录，路径在：/home/用户名\n\n\n##ls命令的参数和选项\n\t#ls [-a -l -h] [linux路径]\n\n\t-a选项，表示： all的意思，即列出全部文件（包含隐藏的文件/文件夹）\n\t-l选项，表示：  以列表（竖向排列）的形式展示内容，并展示更多信息\n\t混合使用：-la | -al | -a -l\n\n\t-h表示以易于阅读的形式，列出文件大小，如K,M,G\n\t(-h必须和-l一起用)"
@@ -87,7 +103,7 @@
     {
       "id": 2,
       "title": "命令入门",
-      "date": "2026-04-11 00:00:02",
+      "date": "2026-04-11 00:20:02",
       "category": "linux",
       "excerpt": "##命令基础：\n\n\t#通用格式：\ncommand [-options] [parameter]\nco...",
       "content": "##命令基础：\n\n\t#通用格式：\ncommand [-options] [parameter]\ncommand:  命令本身\n-options:     (可选)命令的一些选项，可以通过选项控制命令的行为细节\nparameter:  (可选)命令的参数，多数用于命令的指向目标等\n\n\t#实例：\nls -l /home/itheima     ,,ls是命令本身，l是选项,/home/itheima是参数\n\t\t\t\t\t意思是以列表的形式，显示//home/itheima目录的内容\n\ncp -r test1 test2\t,,cp是命令本身，-r是选项，text1和2是参数\n\t\t\t\t\t意思是复制文件夹text1成为text2"
@@ -95,7 +111,7 @@
     {
       "id": 1,
       "title": "linux目录结构：",
-      "date": "2026-04-11 00:00:01",
+      "date": "2026-04-11 00:10:01",
       "category": "linux",
       "excerpt": "Linux的目录结构是一个树形结构\nLinux没有盘符概念，只有一个根目录/，所以文件都在它下面\n/...",
       "content": "Linux的目录结构是一个树形结构\nLinux没有盘符概念，只有一个根目录/，所以文件都在它下面\n/usr/local/hello.txt     第一个“/”表示根目录   后面的表示层级关系"
