@@ -7,9 +7,93 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #00ff88; --secondary: #ff00ff; --accent: #00d4ff; --dark: #0a0a0f; }
+        :root {
+            --primary: #00ff88;
+            --secondary: #ff00ff;
+            --accent: #00d4ff;
+            --dark: #0a0a0f;
+            --glow-opacity: 0.3;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --nav-bg: rgba(10, 10, 15, 0.8);
+            --text-muted: rgba(255, 255, 255, 0.6);
+            --text-dim: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Theme: Cyberpunk (Default) */
+        [data-theme="cyberpunk"] {
+            --primary: #00ff88;
+            --secondary: #ff00ff;
+            --accent: #00d4ff;
+            --dark: #0a0a0f;
+            --glow-opacity: 0.3;
+        }
+
+        /* Theme: Ocean */
+        [data-theme="ocean"] {
+            --primary: #4a9ebb;
+            --secondary: #2d6a7a;
+            --accent: #a8c5d4;
+            --dark: #0c1821;
+            --glow-opacity: 0.2;
+        }
+
+        /* Theme: Sunset */
+        [data-theme="sunset"] {
+            --primary: #ff6b35;
+            --secondary: #f72585;
+            --accent: #ffd166;
+            --dark: #1a0a2e;
+            --glow-opacity: 0.3;
+        }
+
+        /* Theme: Forest */
+        [data-theme="forest"] {
+            --primary: #2d6a4f;
+            --secondary: #40916c;
+            --accent: #95d5b2;
+            --dark: #081c15;
+            --glow-opacity: 0.2;
+        }
+
+        /* Theme: Lavender */
+        [data-theme="lavender"] {
+            --primary: #9d4edd;
+            --secondary: #c77dff;
+            --accent: #e0aaff;
+            --dark: #10002b;
+            --glow-opacity: 0.3;
+        }
+
+        /* Theme: Cherry */
+        [data-theme="cherry"] {
+            --primary: #ff4d6d;
+            --secondary: #c9184a;
+            --accent: #ffb3c1;
+            --dark: #1f000b;
+            --glow-opacity: 0.3;
+        }
+
+        /* Theme: Matrix */
+        [data-theme="matrix"] {
+            --primary: #00ff00;
+            --secondary: #008f11;
+            --accent: #33ff33;
+            --dark: #000000;
+            --glow-opacity: 0.4;
+        }
+
+        /* Theme: Twilight */
+        [data-theme="twilight"] {
+            --primary: #7c6aef;
+            --secondary: #a855c7;
+            --accent: #d4a5d9;
+            --dark: #1a1425;
+            --glow-opacity: 0.25;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Noto Sans SC', sans-serif; background: var(--dark); color: white; overflow-x: hidden; cursor: none; }
+        body { font-family: 'Noto Sans SC', sans-serif; background: var(--dark); color: white; overflow-x: hidden; cursor: none; transition: background 0.5s ease, color 0.5s ease; }
         .cursor { position: fixed; width: 20px; height: 20px; border: 2px solid var(--primary); border-radius: 50%; pointer-events: none; z-index: 9999; transition: transform 0.1s; mix-blend-mode: difference; }
         .cursor-dot { position: fixed; width: 8px; height: 8px; background: var(--primary); border-radius: 50%; pointer-events: none; z-index: 9999; }
         .trail { position: fixed; width: 10px; height: 10px; background: var(--primary); border-radius: 50%; pointer-events: none; z-index: 9998; opacity: 0.8; animation: trailFade 1s ease-out forwards; }
@@ -41,11 +125,128 @@
         .hero.active .tagline { animation: fadeInUp 0.8s ease-out 0.8s forwards; opacity: 0; }
         .hero.active .social-links { animation: floatIn 0.8s ease-out 1s forwards; opacity: 0; }
         
-        nav { position: fixed; top: 0; left: 0; right: 0; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; z-index: 100; background: rgba(10, 10, 15, 0.8); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(0, 255, 136, 0.1); }
+        nav { position: fixed; top: 0; left: 0; right: 0; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; z-index: 100; background: var(--nav-bg); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); transition: background 0.5s ease; }
         .logo { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; background: linear-gradient(135deg, var(--primary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; }
         .nav-links { display: flex; gap: 2rem; list-style: none; }
         .nav-links a { color: rgba(255, 255, 255, 0.7); text-decoration: none; font-size: 0.9rem; transition: all 0.3s; cursor: pointer; }
         .nav-links a:hover { color: var(--primary); }
+        .theme-btn {
+            padding: 0.6rem 1rem;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 2rem;
+            color: rgba(255,255,255,0.9);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .theme-btn::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: -1;
+        }
+        .theme-btn:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(0,255,136,0.3), 0 0 40px rgba(0,255,136,0.1);
+            transform: translateY(-2px);
+        }
+        .theme-dropdown { position: relative; display: inline-block; }
+        .theme-options {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            margin-top: 0.8rem;
+            background: linear-gradient(180deg, rgba(20,20,30,0.98), rgba(10,10,20,0.98));
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 1rem;
+            padding: 1rem;
+            min-width: 180px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 30px rgba(0,255,136,0.1);
+            backdrop-filter: blur(20px);
+            z-index: 200;
+        }
+        .theme-options.show {
+            display: block;
+            animation: themeMenuIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes themeMenuIn {
+            from { opacity: 0; transform: translateY(-10px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .theme-option {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.7rem 1rem;
+            border-radius: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: rgba(255,255,255,0.85);
+            font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .theme-option::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--opt-primary), var(--opt-secondary));
+            opacity: 0;
+            transition: opacity 0.3s;
+            border-radius: 0.8rem;
+        }
+        .theme-option:hover::before { opacity: 0.15; }
+        .theme-option:hover {
+            transform: translateX(5px);
+            color: white;
+        }
+        .theme-option.active {
+            background: linear-gradient(135deg, var(--opt-primary), var(--opt-secondary));
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .theme-option.active::before { opacity: 0; }
+        .theme-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--opt-primary), var(--opt-secondary));
+            border: 2px solid rgba(255,255,255,0.3);
+            flex-shrink: 0;
+            transition: all 0.3s;
+            box-shadow: 0 0 10px var(--opt-primary);
+        }
+        .theme-option:hover .theme-dot { transform: scale(1.2); }
+        .theme-option.active .theme-dot {
+            border-color: white;
+            box-shadow: 0 0 15px var(--opt-primary);
+        }
+        .theme-label { position: relative; z-index: 1; font-weight: 500; }
+        .theme-preview {
+            position: absolute;
+            right: 1rem;
+            display: flex;
+            gap: 3px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .theme-option:hover .theme-preview { opacity: 0.6; }
+        .theme-option.active .theme-preview { opacity: 1; }
+        .theme-preview-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
         
         .hero, .articles-section, .article-detail { display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem; position: relative; z-index: 1; min-height: 100vh; }
         .hero.active, .articles-section.active, .article-detail.active { display: flex; }
@@ -63,41 +264,43 @@
         .social-link { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: white; text-decoration: none; font-size: 1.2rem; transition: all 0.3s; }
         .social-link:hover { background: var(--primary); color: var(--dark); transform: scale(1.1); box-shadow: 0 0 30px rgba(0, 255, 136, 0.5); }
         
-        .glow-orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.3; pointer-events: none; }
+        .glow-orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: var(--glow-opacity); pointer-events: none; transition: opacity 0.5s ease; }
         .orb-1 { width: 400px; height: 400px; background: var(--primary); top: 10%; left: -10%; animation: float 8s infinite ease-in-out; }
         .orb-2 { width: 300px; height: 300px; background: var(--secondary); bottom: 20%; right: -5%; animation: float 10s infinite ease-in-out reverse; }
         @keyframes float { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(30px, 30px); } }
         
-        .section-title { font-family: 'Orbitron', sans-serif; font-size: 2.5rem; margin-bottom: 1.5rem; text-align: center; color: var(--primary); }
+        .section-title { font-family: 'Orbitron', sans-serif; font-size: 2.5rem; margin-bottom: 1.5rem; text-align: center; color: var(--primary); transition: color 0.5s ease; }
         
         .category-filter { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-bottom: 2rem; }
         .category-btn { padding: 0.5rem 1rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 0.5rem; color: rgba(255,255,255,0.7); cursor: pointer; transition: all 0.3s; }
         .category-btn:hover, .category-btn.active { background: var(--primary); color: var(--dark); border-color: var(--primary); }
+        .article-tag { padding: 0.2rem 0.6rem; background: rgba(0,255,136,0.2); border: 1px solid var(--primary); border-radius: 0.3rem; color: var(--primary); font-size: 0.75rem; transition: all 0.3s; }
         
-        .article-card { max-width: 800px; margin: 0 auto 1.5rem; padding: 1.5rem; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 1rem; cursor: pointer; transition: all 0.3s; }
+        .article-card { max-width: 800px; margin: 0 auto 1.5rem; padding: 1.5rem; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 1rem; cursor: pointer; transition: all 0.3s; }
         .article-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2); }
         .article-meta { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; }
         .article-tag { padding: 0.2rem 0.6rem; background: rgba(0,255,136,0.2); border: 1px solid var(--primary); border-radius: 0.3rem; color: var(--primary); font-size: 0.75rem; }
         .article-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; color: white; }
-        .article-date { font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-bottom: 0.5rem; }
-        .article-excerpt { color: rgba(255, 255, 255, 0.6); line-height: 1.6; }
+        .article-date { font-size: 0.8rem; color: var(--text-dim); margin-bottom: 0.5rem; }
+        .article-excerpt { color: var(--text-muted); line-height: 1.6; }
         
         .back-btn { display: inline-block; padding: 0.5rem 1.5rem; margin-bottom: 2rem; color: var(--primary); cursor: pointer; border: 1px solid var(--primary); border-radius: 0.5rem; transition: all 0.3s; }
         .back-btn:hover { background: var(--primary); color: var(--dark); }
         .detail-title { font-family: 'Orbitron', sans-serif; font-size: 2rem; margin-bottom: 1rem; color: white; }
         .detail-meta { display: flex; gap: 1rem; align-items: center; margin-bottom: 2rem; }
-        .detail-date { color: rgba(255,255,255,0.5); }
+        .detail-date { color: var(--text-dim); }
         /* 文章内容样式改进 */
-        .detail-content-wrapper { 
-            max-width: 800px; 
+        .detail-content-wrapper {
+            max-width: 800px;
             width: 100%;
-            margin: 0 auto; 
+            margin: 0 auto;
             padding: 2rem;
-            background: rgba(255, 255, 255, 0.08);
+            background: var(--card-bg);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border-radius: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid var(--card-border);
+            transition: all 0.5s ease;
         }
         .detail-content { 
             color: rgba(255, 255, 255, 0.9); 
@@ -139,7 +342,7 @@
         }
         .page-btn:hover, .page-btn.active { background: var(--primary); color: var(--dark); border-color: var(--primary); }
         .page-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-        footer { padding: 2rem; text-align: center; color: rgba(255, 255, 255, 0.3); font-size: 0.8rem; position: relative; z-index: 1; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+        footer { padding: 2rem; text-align: center; color: var(--text-dim); font-size: 0.8rem; position: relative; z-index: 1; border-top: 1px solid rgba(255, 255, 255, 0.05); }
         
         @media (max-width: 768px) { .title { font-size: 2rem; } .nav-links { display: flex; gap: 1rem; } .nav-links a { font-size: 0.8rem; } .hero { padding: 1rem; } body { cursor: auto; } .cursor, .cursor-dot { display: none; } }
     </style>
@@ -157,6 +360,87 @@
             <li><a onclick="showHome()">首页</a></li>
             <li><a onclick="showArticles()">文章</a></li>
             <li><a onclick="showAbout()">关于</a></li>
+            <li>
+                <div class="theme-dropdown">
+                    <button class="theme-btn" onclick="toggleThemeMenu()">
+                        <span id="current-theme-icon">🎨</span>
+                    </button>
+                    <div class="theme-options" id="theme-options">
+                        <div class="theme-option" data-theme="cyberpunk" style="--opt-primary: #00ff88; --opt-secondary: #ff00ff;" onclick="setTheme('cyberpunk')">
+                            <span class="theme-dot"></span>
+                            <span class="theme-label">赛博朋克</span>
+                            <span class="theme-preview">
+                                <span class="theme-preview-dot" style="background:#00ff88"></span>
+                                <span class="theme-preview-dot" style="background:#ff00ff"></span>
+                                <span class="theme-preview-dot" style="background:#00d4ff"></span>
+                            </span>
+                        </div>
+                        <div class="theme-option" data-theme="ocean" style="--opt-primary: #4a9ebb; --opt-secondary: #2d6a7a;" onclick="setTheme('ocean')">
+                            <span class="theme-dot"></span>
+                            <span class="theme-label">海洋</span>
+                            <span class="theme-preview">
+                                <span class="theme-preview-dot" style="background:#4a9ebb"></span>
+                                <span class="theme-preview-dot" style="background:#2d6a7a"></span>
+                                <span class="theme-preview-dot" style="background:#a8c5d4"></span>
+                            </span>
+                        </div>
+                        <div class="theme-option" data-theme="sunset" style="--opt-primary: #ff6b35; --opt-secondary: #f72585;" onclick="setTheme('sunset')">
+                            <span class="theme-dot"></span>
+                            <span class="theme-label">日落</span>
+                            <span class="theme-preview">
+                                <span class="theme-preview-dot" style="background:#ff6b35"></span>
+                                <span class="theme-preview-dot" style="background:#f72585"></span>
+                                <span class="theme-preview-dot" style="background:#ffd166"></span>
+                            </span>
+                        </div>
+                        <div class="theme-option" data-theme="forest" style="--opt-primary: #2d6a4f; --opt-secondary: #40916c;" onclick="setTheme('forest')">
+                            <span class="theme-dot"></span>
+                            <span class="theme-label">森林</span>
+                            <span class="theme-preview">
+                                <span class="theme-preview-dot" style="background:#2d6a4f"></span>
+                                <span class="theme-preview-dot" style="background:#40916c"></span>
+                                <span class="theme-preview-dot" style="background:#95d5b2"></span>
+                            </span>
+                        </div>
+                        <div class="theme-option" data-theme="lavender" style="--opt-primary: #9d4edd; --opt-secondary: #c77dff;" onclick="setTheme('lavender')">
+                            <span class="theme-dot"></span>
+                            <span class="theme-label">薰衣草</span>
+                            <span class="theme-preview">
+                                <span class="theme-preview-dot" style="background:#9d4edd"></span>
+                                <span class="theme-preview-dot" style="background:#c77dff"></span>
+                                <span class="theme-preview-dot" style="background:#e0aaff"></span>
+                            </span>
+                        </div>
+                        <div class="theme-option" data-theme="cherry" style="--opt-primary: #ff4d6d; --opt-secondary: #c9184a;" onclick="setTheme('cherry')">
+                            <span class="theme-dot"></span>
+                            <span class="theme-label">樱花</span>
+                            <span class="theme-preview">
+                                <span class="theme-preview-dot" style="background:#ff4d6d"></span>
+                                <span class="theme-preview-dot" style="background:#c9184a"></span>
+                                <span class="theme-preview-dot" style="background:#ffb3c1"></span>
+                            </span>
+                        </div>
+                        <div class="theme-option" data-theme="matrix" style="--opt-primary: #00ff00; --opt-secondary: #008f11;" onclick="setTheme('matrix')">
+                            <span class="theme-dot"></span>
+                            <span class="theme-label">矩阵</span>
+                            <span class="theme-preview">
+                                <span class="theme-preview-dot" style="background:#00ff00"></span>
+                                <span class="theme-preview-dot" style="background:#008f11"></span>
+                                <span class="theme-preview-dot" style="background:#33ff33"></span>
+                            </span>
+                        </div>
+                        <div class="theme-option" data-theme="twilight" style="--opt-primary: #7c6aef; --opt-secondary: #a855c7;" onclick="setTheme('twilight')">
+                            <span class="theme-dot"></span>
+                            <span class="theme-label">黄昏</span>
+                            <span class="theme-preview">
+                                <span class="theme-preview-dot" style="background:#7c6aef"></span>
+                                <span class="theme-preview-dot" style="background:#a855c7"></span>
+                                <span class="theme-preview-dot" style="background:#d4a5d9"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </li>
         </ul>
     </nav>
 
@@ -215,6 +499,56 @@
                 console.log('Error:', e);
             }
         }
+
+        // 主题系统
+        const themes = {
+            cyberpunk: { icon: '🎨', primary: '#00ff88', secondary: '#ff00ff', accent: '#00d4ff' },
+            ocean: { icon: '🌊', primary: '#4a9ebb', secondary: '#2d6a7a', accent: '#a8c5d4' },
+            sunset: { icon: '🌅', primary: '#ff6b35', secondary: '#f72585', accent: '#ffd166' },
+            forest: { icon: '🌲', primary: '#2d6a4f', secondary: '#40916c', accent: '#95d5b2' },
+            lavender: { icon: '💜', primary: '#9d4edd', secondary: '#c77dff', accent: '#e0aaff' },
+            cherry: { icon: '🌸', primary: '#ff4d6d', secondary: '#c9184a', accent: '#ffb3c1' },
+            matrix: { icon: '💚', primary: '#00ff00', secondary: '#008f11', accent: '#33ff33' },
+            twilight: { icon: '🌆', primary: '#7c6aef', secondary: '#a855c7', accent: '#d4a5d9' }
+        };
+
+        function toggleThemeMenu() {
+            const menu = document.getElementById('theme-options');
+            menu.classList.toggle('show');
+        }
+
+        function setTheme(theme) {
+            document.body.setAttribute('data-theme', theme);
+            localStorage.setItem('blog-theme', theme);
+
+            // Update theme button with icon and glow
+            const btn = document.querySelector('.theme-btn');
+            btn.style.setProperty('--glow-primary', themes[theme].primary);
+            btn.style.boxShadow = `0 0 20px ${themes[theme].primary}40, 0 0 40px ${themes[theme].primary}20`;
+
+            document.getElementById('current-theme-icon').textContent = themes[theme].icon;
+            document.getElementById('theme-options').classList.remove('show');
+            updateActiveThemeOption(theme);
+        }
+
+        function updateActiveThemeOption(theme) {
+            document.querySelectorAll('.theme-option').forEach(opt => {
+                opt.classList.toggle('active', opt.dataset.theme === theme);
+            });
+        }
+
+        function loadSavedTheme() {
+            const saved = localStorage.getItem('blog-theme') || 'cyberpunk';
+            setTheme(saved);
+        }
+
+        // 点击其他地方关闭主题菜单
+        document.addEventListener('click', (e) => {
+            const dropdown = document.querySelector('.theme-dropdown');
+            if (!dropdown.contains(e.target)) {
+                document.getElementById('theme-options').classList.remove('show');
+            }
+        });
         
         // 鼠标跟随
         const cursor = document.querySelector('.cursor'), cursorDot = document.querySelector('.cursor-dot');
@@ -395,7 +729,7 @@
             }
         }
         
-        loadData().then(() => createStars());
+        loadData().then(() => { createStars(); loadSavedTheme(); });
     </script>
 </body>
 </html>
