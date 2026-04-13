@@ -120,6 +120,19 @@
             font-size: 0.85rem;
         }
         .sort-btn:hover, .sort-btn.active { background: var(--primary); color: var(--dark); border-color: var(--primary); }
+        /* 翻页样式 */
+        .pagination { display: flex; justify-content: center; gap: 0.5rem; margin-top: 2rem; }
+        .page-btn {
+            padding: 0.5rem 1rem;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 0.5rem;
+            color: rgba(255,255,255,0.7);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .page-btn:hover, .page-btn.active { background: var(--primary); color: var(--dark); border-color: var(--primary); }
+        .page-btn:disabled { opacity: 0.3; cursor: not-allowed; }
         footer { padding: 2rem; text-align: center; color: rgba(255, 255, 255, 0.3); font-size: 0.8rem; position: relative; z-index: 1; border-top: 1px solid rgba(255, 255, 255, 0.05); }
         
         @media (max-width: 768px) { .title { font-size: 2rem; } .nav-links { display: flex; gap: 1rem; } .nav-links a { font-size: 0.8rem; } .hero { padding: 1rem; } body { cursor: auto; } .cursor, .cursor-dot { display: none; } }
@@ -164,6 +177,7 @@
         </div>
         <div class="category-filter" id="category-filter"></div>
         <div id="article-list"></div>
+        <div class="pagination" id="pagination"></div>
     </section>
 
     <section class="article-detail" id="article-detail">
@@ -242,9 +256,12 @@
 
         let currentCategory = '全部';
         let currentSort = 'new';
+        let currentPage = 1;
+        const ARTICLES_PER_PAGE = 5;
 
         function setSort(sort) {
             currentSort = sort;
+            currentPage = 1; // 重置到第一页
             document.getElementById('sort-new').classList.toggle('active', sort === 'new');
             document.getElementById('sort-old').classList.toggle('active', sort === 'old');
             renderArticleList();
@@ -293,11 +310,19 @@
                 return currentSort === 'new' ? dateB - dateA : dateA - dateB;
             });
             
+            // 分页计算
+            const totalPages = Math.ceil(filtered.length / ARTICLES_PER_PAGE);
+            if (currentPage > totalPages) currentPage = totalPages || 1;
+            
+            const startIndex = (currentPage - 1) * ARTICLES_PER_PAGE;
+            const paginatedArticles = filtered.slice(startIndex, startIndex + ARTICLES_PER_PAGE);
+            
             if (filtered.length === 0) {
                 list.innerHTML = '<div class="article-card" style="text-align:center;color:rgba(255,255,255,0.5);">暂无文章，快去添加吧！</div>';
+                document.getElementById('pagination').innerHTML = '';
                 return;
             }
-            list.innerHTML = filtered.map(article => `
+            list.innerHTML = paginatedArticles.map(article => `
                 <div class="article-card" onclick="showArticle(${article.id})">
                     <div class="article-meta"><span class="article-tag">${article.category}</span></div>
                     <h3 class="article-title">${article.title}</h3>
@@ -305,9 +330,37 @@
                     <p class="article-excerpt">${article.excerpt}</p>
                 </div>
             `).join('');
+            
+            // 渲染分页
+            renderPagination(totalPages);
+        }
+        
+        function renderPagination(totalPages) {
+            const pagination = document.getElementById('pagination');
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+            let html = '';
+            html += `<button class="page-btn" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>上一页</button>`;
+            for (let i = 1; i <= totalPages; i++) {
+                html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+            }
+            html += `<button class="page-btn" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>下一页</button>`;
+            pagination.innerHTML = html;
+        }
+        
+        function goToPage(page) {
+            const filter = document.getElementById('category-filter');
+            const filtered = currentCategory === '全部' ? [...blogData.articles] : blogData.articles.filter(a => a.category === currentCategory);
+            const totalPages = Math.ceil(filtered.length / ARTICLES_PER_PAGE);
+            if (page < 1 || page > totalPages) return;
+            currentPage = page;
+            renderArticleList();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function filterByCategory(cat) { currentCategory = cat; renderArticleList(); }
+        function filterByCategory(cat) { currentCategory = cat; currentPage = 1; renderArticleList(); }
 
         function showArticle(id) {
             const article = blogData.articles.find(a => a.id === id);
