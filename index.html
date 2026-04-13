@@ -259,6 +259,9 @@
         .title { font-family: 'Orbitron', sans-serif; font-size: 4rem; font-weight: 900; margin-bottom: 1rem; background: linear-gradient(135deg, #fff 0%, var(--primary) 50%, var(--accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.5)); }
         .subtitle { font-size: 1.5rem; color: rgba(255, 255, 255, 0.6); margin-bottom: 2rem; font-weight: 300; }
         .tagline { font-size: 1rem; color: var(--primary); margin-bottom: 3rem; letter-spacing: 0.3em; }
+        .typewriter { font-size: 1rem; color: var(--primary); margin-bottom: 1rem; min-height: 1.5rem; letter-spacing: 0.1em; }
+        .typewriter-cursor { display: inline-block; width: 2px; height: 1.2em; background: var(--primary); margin-left: 2px; animation: blink 0.8s infinite; vertical-align: middle; }
+        @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
         
         .social-links { display: flex; gap: 1.5rem; margin-top: 3rem; }
         .social-link { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: white; text-decoration: none; font-size: 1.2rem; transition: all 0.3s; }
@@ -274,6 +277,23 @@
         .category-filter { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-bottom: 2rem; }
         .category-btn { padding: 0.5rem 1rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 0.5rem; color: rgba(255,255,255,0.7); cursor: pointer; transition: all 0.3s; }
         .category-btn:hover, .category-btn.active { background: var(--primary); color: var(--dark); border-color: var(--primary); }
+        .search-box { max-width: 800px; margin: 0 auto 1.5rem; position: relative; }
+        .search-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            padding-left: 2.8rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 0.8rem;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s;
+            outline: none;
+        }
+        .search-input:focus { border-color: var(--primary); box-shadow: 0 0 20px rgba(0,255,136,0.2); }
+        .search-input::placeholder { color: rgba(255,255,255,0.4); }
+        .search-icon { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.4); pointer-events: none; }
+        .search-results-count { text-align: center; color: rgba(255,255,255,0.5); margin-bottom: 1rem; font-size: 0.9rem; }
         .article-tag { padding: 0.2rem 0.6rem; background: rgba(0,255,136,0.2); border: 1px solid var(--primary); border-radius: 0.3rem; color: var(--primary); font-size: 0.75rem; transition: all 0.3s; }
         
         .article-card { max-width: 800px; margin: 0 auto 1.5rem; padding: 1.5rem; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 1rem; cursor: pointer; transition: all 0.3s; }
@@ -343,6 +363,29 @@
         .page-btn:hover, .page-btn.active { background: var(--primary); color: var(--dark); border-color: var(--primary); }
         .page-btn:disabled { opacity: 0.3; cursor: not-allowed; }
         footer { padding: 2rem; text-align: center; color: var(--text-dim); font-size: 0.8rem; position: relative; z-index: 1; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: var(--dark);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 99;
+            box-shadow: 0 4px 15px rgba(0,255,136,0.3);
+        }
+        .back-to-top.visible { opacity: 1; visibility: visible; }
+        .back-to-top:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,255,136,0.4); }
         
         @media (max-width: 768px) { .title { font-size: 2rem; } .nav-links { display: flex; gap: 1rem; } .nav-links a { font-size: 0.8rem; } .hero { padding: 1rem; } body { cursor: auto; } .cursor, .cursor-dot { display: none; } }
     </style>
@@ -449,6 +492,7 @@
         <h1 class="title">原子の学习之路</h1>
         <p class="subtitle">从零开始的大一学生 · 网络空间安全</p>
         <p class="tagline">THE DAWN WILL NEVER COME AGAIN</p>
+        <p class="typewriter" id="typewriter"></p>
         <div class="social-links">
             <a href="https://github.com/7418520lyz" class="social-link" target="_blank" title="GitHub">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
@@ -461,6 +505,11 @@
 
     <section class="articles-section" id="articles">
         <h2 class="section-title">📝 文章列表</h2>
+        <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" class="search-input" id="searchInput" placeholder="搜索文章标题或内容..." oninput="handleSearch()">
+        </div>
+        <div id="searchResultsCount" class="search-results-count"></div>
         <div class="sort-btns">
             <button class="sort-btn active" id="sort-new" onclick="setSort('new')">最新优先</button>
             <button class="sort-btn" id="sort-old" onclick="setSort('old')">最早优先</button>
@@ -483,6 +532,7 @@
     </section>
 
     <footer><p>© 2026 原子の学习之路 · Built with 💚 by 丛雨喵</p></footer>
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
 
     <script>
         async function loadData() {
@@ -631,7 +681,24 @@
             ).join('');
 
             let filtered = currentCategory === '全部' ? [...blogData.articles] : blogData.articles.filter(a => a.category === currentCategory);
-            
+
+            // 搜索过滤
+            if (searchQuery) {
+                filtered = filtered.filter(a =>
+                    a.title.toLowerCase().includes(searchQuery) ||
+                    (a.content && a.content.toLowerCase().includes(searchQuery)) ||
+                    (a.excerpt && a.excerpt.toLowerCase().includes(searchQuery))
+                );
+            }
+
+            // 显示搜索结果数量
+            const countEl = document.getElementById('searchResultsCount');
+            if (searchQuery) {
+                countEl.textContent = `找到 ${filtered.length} 篇相关文章`;
+            } else {
+                countEl.textContent = '';
+            }
+
             // 排序
             filtered.sort((a, b) => {
                 // 支持 "2026-04-11" 和 "2026-04-11 00:00:00" 两种格式
@@ -702,6 +769,54 @@
 
         function filterByCategory(cat) { currentCategory = cat; currentPage = 1; renderArticleList(); }
 
+        // 打字机效果
+        const typewriterTexts = [
+            '你好，我是原子',
+            '一个正在学习网络空间安全的大一学生',
+            '热爱技术，喜欢探索',
+            'Welcome to my blog!'
+        ];
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typewriterTimer;
+
+        function typewriterEffect() {
+            const element = document.getElementById('typewriter');
+            if (!element) return;
+            const currentText = typewriterTexts[textIndex];
+
+            if (isDeleting) {
+                element.innerHTML = currentText.substring(0, charIndex - 1) + '<span class="typewriter-cursor"></span>';
+                charIndex--;
+            } else {
+                element.innerHTML = currentText.substring(0, charIndex + 1) + '<span class="typewriter-cursor"></span>';
+                charIndex++;
+            }
+
+            let speed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentText.length) {
+                speed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % typewriterTexts.length;
+                speed = 500;
+            }
+
+            typewriterTimer = setTimeout(typewriterEffect, speed);
+        }
+
+        // 搜索功能
+        let searchQuery = '';
+
+        function handleSearch() {
+            searchQuery = document.getElementById('searchInput').value.trim().toLowerCase();
+            currentPage = 1;
+            renderArticleList();
+        }
+
         function showArticle(id) {
             const article = blogData.articles.find(a => a.id === id);
             if (!article) return;
@@ -729,7 +844,21 @@
             }
         }
         
-        loadData().then(() => { createStars(); loadSavedTheme(); });
+        loadData().then(() => { createStars(); loadSavedTheme(); typewriterEffect(); });
+
+        // 回到顶部
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.addEventListener('scroll', () => {
+            const btn = document.getElementById('backToTop');
+            if (window.scrollY > 300) {
+                btn.classList.add('visible');
+            } else {
+                btn.classList.remove('visible');
+            }
+        });
     </script>
 </body>
 </html>
