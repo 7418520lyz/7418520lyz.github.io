@@ -121,15 +121,21 @@
         }
         .sort-btn:hover, .sort-btn.active { background: var(--primary); color: var(--dark); border-color: var(--primary); }
         /* 翻页样式 */
-        .pagination { display: flex; justify-content: center; gap: 0.5rem; margin-top: 2rem; }
+        .pagination { display: flex; justify-content: center; gap: 0.3rem; margin-top: 2rem; flex-wrap: wrap; }
         .page-btn {
-            padding: 0.5rem 1rem;
+            min-width: 36px;
+            height: 36px;
+            padding: 0 0.6rem;
             background: rgba(255,255,255,0.1);
             border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 0.5rem;
+            border-radius: 50px;
             color: rgba(255,255,255,0.7);
             cursor: pointer;
             transition: all 0.3s;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .page-btn:hover, .page-btn.active { background: var(--primary); color: var(--dark); border-color: var(--primary); }
         .page-btn:disabled { opacity: 0.3; cursor: not-allowed; }
