@@ -5,6 +5,30 @@
   ],
   "articles": [
     {
+      "id": 19,
+      "title": "修改权限控制 - chown",
+      "date": "2026-04-14 20:38:06",
+      "category": "linux",
+      "excerpt": "作用：使用chown命令，可以修改文件、文件夹的所属用户和用户组。\n重要注意：普通用户无法修改所属为...",
+      "content": "作用：使用chown命令，可以修改文件、文件夹的所属用户和用户组。\n重要注意：普通用户无法修改所属为其它用户或组，所以此命令只适用于 root 用户执行。\n\n语法：chown [-R] [用户][:][用户组] 文件或文件夹\n\n-R：同chmod，对文件夹内全部内容应用相同规则（递归修改）\n用户：修改文件 / 文件夹的所属用户\n用户组：修改文件 / 文件夹的所属用户组\n：用于分隔用户和用户组\n\n\n示例\nchown root hello.txt\t\t\t将hello.txt的所属用户修改为root\nchown :root hello.txt\t\t将hello.txt的所属用户组修改为root\nchown root:itheima hello.txt\t将hello.txt的所属用户修改为root，用户组修改为itheima\nchown -R root test\t\t\t将文件夹test的所属用户修改为root，并对文件夹内全部内容应用同样规则"
+    },
+    {
+      "id": 18,
+      "title": "修改权限控制 - chmod",
+      "date": "2026-04-14 20:37:36",
+      "category": "linux",
+      "excerpt": "##chmod命令\n作用：可以使用chmod命令，修改文件，文件夹的权限信息\n注意：只有文件，文件夹...",
+      "content": "##chmod命令\n作用：可以使用chmod命令，修改文件，文件夹的权限信息\n注意：只有文件，文件夹的所属用户或root用户可以修改\n语法：chmod [-R] 权限 文件或文件夹\n选项-R，对文件夹内的全部内容做相同操作\n\n实例：\nchmod u=rwx,g=rx,o=x hello.txt，将文件权限修改为: rwxr-x--x\n\t其中：u表示 user（所属用户）权限，g表示 group（组权限），o表示 other（其它用户）权限。\nchmod -R u=rwx,g=rx,o=x test，将文件夹test以及文件夹内全部内容权限设置为：rwxr-x--x\n\n\n\n除此之外还可以：chmod 751 hello.txt\n\n0：无任何权限，即 ---\n1：仅有x权限，即 --x\n2：仅有w权限，即 -w-\n3：有w和x权限，即 -wx\n4：仅有r权限，即 r--\n5：有r和x权限，即 r-x\n6：有r和w权限，即 rw-\n7：有全部权限，即 rwx\n\n751 表示：rwx(7) r-x(5) --x(1)"
+    },
+    {
+      "id": 17,
+      "title": "查看权限控制",
+      "date": "2026-04-14 20:36:53",
+      "category": "linux",
+      "excerpt": "##认知权限信息\ndrwxr-xr-x 8 liz liz 4096 Apr 14 19:41 ae...",
+      "content": "##认知权限信息\ndrwxr-xr-x 8 liz liz 4096 Apr 14 19:41 aether_engine\n|  1  |                 | 2 |3 |\n\n1:表示文件，文件夹的权限控制信息\n2:表示文件，文件夹所属用户\n3:表示文件，文件夹所属用户组\n\n\n\n\t#第 1 位：文件类型标识\n字符\t含义\n-\t普通文件\nd\t目录（文件夹）\nl\t软链接（符号链接）\n\n\n\t#权限字符含义（r/w/x）\n字符\t权限\t对文件的作用\t对目录的作用\nr\t读 (read)\t可读取文件内容\t可列出目录内的文件\nw\t写 (write)\t可修改、删除文件内容\t可在目录内新建 / 删除 / 重命名文件\nx\t执行 (execute)\t可将文件作为程序执行\t可进入目录（cd）、访问目录内文件的元数据\n-\t无对应权限\t无该权限\t无该权限\n\n\n\t#示例解析：drwxr-xr-x\n第 1 位 d：表示这是一个目录（文件夹）\n第 2-4 位 rwx：所属用户（所有者） 拥有 读 (r)、写 (w)、执行 (x) 全部权限\n第 5-7 位 r-x：所属用户组 拥有 读 (r)、执行 (x) 权限，无写 (w) 权限\n第 8-10 位 r-x：其他用户 拥有 读 (r)、执行 (x) 权限，无写 (w) 权限"
+    },
+    {
       "id": 16,
       "title": "用户，用户组管理",
       "date": "2026-04-13 17:41:43",
