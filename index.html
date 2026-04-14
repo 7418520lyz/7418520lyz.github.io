@@ -530,13 +530,14 @@
         }
         
         @media (max-width: 768px) {
+            html { overflow-y: auto; }
             .title { font-size: 2rem; }
             .subtitle { font-size: 1.1rem; }
             .tagline { font-size: 0.8rem; letter-spacing: 0.15em; }
             .typewriter { font-size: 0.85rem; }
-            .hero { padding: 1rem; min-height: 100vh; }
+            .hero { padding: 1rem; min-height: 100vh; height: auto; }
             .avatar-container { width: 120px; height: 120px; }
-            body { cursor: auto; }
+            body { cursor: auto; overflow-x: hidden; overflow-y: auto; }
             .cursor, .cursor-dot { display: none; }
             .mobile-menu-btn { display: none; }
             nav { padding: 0.6rem 0.5rem; flex-wrap: wrap; justify-content: center; gap: 0.5rem; position: relative; }
@@ -549,7 +550,7 @@
             .theme-options { right: auto; left: 50%; transform: translateX(-50%); top: 100%; }
             .search-input { font-size: 16px; padding: 0.7rem 0.8rem; padding-left: 2.5rem; }
             .article-card { padding: 1rem; margin-bottom: 1rem; }
-            .scroll-indicator { width: 100%; text-align: center; }
+            .scroll-indicator { left: 0; right: 0; text-align: center; transform: none; }
             .article-title { font-size: 1.1rem; }
             .article-excerpt { font-size: 0.9rem; }
             .section-title { font-size: 1.8rem; }
