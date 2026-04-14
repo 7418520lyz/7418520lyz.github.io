@@ -539,14 +539,17 @@
             body { cursor: auto; }
             .cursor, .cursor-dot { display: none; }
             .mobile-menu-btn { display: none; }
-            nav { padding: 0.6rem 0.5rem; flex-wrap: wrap; justify-content: center; gap: 0.5rem; }
+            nav { padding: 0.6rem 0.5rem; flex-wrap: wrap; justify-content: center; gap: 0.5rem; position: relative; }
             .logo { font-size: 1rem; }
             .nav-links { gap: 0.8rem; flex-wrap: wrap; justify-content: center; }
+            .nav-links li { display: flex; align-items: center; }
             .nav-links a { font-size: 0.75rem; }
             .theme-btn { padding: 0.4rem 0.7rem; font-size: 0.85rem; }
-            .theme-options { right: auto; left: 50%; transform: translateX(-50%); }
+            .theme-dropdown { position: relative; }
+            .theme-options { right: auto; left: 50%; transform: translateX(-50%); top: 100%; }
             .search-input { font-size: 16px; padding: 0.7rem 0.8rem; padding-left: 2.5rem; }
             .article-card { padding: 1rem; margin-bottom: 1rem; }
+            .scroll-indicator { width: 100%; text-align: center; }
             .article-title { font-size: 1.1rem; }
             .article-excerpt { font-size: 0.9rem; }
             .section-title { font-size: 1.8rem; }
