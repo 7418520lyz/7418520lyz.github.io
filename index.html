@@ -292,15 +292,14 @@
         .typewriter-cursor { display: inline-block; width: 2px; height: 1.2em; background: var(--primary); margin-left: 2px; animation: blink 0.8s infinite; vertical-align: middle; }
         @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
         .scroll-indicator {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
+            width: 200px;
+            margin: 0 auto;
             color: var(--primary);
             font-size: 0.9rem;
             opacity: 0;
             transition: opacity 0.3s;
             animation: bounce 1.5s infinite;
+            text-align: center;
         }
         @keyframes bounce {
             0%, 100% { transform: translateX(-50%) translateY(0); }
@@ -550,7 +549,7 @@
             .theme-options { right: auto; left: 50%; transform: translateX(-50%); top: 100%; }
             .search-input { font-size: 16px; padding: 0.7rem 0.8rem; padding-left: 2.5rem; }
             .article-card { padding: 1rem; margin-bottom: 1rem; }
-            .scroll-indicator { left: 0; right: 0; text-align: center; transform: none; }
+            .scroll-indicator { width: 160px; font-size: 0.8rem; }
             .article-title { font-size: 1.1rem; }
             .article-excerpt { font-size: 0.9rem; }
             .section-title { font-size: 1.8rem; }
