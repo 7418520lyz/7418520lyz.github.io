@@ -5,6 +5,22 @@
   ],
   "articles": [
     {
+      "id": 21,
+      "title": "软件安装",
+      "date": "2026-04-15 10:49:49",
+      "category": "linux",
+      "excerpt": "CentOs:\nCentOs常见软件安装包文件后缀:.rpm\n\n\t#yum 命令\nyum：RPM 包...",
+      "content": "CentOs:\nCentOs常见软件安装包文件后缀:.rpm\n\n\t#yum 命令\nyum：RPM 包软件管理器，用于自动化安装配置 Linux 软件，并可以自动解决依赖问题。\n语法：yum [-y] [install | remove | search] 软件名称\n\n选项：-y，自动确认，无需手动确认安装或卸载过程\ninstall：安装\nremove：卸载\nsearch：搜索\n\n注意：\nyum命令需要root 权限，可以su切换到 root，或使用sudo提权\nyum命令需要联网\n\n\n示例：\n\tyum [-y] install wget：通过 yum 命令安装 wget 程序\n\n\tyum [-y] remove wget：通过 yum 命令卸载 wget 命令\n\n\tyum search wget：通过 yum 命令，搜索是否有 wget 安装包\n\n\nUbuntu:\n\nUbuntu常见软件安装包文件后缀:.rpm\n\n语法：yum [-y] [install | remove | search] 软件名称\n\n和CentOs一致"
+    },
+    {
+      "id": 20,
+      "title": "各种小技巧",
+      "date": "2026-04-15 10:49:26",
+      "category": "linux",
+      "excerpt": "##掌握各类实用小技巧\n\n\t#强制停止\t\t\tctrl+c\n\n\t#退出、登出\t\tctrl+d\n\n\t#历...",
+      "content": "##掌握各类实用小技巧\n\n\t#强制停止\t\t\tctrl+c\n\n\t#退出、登出\t\tctrl+d\n\n\t#历史命令搜索\t\thistory（！命令前缀，自动匹配上一个命令）\tctrl+r（搜索）\n\n\t#光标移动\t\t\tctrl + a，跳到命令开头\n\t\t\t\t\tctrl + e，跳到命令结尾\n\t\t\t\t\tctrl + 键盘左键，向左跳一个单词\n\t\t\t\t\tctrl + 键盘右键，向右跳一个单词"
+    },
+    {
       "id": 19,
       "title": "修改权限控制 - chown",
       "date": "2026-04-14 20:38:06",
