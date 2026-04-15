@@ -5,6 +5,14 @@
   ],
   "articles": [
     {
+      "id": 23,
+      "title": "终端太丑？一招教会你",
+      "date": "2026-04-16 00:28:47",
+      "category": "linux",
+      "excerpt": "在我们使用终端时，往往会觉得终端枯燥乏味，一个难看的终端往往使我们的学习十分难受，尤其是Ubuntu...",
+      "content": "在我们使用终端时，往往会觉得终端枯燥乏味，一个难看的终端往往使我们的学习十分难受，尤其是Ubuntu(主观感觉)\n那么我们如何美化终端呢？\n\n第一步：\n准备前置条件：\n\n安装zsh:\t\tsudo apt install zsh\n安装git:\t\tsudo apt install git\n安装wget:\t\tsudo apt install wget\n注意：这里要重启\n\n第二部：把项目git到本地\n命令：sh -c \"$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)\"\n\n第三步：寻找主题，配置文件\n\n安装完成后浏览home目录会有文件：.zshrc的文件\n\n打开官网（https://github.com/ohmyzsh/ohmyzsh）寻找你喜欢的主题，记录下主题的名字\n\n打开文件.zshrc：vim .zshrc\n\n找到这一行：ZSH_THEME=\"\"(在引号内填入你喜欢的主题名称)\n\n保存，退出\n\n再次运行 source .zshrc启动配置文件"
+    },
+    {
       "id": 22,
       "title": "如何用linux运行C++",
       "date": "2026-04-15 15:29:01",
