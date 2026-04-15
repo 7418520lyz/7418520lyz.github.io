@@ -1,9 +1,26 @@
 {
   "categories": [
     "默认",
-    "linux"
+    "linux",
+    "算法(C++)"
   ],
   "articles": [
+    {
+      "id": 25,
+      "title": "对算法的看法",
+      "date": "2026-04-16 00:40:26",
+      "category": "算法(C++)",
+      "excerpt": "虽然不知道学算法有什么用，但听说算法是基础，emmm学下试试看",
+      "content": "虽然不知道学算法有什么用，但听说算法是基础，emmm学下试试看"
+    },
+    {
+      "id": 24,
+      "title": "大数加法",
+      "date": "2026-04-16 00:39:40",
+      "category": "算法(C++)",
+      "excerpt": "大数加法：\n\n#include<iostream>\n#include<cstring>\n#defin...",
+      "content": "大数加法：\n\n#include<iostream>\n#include<cstring>\n#define MAX 1000\nusing namespace std;\nint a[MAX+1]={0},b[MAX+1]={0};\nint i,up,tem;\nvoid InPutA ()\n{\n    char buffer[MAX+1]={0};\n    cin>>buffer;\n    for(tem=0,i=strlen(buffer)-1;i>=0;i--)\n    {\n        a[tem++]=buffer[i]-'0';\n    }\n}\n\nvoid InPutB()\n{\n    char buffer[MAX+1]={0};\n    cin>>buffer;\n    for(tem=0,i=strlen(buffer)-1;i>=0;i--)\n    {\n        b[tem++]=buffer[i]-'0';\n    }\n}\n\nvoid Add()\n{\n    for(up=0,i=0;i<MAX;i++)\n    {\n        tem=a[i]+b[i]+up;\n        a[i]=tem%10;\n        up=tem/10;\n    }\n}\n\nvoid DisPlay()\n{\n        for(i=MAX;i>=0;i--)\n        {\n                if(a[i]!=0)\n                {\n                        for(i;i>=0;i--)\n                        {\n                                cout<<a[i];\n                        }\n                }\n        }\n}\n\nint main()\n{\n    InPutA();\n    InPutB();\n    Add();\n    DisPlay();\n}"
+    },
     {
       "id": 23,
       "title": "终端太丑？一招教会你",
