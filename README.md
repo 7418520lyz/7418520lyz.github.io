@@ -5,3 +5,5 @@
 前台（博客主页）：https://7418520lyz.github.io
 
 后台（管理页面）：https://7418520lyz.github.io/admin.html
+
+由于数据是直接从本地git上去的，所以别人改不了捏，所以改后台没有意义呢。
