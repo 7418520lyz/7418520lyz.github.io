@@ -5,6 +5,14 @@
   ],
   "articles": [
     {
+      "id": 22,
+      "title": "如何用linux运行C++",
+      "date": "2026-04-15 15:29:01",
+      "category": "linux",
+      "excerpt": "第一步：\n安装：sudo apt update && sudo apt install -y g++...",
+      "content": "第一步：\n安装：sudo apt update && sudo apt install -y g++\n\n第二步：\n验证安装：g++ --version\n\n\n运行语法：\ng++ 源文件.cpp -o 可执行文件\n\ng++：调用 C++ 编译器\ntest.cpp：你的代码文件\n-o test：编译后生成的程序名字叫 test\n\n编译 + 运行（最常用）：g++ test.cpp -o test && ./test\n开启所有警告（写代码必用）：g++ test.cpp -o test -Wall\n使用 C++17 标准（现代 C++）：g++ test.cpp -o test -std=c++17\n\ng++ 语法结构总结（一看就懂）\ng++ [选项] 源代码文件 -o 输出文件名\n-o：指定输出文件\n\n\n最主要：g++ test.cpp -o test && ./test\n-Wall：显示所有警告\n-std=c++11 / -std=c++17：指定 C++ 版本\n-g：用于调试\n-O2：优化代码"
+    },
+    {
       "id": 21,
       "title": "软件安装",
       "date": "2026-04-15 10:49:49",
