@@ -6,6 +6,14 @@
   ],
   "articles": [
     {
+      "id": 29,
+      "title": "大数阶乘",
+      "date": "2026-04-16 21:59:42",
+      "category": "算法(C++)",
+      "excerpt": "#include<iostream>\n#define MAX 10000\nusing namespa...",
+      "content": "#include<iostream>\n#define MAX 10000\nusing namespace std;\nchar a[MAX + 1] = { 1 };\nint i, j, up, n, tem;\nvoid GetN()\n{\n\tcin >> n;\n}\n\nvoid XX()\n{\n\tfor (i = 2; i <= n; i++)\n\t{\n\t\tfor (up = 0, j = 0; j <= MAX; j++)\n\t\t{\n\t\t\ttem = a[j] * i + up;\n\t\t\tup = tem / 10;\n\t\t\ta[j] = tem % 10;\n\n\t\t}\n\n\t}\n}\n\nvoid display()\n{\n\tfor (i = MAX; i >= 0; i--) \n\t\tif (a[i] != 0)\n\t\t\tfor (i; i >= 0; i--)\n\t\t\t\tcout << (int)a[i];\n}\n\nint main()\n{\n\tGetN();\n\tXX();\n\tdisplay();\n}"
+    },
+    {
       "id": 28,
       "title": "软链接",
       "date": "2026-04-16 12:12:25",
