@@ -6,6 +6,22 @@
   ],
   "articles": [
     {
+      "id": 28,
+      "title": "软链接",
+      "date": "2026-04-16 12:12:25",
+      "category": "linux",
+      "excerpt": "##ln\n作用:在系统中创建软链接，可以将文件，文件夹链接到其他地方\n\n类似于windows的《快捷...",
+      "content": "##ln\n作用:在系统中创建软链接，可以将文件，文件夹链接到其他地方\n\n类似于windows的《快捷方式》\n\n语法:\tln -s 参数1 参数2\n\n-s选项，创建软连接\n参数 1：被链接的文件或文件夹\n参数 2：要链接去的目的地\n\n\n\n\t##实例：\nln -s /etc/yum.conf ~/yum.conf\nln -s /etc/yum ~/yum"
+    },
+    {
+      "id": 27,
+      "title": "systemctl",
+      "date": "2026-04-16 12:12:02",
+      "category": "linux",
+      "excerpt": "Linux 系统很多软件（内置或第三方）均支持使用 systemctl 命令控制：启动、停止、开机自...",
+      "content": "Linux 系统很多软件（内置或第三方）均支持使用 systemctl 命令控制：启动、停止、开机自启\n能够被 systemctl 管理的软件，一般也称之为：服务\n\n\n语法： systemctl start | stop | status | enable | disable 服务名\n\nstart 启动\nstop 关闭\nstatus 查看状态\nenable 开启开机自启\ndisable 关闭开机自启\n\n\n系统内置的服务比较多，比如：\nNetworkManager，主网络服务\nnetwork，副网络服务\nfirewalld，防火墙服务\nsshd，ssh 服务（FinalShell 远程登录 Linux 使用的就是这个服务）\n\n\n\n实例：\nsystemctl status firewalld   查看防火墙状态\n  \n除了内置的服务以外，部分第三方软件安装后也可以以 systemctl 进行控制。\n\nyum install -y ntp，安装 ntp 软件\n可以通过ntpd服务名，配合 systemctl 进行控制\n\n\nyum install -y httpd，安装 apache 服务器软件\n可以通过httpd服务名，配合 systemctl 进行控制"
+    },
+    {
       "id": 26,
       "title": "linux推荐",
       "date": "2026-04-16 01:25:27",
