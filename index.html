@@ -1346,12 +1346,16 @@
                 color: var(--text-secondary);
                 opacity: 0.9;
                 margin-bottom: 1rem;
+                font-family: 'Noto Sans SC', sans-serif;
+                font-weight: 400;
             }
 
             .tagline {
                 font-size: 0.6rem;
                 letter-spacing: 0.2em;
                 padding: 0.4rem 1rem;
+                font-family: 'JetBrains Mono', monospace;
+                text-transform: uppercase;
             }
 
             .typewriter {
@@ -1360,9 +1364,10 @@
             }
 
             .hero {
-                display: flex;
+                display: flex !important;
                 padding: 1.5rem;
-                padding-top: 6rem;
+                padding-top: 5rem;
+                padding-bottom: 4rem;
                 min-height: 100vh;
             }
             .avatar-container {
@@ -1395,9 +1400,34 @@
                 letter-spacing: 0.03em;
             }
 
+            /* Mobile hero section */
+            .hero.active {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+            }
+
+            .hero.active .avatar-container {
+                margin-bottom: 1.5rem;
+            }
+
+            .hero.active .title,
+            .hero.active .subtitle,
+            .hero.active .tagline,
+            .hero.active .typewriter,
+            .hero-active .hero-cta-container,
+            .hero-active .social-links {
+                width: 100%;
+            }
+
             /* Mobile CTA button */
             .hero-cta-container {
                 margin-top: 2rem;
+                width: 100%;
+                display: flex;
+                justify-content: center;
             }
 
             .hero-cta-btn {
@@ -1410,6 +1440,7 @@
             .social-links {
                 gap: 1.2rem;
                 margin-top: 2rem;
+                justify-content: center;
             }
 
             .social-link {
@@ -1504,7 +1535,25 @@
                 border-radius: 2px;
             }
 
+            /* Mobile articles section */
+            .articles-section {
+                padding: 5rem 1rem 3rem;
+                min-height: auto;
+            }
+
+            .articles-section.active {
+                display: flex;
+            }
+
             /* Mobile detail page */
+            .article-detail {
+                padding: 5rem 1rem 3rem;
+            }
+
+            .article-detail.active {
+                display: flex;
+            }
+
             .detail-content-wrapper {
                 padding: 1.5rem;
                 margin: 0 1rem;
