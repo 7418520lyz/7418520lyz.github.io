@@ -1303,7 +1303,7 @@
             z-index: 9999;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.4s var(--ease);
+            transition: opacity 0.25s ease;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1812,21 +1812,26 @@
             const articles = document.getElementById('articles');
             const detail = document.getElementById('article-detail');
 
+            // 先显示加载动画
             overlay.classList.add('active');
-            setTimeout(() => {
+
+            setTimeout(async () => {
+                // 隐藏首页，显示文章
                 home.classList.remove('active');
                 articles.classList.add('active');
                 articles.classList.add('page-transition');
                 detail.classList.remove('active');
 
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                // 滚动到顶部
+                window.scrollTo({ top: 0, behavior: 'instant' });
 
-                setTimeout(async () => {
-                    overlay.classList.remove('active');
-                    await loadData();
-                    renderArticleList();
-                }, 100);
-            }, 200);
+                // 加载数据
+                await loadData();
+                renderArticleList();
+
+                // 数据加载完后再隐藏加载动画
+                overlay.classList.remove('active');
+            }, 300);
         }
 
         function showAbout() { alert('我是原子，大一学生，正在学习网络安全！'); }
@@ -1988,9 +1993,19 @@
             const detail = document.getElementById('article-detail');
 
             overlay.classList.add('active');
+
             setTimeout(() => {
-                document.getElementById('home').classList.remove('active');
-                document.getElementById('articles').classList.remove('active');
+                // 只移除当前显示的页面，不动首页
+                const home = document.getElementById('home');
+                const articles = document.getElementById('articles');
+
+                if (home.classList.contains('active')) {
+                    home.classList.remove('active');
+                }
+                if (articles.classList.contains('active')) {
+                    articles.classList.remove('active');
+                }
+
                 detail.classList.add('active');
                 detail.classList.add('page-transition');
 
@@ -1999,12 +2014,12 @@
                 document.getElementById('detail-date').textContent = article.date;
                 document.getElementById('detail-content').textContent = article.content;
 
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                window.scrollTo({ top: 0, behavior: 'instant' });
 
                 setTimeout(() => {
                     overlay.classList.remove('active');
                 }, 100);
-            }, 200);
+            }, 300);
         }
 
         function createStars() {
