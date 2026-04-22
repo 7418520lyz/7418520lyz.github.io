@@ -1364,12 +1364,20 @@
             }
 
             .hero {
-                display: flex !important;
                 padding: 1.5rem;
                 padding-top: 5rem;
                 padding-bottom: 4rem;
                 min-height: 100vh;
             }
+
+            .hero.active {
+                display: flex !important;
+            }
+
+            .hero:not(.active) {
+                display: none !important;
+            }
+
             .avatar-container {
                 width: 90px;
                 height: 90px;
