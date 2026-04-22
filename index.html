@@ -1588,6 +1588,12 @@
                 padding: 0.8rem 1.5rem;
                 font-size: 0.8rem;
                 border-radius: 2px;
+                transition: all 0.2s ease;
+            }
+
+            .back-btn:active {
+                transform: scale(0.97);
+                background: rgba(139, 154, 155, 0.1);
             }
 
             /* Mobile back to top */
@@ -1597,10 +1603,106 @@
                 bottom: 1.5rem;
                 right: 1.5rem;
                 border-radius: 50%;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             }
 
             .back-to-top:active {
+                transform: scale(0.9);
+                box-shadow: 0 0 20px rgba(139, 154, 155, 0.3);
+            }
+
+            /* Mobile article card animations */
+            .article-card {
+                transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .article-card:active {
+                transform: scale(0.98) translateY(0);
+                background: rgba(139, 154, 155, 0.05);
+            }
+
+            /* Mobile CTA button enhancement */
+            .hero-cta-btn {
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .hero-cta-btn:active {
+                transform: scale(0.96);
+                box-shadow: 0 0 30px rgba(139, 154, 155, 0.25);
+            }
+
+            .hero-cta-btn:active .cta-icon {
+                transform: translateX(3px);
+            }
+
+            /* Mobile category button enhancement */
+            .category-btn {
+                transition: all 0.2s ease;
+            }
+
+            .category-btn:active {
                 transform: scale(0.95);
+                background: rgba(196, 167, 125, 0.15);
+            }
+
+            /* Mobile sort button enhancement */
+            .sort-btn {
+                transition: all 0.2s ease;
+            }
+
+            .sort-btn:active {
+                transform: scale(0.95);
+            }
+
+            /* Mobile pagination enhancement */
+            .page-btn {
+                transition: all 0.2s ease;
+            }
+
+            .page-btn:active {
+                transform: scale(0.93);
+                background: rgba(139, 154, 155, 0.1);
+            }
+
+            /* Mobile page transition */
+            .articles-section.active,
+            .article-detail.active {
+                animation: mobileSlideIn 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            @keyframes mobileSlideIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            /* Mobile social link touch effect */
+            .social-link {
+                transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .social-link:active {
+                transform: scale(0.9);
+                background: rgba(139, 154, 155, 0.2);
+            }
+
+            /* Mobile title shimmer */
+            .title {
+                background-size: 200% 100%;
+            }
+
+            /* Mobile nav link touch */
+            .nav-links a {
+                transition: color 0.2s ease;
+            }
+
+            .nav-links a:active {
+                color: var(--accent);
             }
 
             footer {
@@ -1619,6 +1721,33 @@
 
             .noise {
                 opacity: 0.02;
+            }
+
+            /* Mobile touch ripple effect */
+            .touch-ripple {
+                position: relative;
+                overflow: hidden;
+            }
+
+            .touch-ripple::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 0;
+                height: 0;
+                background: rgba(139, 154, 155, 0.2);
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+                transition: width 0.4s ease, height 0.4s ease, opacity 0.4s ease;
+                opacity: 0;
+            }
+
+            .touch-ripple:active::after {
+                width: 200%;
+                height: 200%;
+                opacity: 1;
+                transition: width 0s, height 0s, opacity 0s;
             }
         }
     </style>
