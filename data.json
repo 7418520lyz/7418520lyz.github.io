@@ -7,6 +7,14 @@
   ],
   "articles": [
     {
+      "id": 40,
+      "title": "2.1-线性表的插入与删除",
+      "date": "2026-08-10 01:03:44",
+      "category": "数据结构",
+      "excerpt": "#include <iostream>\nusing namespace std;\n// 1. 定义节...",
+      "content": "#include <iostream>\nusing namespace std;\n// 1. 定义节点\ntypedef struct LNode\n{\n    int data;           // 数据域\n    struct LNode *next; // 指针域\n\n}LNode, *LinkList;\n// 2. 初始化链表（创建头结点）\nbool InitList(LinkList &L)\n{\n    L = new LNode;  // 创建头结点\n\n    if(L == NULL)\n        return false;\n\n    L->next = NULL; // 头结点后面暂时没有节点\n\n    return true;\n}\n// 3. 头插法插入元素\n// 将x插入到链表最前面\n\nbool InsertHead(LinkList L, int x)\n{\n    LNode *p = new LNode;\n\n    if(p == NULL)\n        return false;\n\n\n    p->data = x;\n\n\n    // 关键两步\n    p->next = L->next;\n    L->next = p;\n\n\n    return true;\n}\n\n\n\n// 4. 指定位置插入\n// 在第i个位置插入x\n\nbool Insert(LinkList L, int i, int x)\n{\n    LNode *p = L;\n\n    int j = 0;\n\n\n    // 找到第i-1个节点\n    while(p != NULL && j < i-1)\n    {\n        p = p->next;\n        j++;\n    }\n\n\n    if(p == NULL)\n        return false;\n\n\n    LNode *s = new LNode;\n\n    s->data = x;\n\n\n    // 修改指针\n    s->next = p->next;\n    p->next = s;\n\n\n    return true;\n}\n\n\n\n// 5. 删除第i个节点\n\nbool Delete(LinkList L, int i)\n{\n    LNode *p = L;\n\n    int j = 0;\n\n\n    // 找到第i-1个节点\n    while(p != NULL && j < i-1)\n    {\n        p = p->next;\n        j++;\n    }\n\n\n    if(p == NULL || p->next == NULL)\n        return false;\n\n\n    // 保存要删除的节点\n    LNode *q = p->next;\n\n\n    // 前一个节点绕过它\n    p->next = q->next;\n\n\n    delete q;\n\n\n    return true;\n}\n\n\n\n// 6. 遍历链表\n\nvoid Print(LinkList L)\n{\n    LNode *p = L->next; // 跳过头结点\n\n\n    while(p != NULL)\n    {\n        cout << p->data << \" \";\n\n        p=p->next;\n    }\n\n    cout<<endl;\n}\n\n\n\n\nint main()\n{\n    LinkList L;\n\n\n    // 初始化\n    InitList(L);\n\n\n\n    // 插入元素\n\n    InsertHead(L,30);\n    InsertHead(L,20);\n    InsertHead(L,10);typedef struct LNode {\n    ElemType data;              // 每个节点存放一个数据元素\n    struct LNode *next;         // 指针指向下一个节点\n} LNode, *LinkList;\n\n// 初始化一个单链表（带头结点）\nbool InitList(LinkList &L) {\n    L = (LNode *)malloc(sizeof(LNode)); // 分配一个头结点\n    if (L == NULL) return false;        // 内存不足，分配失败\n    L->next = NULL;                     // 头结点之后暂时还没有节点\n    return true;\n}\n\n// 判断单链表是否为空\nbool Empty(LinkList L) {\n    return L->next == NULL;             // 头结点之后无节点则为空\n}\n\n// 使用示例\nvoid test() {\n    LinkList L;         // 声明一个指向单链表的指针\n    InitList(L);        // 初始化一个空表\n    // ......后续代码......\n}\n\n\n\n    cout<<\"插入后：\";\n    Print(L);\n\n\n\n    // 指定位置插入\n\n    Insert(L,2,15);\n\n\n    cout<<\"插入15后：\";\n    Print(L);\n\n\n\n    // 删除\n\n    Delete(L,3);\n\n\n    cout<<\"删除第3个元素后：\";\n    Print(L);\n\n\n\n    return 0;\n}"
+    },
+    {
       "id": 39,
       "title": "2.1链表的定义",
       "date": "2026-08-08 22:15:13",
