@@ -7,6 +7,22 @@
   ],
   "articles": [
     {
+      "id": 42,
+      "title": "单链表地址变化-cpp",
+      "date": "2026-08-15 05:09:33",
+      "category": "数据结构",
+      "excerpt": "#include<iostream>\nusing namespace std;\n\nstruct LN...",
+      "content": "#include<iostream>\nusing namespace std;\n\nstruct LNode {\n    int data;\n    LNode* next;\n    LNode(int x = 0) : data(x), next(nullptr) {}\n};\n\nusing linklist = LNode*;\n\nbool initList(linklist &L) {\n    L = new LNode();\n    return true;\n}\n\nint main() {\n    linklist L;\n    initList(L);  // 创建头结点\n\n    // 1. 在堆上创建三个实实在在的节点\n    LNode* node1 = new LNode(2);\n    LNode* node2 = new LNode(5);\n    LNode* node3 = new LNode(8);\n\n    // 2. 把 next 指针\"指向\"下一个节点（这就是链接！）\n    node1->next = node2;  // 把 node2 的地址 赋值给 node1 的 next\n    node2->next = node3;  // 把 node3 的地址 赋值给 node2 的 next\n    L->next = node1;      // 头结点指向 node1\n\n    // 3. 【关键】打印地址，让你亲眼看到 next 存了什么！\n    cout << \"=== 打印节点地址和 next 指针的值 ===\" << endl;\n    \n    // 打印头结点\n    cout << \"头结点 L 的地址: \" << L << endl;\n    cout << \"头结点 L->next 保存的值: \" << L->next << \" (指向 node1)\" << endl << endl;\n\n    // 打印 node1\n    cout << \"节点1 (data=2) 自己的地址: \" << node1 << endl;\n    cout << \"节点1 node1->next 保存的值: \" << node1->next << \" (这就是 node2 的地址)\" << endl << endl;\n\n    // 打印 node2\n    cout << \"节点2 (data=5) 自己的地址: \" << node2 << endl;\n    cout << \"节点2 node2->next 保存的值: \" << node2->next << \" (这就是 node3 的地址)\" << endl << endl;\n\n    // 打印 node3\n    cout << \"节点3 (data=8) 自己的地址: \" << node3 << endl;\n    cout << \"节点3 node3->next 保存的值: \" << node3->next << \" (nullptr，表示结束)\" << endl << endl;\n\n    // 4. 顺便用循环遍历，对比一下 p 的变化\n    cout << \"=== 遍历时 p 的变化 ===\" << endl;\n    LNode* p = L->next; // p 刚开始指向 node1\n    int count = 1;\n    while (p != nullptr) {\n        cout << \"第 \" << count << \" 次循环，p 里面存的地址是: \" << p << \" (当前 data=\" << p->data << \")\" << endl;\n        p = p->next; // 这一步，就是把 node 里的 next 地址取出来，放进 p 里\n        count++;\n    }\n\n    // 释放内存（好习惯）\n    delete node1; delete node2; delete node3; delete L;\n    return 0;\n}"
+    },
+    {
+      "id": 41,
+      "title": "单链表-cpp",
+      "date": "2026-08-15 05:09:02",
+      "category": "数据结构",
+      "excerpt": "#include<iostream>\nusing namespace std;\nstruct LNo...",
+      "content": "#include<iostream>\nusing namespace std;\nstruct LNode\n{\n\tint data;\n\tLNode* next;\n\tLNode(int x=0):data(x),next(nullptr){}\n};\n\nusing linklist = LNode*;\n\nbool initList(linklist &L){\nL = new LNode();\nreturn true;\n}\n\nint main(){\nlinklist L;  //头指针\ninitList(L);  //头结点 （此时L->next==nullptr）\n\nLNode* node1=new LNode(2);\nLNode* node2=new LNode(5);\nLNode* node3=new LNode(8);\n\nnode1->next=node2;\nnode2->next=node3;\n\nL->next=node1;  //让头结点指向第一个数据节点\n\t\t//\n\t\t//\n\t\t//遍历验证  \nLNode* p =L->next;\nwhile(p!=nullptr){\ncout<<p->data<<\"->\";\np=p->next;\n}\n\n\n}"
+    },
+    {
       "id": 40,
       "title": "2.1-线性表的插入与删除",
       "date": "2026-08-10 01:03:44",
