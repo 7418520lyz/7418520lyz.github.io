@@ -2,7 +2,6 @@
   "categories": [
     "默认",
     "linux",
-    "算法(C++)",
     "数据结构",
     "mysql数据库",
     "从零开始的CTF"
@@ -161,14 +160,6 @@
       "content": "##date命令\n\n通过date命令可以在命令行中查看系统时间\n\n语法： date [-d] [+格式化字符串]\n-d按照给定的字符串显示日期，一般用于日期计算\n\n格式化字符串：通过特定的字符串标记，来控制显然日期格式\n\n - %Y  年\n    - %y  年份后两位数字 (00-99)\n    - %m  月份 (01-12)\n    - %d  日 (01-31)\n    - %H  小时 (00-23)\n    - %M  分钟 (00-59)\n    - %S  秒 (00-60)\n    - %s  自 1970-01-01 00:00:00 UTC 到现在的秒数\n\n\n-d选项, 可以按照给定的字符串显示日期, 一般用于日期计算\n\n\n  date -d \"+1 day\" +%Y%m%d  # 显示后一天的日期\n  date -d \"-1 day\" +%Y%m%d  # 显示前一天的日期\n  date -d \"-1 month\" +%Y%m%d  # 显示上一月的日期\n  date -d \"+1 month\" +%Y%m%d  # 显示下一月的日期\n  date -d \"-1 year\" +%Y%m%d  # 显示前一年的日期\n  date -d \"+1 year\" +%Y%m%d  # 显示下一年的日期\n\n\n- 其中支持的时间标记为:\n  - year 年\n  - month 月\n  - day 天\n  - hour 小时\n  - minute 分钟\n  - second 秒\n- -d选项可以和 格式化字符串配合一起使用哦\n\n\n\n\t##修改Linux时区\n\n细心的同学可能会发现, 通过date查看的日期时间是不准确的, 这是因为: 系统默认时区非中国的东八区。\n\n使用root权限, 执行如下命令, 修改时区为东八区时区\nrm -f /etc/localtime\nsudo ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime\n\n将系统自带的localtime文件删除, 并将/usr/share/zoneinfo/Asia/Shanghai文件链接为localtime文件即可\n\n\n\n\n\t##ntp程序\n\n我们可以通过ntp程序自动校准系统时间\n安装ntp: yum -y install ntp\n\n启动并设置开机自启:\n\n- systemctl start ntpd\n- systemctl enable ntpd\n\n当ntpd启动后会定期的帮助我们联网校准系统的时间\n\n- 也可以手动校准(需root权限): ntpdate -u ntp.aliyun.com\n\n通过阿里云提供的服务网址配合ntpdate(安装ntp后会附带这个命令)命令自动校准"
     },
     {
-      "id": 29,
-      "title": "大数阶乘",
-      "date": "2026-04-16 21:59:42",
-      "category": "算法(C++)",
-      "excerpt": "#include<iostream>\n#define MAX 10000\nusing namespa...",
-      "content": "#include<iostream>\n#define MAX 10000\nusing namespace std;\nchar a[MAX + 1] = { 1 };\nint i, j, up, n, tem;\nvoid GetN()\n{\n\tcin >> n;\n}\n\nvoid XX()\n{\n\tfor (i = 2; i <= n; i++)\n\t{\n\t\tfor (up = 0, j = 0; j <= MAX; j++)\n\t\t{\n\t\t\ttem = a[j] * i + up;\n\t\t\tup = tem / 10;\n\t\t\ta[j] = tem % 10;\n\n\t\t}\n\n\t}\n}\n\nvoid display()\n{\n\tfor (i = MAX; i >= 0; i--) \n\t\tif (a[i] != 0)\n\t\t\tfor (i; i >= 0; i--)\n\t\t\t\tcout << (int)a[i];\n}\n\nint main()\n{\n\tGetN();\n\tXX();\n\tdisplay();\n}"
-    },
-    {
       "id": 28,
       "title": "软链接",
       "date": "2026-04-16 12:12:25",
@@ -191,22 +182,6 @@
       "category": "linux",
       "excerpt": "学习linux系统这么几天主要接触了CentOs7和Ubuntu两个系统\n\nCentOs7是看视频教...",
       "content": "学习linux系统这么几天主要接触了CentOs7和Ubuntu两个系统\n\nCentOs7是看视频教程：《黑马程序员》才安装的，但在使用过程中发现许多问题，首先是网络因为使用的是虚拟机所以需要外接无线网卡，但由于CentOS7的内核太早，网上大部分的网卡不支持，那么如果使用CentOs8呢，这样也许可以解决网络问题？那么你就会发现CentOs8几乎已经凉了（连自己的官方源都用不了）而且没有长期支持，还有大部分的教学视频都是CentOs7。真的就是赤石般的体验.\n\n那么Ubuntu呢，其实整体体验下来还不错，就是有点更吃电脑资源但其实问题不大，Ubuntu的终端虽然丑但还可以自己换，而且个人感觉Ubuntu的生态会更好一点，而且支持市面上大部分的网卡，总的来说体验还不错。\n\n\n总结：如果配置还不错还是Ubuntu的好"
-    },
-    {
-      "id": 25,
-      "title": "对算法的看法",
-      "date": "2026-04-16 00:40:26",
-      "category": "算法(C++)",
-      "excerpt": "虽然不知道学算法有什么用，但听说算法是基础，emmm学下试试看",
-      "content": "虽然不知道学算法有什么用，但听说算法是基础，emmm学下试试看"
-    },
-    {
-      "id": 24,
-      "title": "大数加法",
-      "date": "2026-04-16 00:39:40",
-      "category": "算法(C++)",
-      "excerpt": "大数加法：\n\n#include<iostream>\n#include<cstring>\n#defin...",
-      "content": "大数加法：\n\n#include<iostream>\n#include<cstring>\n#define MAX 1000\nusing namespace std;\nint a[MAX+1]={0},b[MAX+1]={0};\nint i,up,tem;\nvoid InPutA ()\n{\n    char buffer[MAX+1]={0};\n    cin>>buffer;\n    for(tem=0,i=strlen(buffer)-1;i>=0;i--)\n    {\n        a[tem++]=buffer[i]-'0';\n    }\n}\n\nvoid InPutB()\n{\n    char buffer[MAX+1]={0};\n    cin>>buffer;\n    for(tem=0,i=strlen(buffer)-1;i>=0;i--)\n    {\n        b[tem++]=buffer[i]-'0';\n    }\n}\n\nvoid Add()\n{\n    for(up=0,i=0;i<MAX;i++)\n    {\n        tem=a[i]+b[i]+up;\n        a[i]=tem%10;\n        up=tem/10;\n    }\n}\n\nvoid DisPlay()\n{\n        for(i=MAX;i>=0;i--)\n        {\n                if(a[i]!=0)\n                {\n                        for(i;i>=0;i--)\n                        {\n                                cout<<a[i];\n                        }\n                }\n        }\n}\n\nint main()\n{\n    InPutA();\n    InPutB();\n    Add();\n    DisPlay();\n}"
     },
     {
       "id": 23,
