@@ -8,6 +8,70 @@
   ],
   "articles": [
     {
+      "id": 57,
+      "title": "基础-SQL-DQL-分页查询",
+      "date": "2026-10-02 23:32:57",
+      "category": "mysql数据库",
+      "excerpt": "SQL-分页查询\nSELECT 字段列表 FROM 表名 LIMIT 起始索引，查询记录数;\n\n**...",
+      "content": "SQL-分页查询\nSELECT 字段列表 FROM 表名 LIMIT 起始索引，查询记录数;\n\n**\n>起始索引从0开始，起始索引=（查询页码-1）*每页显示的记录数。\n>分页查询是数据库的方言，不同的数据库有不同的实现,MYSQL是LIMIT.\n>如果查询的是第一页数据，起始索引可以忽略，直接简写成limit 10."
+    },
+    {
+      "id": 56,
+      "title": "基础-SQL-DQL-排序查询",
+      "date": "2026-10-02 23:32:42",
+      "category": "mysql数据库",
+      "excerpt": "DQL-排序查询\n--------------------------\nSELECT 字段列表 FR...",
+      "content": "DQL-排序查询\n--------------------------\nSELECT 字段列表 FROM 表名 ORDER BY 字段1 排序方式1，字段2 排序方式2;\n----------------------------\nASC（默认值）：升序\nDESC：降序"
+    },
+    {
+      "id": 55,
+      "title": "基础-SQL-DQL-分组查询",
+      "date": "2026-10-02 23:32:22",
+      "category": "mysql数据库",
+      "excerpt": "DQL-分组查询\n--------------------------------\nSELECT 字...",
+      "content": "DQL-分组查询\n--------------------------------\nSELECT 字段列表 FROM 表名 [WHERE 条件] GROUP BY 分组字段名 [HAVING 分组后过滤条件];\n-------------------------------------\n\n\n-------------------------------------------\nWHERE和HAVING的区别：\n>执行时机不同：WHERE是分组之前进行过滤，不满足WHERE条件，不参与分组;HAVING是分组后进行过滤\n\n>判断条件不同：WHERE不能对聚合函数进行判断，HAVING可以\n--------------------------------------------"
+    },
+    {
+      "id": 54,
+      "title": "基础-SQL-DQL-聚合函数",
+      "date": "2026-10-02 23:31:57",
+      "category": "mysql数据库",
+      "excerpt": "DQL-聚合函数：将一列数据作为一个整体，进行纵向计算。\ncount\t统计数量\nmax\t最大值\nmi...",
+      "content": "DQL-聚合函数：将一列数据作为一个整体，进行纵向计算。\ncount\t统计数量\nmax\t最大值\nmin\t最小值\navg\t平均值\nsum\t求和\n\n----------------------------------------\nSELECT 聚合函数(字段列表) FROM 表名;\n----------------------------------------"
+    },
+    {
+      "id": 53,
+      "title": "基础-SQL-DQL-条件查询",
+      "date": "2026-10-02 23:31:37",
+      "category": "mysql数据库",
+      "excerpt": "DQL-条件查询\n\n语法：\nSELECT 字段列表 FROM 表名 WHERE 条件列表;\n\n===...",
+      "content": "DQL-条件查询\n\n语法：\nSELECT 字段列表 FROM 表名 WHERE 条件列表;\n\n============================================================\n一、比较运算符\n============================================================\n\n    >            大于\n    >=           大于等于\n    <            小于\n    <=           小于等于\n    =            等于\n    <> 或 !=     不等于（两种写法等价，结果一样）\n    BETWEEN ... AND ...   在某个区间内，含两端\n    IN(...)      在列表里，多选一\n    LIKE         模糊匹配\n    IS NULL      是空值\n    IS NOT NULL  不是空值\n\n------------------------------------------------------------\n二、逻辑运算符\n------------------------------------------------------------\n\n    AND 或 &&    并且，两个条件都成立才算\n    OR  或 ||    或者，一个成立就算\n    NOT 或 !     取反\n\n注：&& 和 || 在 MySQL 里能跑，但不是标准 SQL，别的数据库不认。\n    写作业统一用 AND / OR / NOT 更稳。\n\n------------------------------------------------------------\n三、例子（表还是用之前的 tb_user）\n------------------------------------------------------------\n\n1. 等值查询\n   SELECT * FROM tb_user WHERE gender = '女';\n\n2. 不等于\n   SELECT * FROM tb_user WHERE gender <> '女';\n   SELECT * FROM tb_user WHERE gender != '女';\n\n3. 区间，含两端\n   SELECT * FROM tb_user WHERE age BETWEEN 18 AND 30;\n   等价于：WHERE age >= 18 AND age <= 30\n\n4. 多选一\n   SELECT * FROM tb_user WHERE age IN (18, 20, 25);\n   等价于：WHERE age = 18 OR age = 20 OR age = 25\n\n5. 模糊查询 LIKE\n   SELECT * FROM tb_user WHERE name LIKE '张%';     -- 姓张的\n   SELECT * FROM tb_user WHERE name LIKE '%三';     -- 以三结尾的\n   SELECT * FROM tb_user WHERE name LIKE '%小%';    -- 名字里带小的\n   SELECT * FROM tb_user WHERE name LIKE '_三';     -- 两个字、第二个是三\n\n   %  代表任意个字符，包括 0 个\n   _  代表恰好一个字符\n\n6. 空值判断\n   SELECT * FROM tb_user WHERE age IS NULL;\n   SELECT * FROM tb_user WHERE age IS NOT NULL;\n\n7. 组合条件\n   SELECT * FROM tb_user WHERE age > 20 AND gender = '女';\n   SELECT * FROM tb_user WHERE age < 18 OR age > 60;\n   SELECT * FROM tb_user WHERE NOT gender = '男';\n\n   想改变优先级就用括号：\n   SELECT * FROM tb_user WHERE (age < 18 OR age > 60) AND gender = '女';\n\n------------------------------------------------------------\n四、容易踩的坑\n------------------------------------------------------------\n\n1. NULL 不能用 = 比较，这条最要命\n   WHERE age = NULL      ✗ 永远查不出任何数据\n   WHERE age IS NULL     ✓ 正确写法\n   原因：NULL 的含义是\"未知\"，拿它做 = 比较，结果也是\"未知\"，\n         \"未知\"不算成立，所以一行都匹配不上。\n\n2. BETWEEN 是闭区间\n   BETWEEN 18 AND 30 是包含 18 和 30 这两个端点的。\n\n3. LIKE 里 % 的位置影响性能\n   '张%' 能走上索引，'%三' 用不上，数据量大时慢很多。\n\n4. 字符串必须加引号\n   WHERE name = '张三'    ✓\n   WHERE name = 张三      ✗ 不加引号会被当成列名，报未知列\n\n5. 优先级：AND 比 OR 高\n   混着写的时候一定加括号，不然结果跟你想的不一样。\n   例：WHERE a = 1 OR a = 2 AND b = 3\n      实际等于 WHERE a = 1 OR (a = 2 AND b = 3)\n\n6. IN 后面接的不是死列表，也可以跟子查询（后面才讲）\n   WHERE id IN (SELECT id FROM 另一张表)"
+    },
+    {
+      "id": 52,
+      "title": "基础-SQL-DQL-基础查询",
+      "date": "2026-10-02 23:31:15",
+      "category": "mysql数据库",
+      "excerpt": "DQL\n数据查询语言，用来查询数据库中表的记录\n\n-------------------------...",
+      "content": "DQL\n数据查询语言，用来查询数据库中表的记录\n\n------------------------------------\nSELECT\n\t字段列表\nFROM\n\t表名列表\nWHERE\n\t条件列表\nGROUP BY\n\t分组字段列表\nHAVING\n\t分组后条件列表\nORDER BY\n\t排序字段列表\nLIMIT\n\t分页参数\n-------------------------------------\n\n\n\n聚合函数(count,max,min,avg,sum)\n\n--------------------------------------\n1.查询多个字段\nSELECT 字段1,字段2,......FROM 表名;\nSELECT * FROM 表名;(全部)\n\n2.设置别名\nSELECT 字段1 [AS别名1],字段2 [AS别名2]...FROM 表名;\n\n3.去除重复记录\nSELECT DISTINCT 字段列表 FROM 表名;"
+    },
+    {
+      "id": 51,
+      "title": "基础-SQL-DML-更新和删除",
+      "date": "2026-10-02 23:30:57",
+      "category": "mysql数据库",
+      "excerpt": "DML-修改数据\n\nUPDATE 表名 SET 字段名1 = 值1,字段名2 = 值2,.........",
+      "content": "DML-修改数据\n\nUPDATE 表名 SET 字段名1 = 值1,字段名2 = 值2,......[WHERE 条件] ;\n\n\n--------------------------------\n删除数据\nDELETE FROM 表名 [WHERE 条件]\n**如果没有条件则删除全部\n**无法删除某一个字段的值（可以使用update）"
+    },
+    {
+      "id": 50,
+      "title": "基础-SQL-DML-插入",
+      "date": "2026-10-02 23:30:32",
+      "category": "mysql数据库",
+      "excerpt": "DML介绍：\n用来对数据库中表的数据进行增删改操作。\n增加(INSERT)\n修改(UPDATE)\n删...",
+      "content": "DML介绍：\n用来对数据库中表的数据进行增删改操作。\n增加(INSERT)\n修改(UPDATE)\n删除(DELETE)\n\n----------------------\n1给指定字段添加数据\nINSERT INTO 表名(字段1, 字段2, ...) VALUES(值1, 值2, ...);\n-------------------------\n\n\n----------------\n2.给全部字段添加数据\nINSERT INTO 表名 VALUES(值1, 值2, ...);\n--------------------------\n\n\n-------------------\n3.批量添加数据\nINSERT INTO 表名(字段1, 字段2, ...) VALUES(值1, 值2, ...), (值1, 值2, ...), (值1, 值2, ...);\n\nINSERT INTO 表名 VALUES(值1, 值2, ...), (值1, 值2, ...), (值1, 值2, ...);\n\n----------------------------"
+    },
+    {
       "id": 49,
       "title": "工具-dirsearch与SecLists",
       "date": "2026-10-01 21:01:26",
